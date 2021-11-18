@@ -1,0 +1,10 @@
+C:\Users\lucas\RiderProjects\Wine_Cellar_Manager\WineCellar\Model\obj\Debug\netcoreapp3.1\Model.csproj.AssemblyReference.cache
+C:\Users\lucas\RiderProjects\Wine_Cellar_Manager\WineCellar\Model\obj\Debug\netcoreapp3.1\Model.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\lucas\RiderProjects\Wine_Cellar_Manager\WineCellar\Model\obj\Debug\netcoreapp3.1\Model.AssemblyInfoInputs.cache
+C:\Users\lucas\RiderProjects\Wine_Cellar_Manager\WineCellar\Model\obj\Debug\netcoreapp3.1\Model.AssemblyInfo.cs
+C:\Users\lucas\RiderProjects\Wine_Cellar_Manager\WineCellar\Model\obj\Debug\netcoreapp3.1\Model.csproj.CoreCompileInputs.cache
+C:\Users\lucas\RiderProjects\Wine_Cellar_Manager\WineCellar\Model\bin\Debug\netcoreapp3.1\Model.deps.json
+C:\Users\lucas\RiderProjects\Wine_Cellar_Manager\WineCellar\Model\bin\Debug\netcoreapp3.1\Model.dll
+C:\Users\lucas\RiderProjects\Wine_Cellar_Manager\WineCellar\Model\bin\Debug\netcoreapp3.1\Model.pdb
+C:\Users\lucas\RiderProjects\Wine_Cellar_Manager\WineCellar\Model\obj\Debug\netcoreapp3.1\Model.dll
+C:\Users\lucas\RiderProjects\Wine_Cellar_Manager\WineCellar\Model\obj\Debug\netcoreapp3.1\Model.pdb

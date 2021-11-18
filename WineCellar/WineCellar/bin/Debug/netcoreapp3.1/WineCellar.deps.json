@@ -8,7 +8,8 @@
     ".NETCoreApp,Version=v3.1": {
       "WineCellar/1.0.0": {
         "dependencies": {
-          "MaterialDesignThemes": "4.2.1"
+          "MaterialDesignThemes": "4.2.1",
+          "Model": "1.0.0"
         },
         "runtime": {
           "WineCellar.dll": {}
@@ -32,6 +33,11 @@
             "fileVersion": "4.2.1.2"
           }
         }
+      },
+      "Model/1.0.0": {
+        "runtime": {
+          "Model.dll": {}
+        }
       }
     }
   },
@@ -54,6 +60,11 @@
       "sha512": "sha512-LsvOoXrEtOJib+kvBx3TIUN+zYexQcYiKGYoAXWMvfFTwiaELRWk89wny9sI4lPDqoJtIXVtoxo1oRDsLwy7NQ==",
       "path": "materialdesignthemes/4.2.1",
       "hashPath": "materialdesignthemes.4.2.1.nupkg.sha512"
+    },
+    "Model/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

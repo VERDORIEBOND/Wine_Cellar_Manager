@@ -12,12 +12,40 @@
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
-        Background="{DynamicResource MaterialDesignPaper}"
+        Background="#FF202020"
         FontFamily="{DynamicResource MaterialDesignFont}">
     <Grid>
-        <materialDesign:Card Padding="32" Margin="16">
-            <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}">My First Material Design App</TextBlock>
-        </materialDesign:Card>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <materialDesign:ColorZone
+                Grid.Column="0" Grid.Row="1"
+                Mode="Custom"
+                Margin="6" VerticalAlignment="Stretch"
+                CornerRadius="16"
+                materialDesign:ShadowAssist.ShadowDepth="Depth3" Background="#FF333533">
+
+            <DockPanel>
+                
+            </DockPanel>
+        </materialDesign:ColorZone>
+
+        <materialDesign:ColorZone
+                Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2"
+                Mode="Custom"
+                Margin="6" VerticalAlignment="Stretch"
+                CornerRadius="16"
+                materialDesign:ShadowAssist.ShadowDepth="Depth3" Background="#FF333533">
+
+            <DockPanel>
+                
+            </DockPanel>
+        </materialDesign:ColorZone>
     </Grid>
 </Window>

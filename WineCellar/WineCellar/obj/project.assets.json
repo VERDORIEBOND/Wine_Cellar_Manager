@@ -25,6 +25,16 @@
         "build": {
           "build/MaterialDesignThemes.targets": {}
         }
+      },
+      "Model/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/Model.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Model.dll": {}
+        }
       }
     }
   },
@@ -83,11 +93,17 @@
         "materialdesignthemes.nuspec",
         "tools/VisualStudioToolsManifest.xml"
       ]
+    },
+    "Model/1.0.0": {
+      "type": "project",
+      "path": "../Model/Model.csproj",
+      "msbuildProject": "../Model/Model.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
-      "MaterialDesignThemes >= 4.2.1"
+      "MaterialDesignThemes >= 4.2.1",
+      "Model >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -97,11 +113,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\lucas\\source\\repos\\VERDORIEBOND\\Wine_Cellar_Manager\\WineCellar\\WineCellar\\WineCellar.csproj",
+      "projectUniqueName": "C:\\Users\\lucas\\RiderProjects\\Wine_Cellar_Manager\\WineCellar\\WineCellar\\WineCellar.csproj",
       "projectName": "WineCellar",
-      "projectPath": "C:\\Users\\lucas\\source\\repos\\VERDORIEBOND\\Wine_Cellar_Manager\\WineCellar\\WineCellar\\WineCellar.csproj",
+      "projectPath": "C:\\Users\\lucas\\RiderProjects\\Wine_Cellar_Manager\\WineCellar\\WineCellar\\WineCellar.csproj",
       "packagesPath": "C:\\Users\\lucas\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\lucas\\source\\repos\\VERDORIEBOND\\Wine_Cellar_Manager\\WineCellar\\WineCellar\\obj\\",
+      "outputPath": "C:\\Users\\lucas\\RiderProjects\\Wine_Cellar_Manager\\WineCellar\\WineCellar\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -121,7 +137,11 @@
       "frameworks": {
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\lucas\\RiderProjects\\Wine_Cellar_Manager\\WineCellar\\Model\\Model.csproj": {
+              "projectPath": "C:\\Users\\lucas\\RiderProjects\\Wine_Cellar_Manager\\WineCellar\\Model\\Model.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "wnk2v/hrHLr/HLPB9iQHCqceTONbpi0SQblfuFUQRjRLaSZeNJnmBqBxgt4sgkzPfuI+dfKHTbZwn4daxinDjg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\lucas\\RiderProjects\\Wine_Cellar_Manager\\WineCellar\\Controller\\Controller.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\lucas\\.nuget\\packages\\materialdesigncolors\\2.0.3\\materialdesigncolors.2.0.3.nupkg.sha512",
+    "C:\\Users\\lucas\\.nuget\\packages\\materialdesignthemes\\4.2.1\\materialdesignthemes.4.2.1.nupkg.sha512"
+  ],
+  "logs": []
+}

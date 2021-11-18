@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "PWE+wGG72YpilZ9tF01Mf4IBDuooeJE7w8+5hjPXfutteTEqDXefWltamR2ke7aRjQbQn0EeTN2WQmatQf6XwA==",
+  "dgSpecHash": "c/TrojK4kRh97Xrkl/Z2wp2gLseTUHKlxOtk2Xfu2YELi8AyLipOowBYK+R13pp5m2Wss3qSqQ0KCLt+2hVplQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\lucas\\source\\repos\\VERDORIEBOND\\Wine_Cellar_Manager\\WineCellar\\WineCellar\\WineCellar.csproj",
+  "projectFilePath": "C:\\Users\\lucas\\RiderProjects\\Wine_Cellar_Manager\\WineCellar\\WineCellar\\WineCellar.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\lucas\\.nuget\\packages\\materialdesigncolors\\2.0.3\\materialdesigncolors.2.0.3.nupkg.sha512",
     "C:\\Users\\lucas\\.nuget\\packages\\materialdesignthemes\\4.2.1\\materialdesignthemes.4.2.1.nupkg.sha512",
