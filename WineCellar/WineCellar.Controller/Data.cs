@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using Model;
 
-class WineData : IWineData
+public class WineData : IWineData
 {
-    public string Name { get; set; }
+    public string Name { get; set; } = string.Empty;
     public int Age { get; set; }
-    public string Type { get; set; }
-    public string OriginCountry { get; set; }
+    public string Type { get; set; } = string.Empty;
+    public string OriginCountry { get; set; } = string.Empty;
     public int Stock { get; set; }
-    public string[] StorageLocation { get; set; }
+    public string[] StorageLocation { get; set; } = new string[0];
     public double BuyPrice { get; set; }
     public double SellPrice { get; set; }
 }
