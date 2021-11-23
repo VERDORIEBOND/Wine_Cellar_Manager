@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31911.196
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.31911.260
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WineCellar.GUI", "WineCellar.GUI\WineCellar.GUI.csproj", "{49733429-120B-4875-812E-409F871ECC5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WineCellar.GUI", "WineCellar.GUI\WineCellar.GUI.csproj", "{49733429-120B-4875-812E-409F871ECC5C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WineCellar.Model", "WineCellar.Model\WineCellar.Model.csproj", "{DDFD1080-F166-4B73-8FA8-16C34D93F087}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WineCellar.Model", "WineCellar.Model\WineCellar.Model.csproj", "{DDFD1080-F166-4B73-8FA8-16C34D93F087}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WineCellar.Controller", "WineCellar.Controller\WineCellar.Controller.csproj", "{46C04311-6AD1-4583-AFA7-C6B5701C35A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WineCellar.Controller", "WineCellar.Controller\WineCellar.Controller.csproj", "{46C04311-6AD1-4583-AFA7-C6B5701C35A7}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "WineCellar.Database", "WineCellar.Database\WineCellar.Database.sqlproj", "{FED59D05-1AFB-433D-A8EE-668DAA4B89F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,12 @@ Global
 		{46C04311-6AD1-4583-AFA7-C6B5701C35A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{46C04311-6AD1-4583-AFA7-C6B5701C35A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{46C04311-6AD1-4583-AFA7-C6B5701C35A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FED59D05-1AFB-433D-A8EE-668DAA4B89F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FED59D05-1AFB-433D-A8EE-668DAA4B89F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FED59D05-1AFB-433D-A8EE-668DAA4B89F9}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{FED59D05-1AFB-433D-A8EE-668DAA4B89F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FED59D05-1AFB-433D-A8EE-668DAA4B89F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FED59D05-1AFB-433D-A8EE-668DAA4B89F9}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
