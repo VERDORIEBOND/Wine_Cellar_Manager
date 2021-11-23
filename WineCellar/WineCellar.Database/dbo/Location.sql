@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[Location]
+(
+	[IdWine] INT NOT NULL PRIMARY KEY IDENTITY,
+	[Shelf] NVARCHAR(50) NOT NULL,
+	[Row] INT NOT NULL,
+	[Column] INT NOT NULL, 
+    CONSTRAINT [FK_Location_ToWine] FOREIGN KEY ([IdWine]) REFERENCES [Wine]([Id])
+)
