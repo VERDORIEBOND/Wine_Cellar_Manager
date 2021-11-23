@@ -27,6 +27,15 @@ namespace WineCellar
             var items = Controller.Data.GetWineData();
             
             WineDataBinding.ItemsSource = items;
+            
+            //var StorageData = (ComboBox)FindName("StorageData");
+            foreach (var wine in items)
+            {
+                foreach (var storagelocation in wine.StorageLocation)
+                {
+                    
+                }
+            }
         }
     }
 }

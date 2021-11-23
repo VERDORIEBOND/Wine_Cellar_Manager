@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Model;
 
-class WineData : IWineData
+internal class WineData : IWineData
 {
     public string Name { get; set; }
     public int Age { get; set; }
