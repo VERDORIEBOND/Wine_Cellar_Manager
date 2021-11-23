@@ -1,6 +1,6 @@
 ﻿namespace Model
 {
-    public class IWineData
+    public interface IWineData
     {
         public string Name { get; set; }
         public int Age { get; set; }
