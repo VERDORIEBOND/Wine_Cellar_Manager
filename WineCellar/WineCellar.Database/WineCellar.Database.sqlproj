@@ -86,6 +86,12 @@
     <Build Include="dbo\StoredProcedures\Type\spType_GetAll.sql" />
     <Build Include="dbo\StoredProcedures\Type\spType_Insert.sql" />
     <Build Include="dbo\StoredProcedures\Type\spType_Update.sql" />
+    <Build Include="dbo\StoredProcedures\Note\spNote_Delete.sql" />
+    <Build Include="dbo\StoredProcedures\Note\spNote_Get.sql" />
+    <Build Include="dbo\StoredProcedures\Note\spNote_GetAll.sql" />
+    <Build Include="dbo\StoredProcedures\Note\spNote_Insert.sql" />
+    <Build Include="dbo\StoredProcedures\Note\spNote_Update.sql" />
+    <Build Include="dbo\StoredProcedures\Note\spNote_GetByWine.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Wine_Note.sql" />
