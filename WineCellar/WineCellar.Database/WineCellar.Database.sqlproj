@@ -92,6 +92,10 @@
     <Build Include="dbo\StoredProcedures\Note\spNote_Insert.sql" />
     <Build Include="dbo\StoredProcedures\Note\spNote_Update.sql" />
     <Build Include="dbo\StoredProcedures\Note\spNote_GetByWine.sql" />
+    <Build Include="dbo\StoredProcedures\StorageLocation\spStorageLocation_Delete.sql" />
+    <Build Include="dbo\StoredProcedures\StorageLocation\spStorageLocation_GetByWine.sql" />
+    <Build Include="dbo\StoredProcedures\StorageLocation\spStorageLocation_GetAll.sql" />
+    <Build Include="dbo\StoredProcedures\StorageLocation\spStorageLocation_Insert.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Wine_Note.sql" />
