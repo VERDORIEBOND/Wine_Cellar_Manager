@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WineCellar.Controller", "Wi
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "WineCellar.Database", "WineCellar.Database\WineCellar.Database.sqlproj", "{FED59D05-1AFB-433D-A8EE-668DAA4B89F9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WineCellar.ControllerTest", "WineCellar.ControllerTest\WineCellar.ControllerTest.csproj", "{75290FE7-5B27-40B5-98A4-9C1A4B329AFD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{FED59D05-1AFB-433D-A8EE-668DAA4B89F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FED59D05-1AFB-433D-A8EE-668DAA4B89F9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FED59D05-1AFB-433D-A8EE-668DAA4B89F9}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{75290FE7-5B27-40B5-98A4-9C1A4B329AFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75290FE7-5B27-40B5-98A4-9C1A4B329AFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75290FE7-5B27-40B5-98A4-9C1A4B329AFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75290FE7-5B27-40B5-98A4-9C1A4B329AFD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
