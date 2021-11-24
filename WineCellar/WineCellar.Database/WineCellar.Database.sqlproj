@@ -59,6 +59,11 @@
     <Folder Include="dbo" />
     <Folder Include="dbo\Tables" />
     <Folder Include="dbo\StoredProcedures" />
+    <Folder Include="dbo\StoredProcedures\Wine" />
+    <Folder Include="dbo\StoredProcedures\Note" />
+    <Folder Include="dbo\StoredProcedures\Type" />
+    <Folder Include="dbo\StoredProcedures\Country" />
+    <Folder Include="dbo\StoredProcedures\StorageLocation" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Country.sql" />
@@ -66,11 +71,21 @@
     <Build Include="dbo\Tables\Note.sql" />
     <Build Include="dbo\Tables\Type.sql" />
     <Build Include="dbo\Tables\Wine.sql" />
-    <Build Include="dbo\StoredProcedures\spWine_GetAll.sql" />
-    <Build Include="dbo\StoredProcedures\spWine_Get.sql" />
-    <Build Include="dbo\StoredProcedures\spWine_Delete.sql" />
-    <Build Include="dbo\StoredProcedures\spWine_Insert.sql" />
-    <Build Include="dbo\StoredProcedures\spWine_Update.sql" />
+    <Build Include="dbo\StoredProcedures\Wine\spWine_Delete.sql" />
+    <Build Include="dbo\StoredProcedures\Wine\spWine_Get.sql" />
+    <Build Include="dbo\StoredProcedures\Wine\spWine_GetAll.sql" />
+    <Build Include="dbo\StoredProcedures\Wine\spWine_Insert.sql" />
+    <Build Include="dbo\StoredProcedures\Wine\spWine_Update.sql" />
+    <Build Include="dbo\StoredProcedures\Country\spCountry_Delete.sql" />
+    <Build Include="dbo\StoredProcedures\Country\spCountry_Get.sql" />
+    <Build Include="dbo\StoredProcedures\Country\spCountry_GetAll.sql" />
+    <Build Include="dbo\StoredProcedures\Country\spCountry_Insert.sql" />
+    <Build Include="dbo\StoredProcedures\Country\spCountry_Update.sql" />
+    <Build Include="dbo\StoredProcedures\Type\spType_Delete.sql" />
+    <Build Include="dbo\StoredProcedures\Type\spType_Get.sql" />
+    <Build Include="dbo\StoredProcedures\Type\spType_GetAll.sql" />
+    <Build Include="dbo\StoredProcedures\Type\spType_Insert.sql" />
+    <Build Include="dbo\StoredProcedures\Type\spType_Update.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Wine_Note.sql" />
