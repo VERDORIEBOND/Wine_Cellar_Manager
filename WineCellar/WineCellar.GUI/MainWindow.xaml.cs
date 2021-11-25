@@ -21,6 +21,8 @@ namespace WineCellar
     /// </summary>
     public partial class MainWindow : Window
     {
+        private DetailedView detailedView;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -35,6 +37,17 @@ namespace WineCellar
                 {
                     
                 }
+            }
+        }
+
+        private void ListViewItem_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            detailedView = new DetailedView();
+
+            if (sender is ListViewItem item)
+            {
+                this.Close();
+                detailedView.Show();
             }
         }
     }

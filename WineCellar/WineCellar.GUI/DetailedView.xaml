@@ -22,7 +22,6 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-
         <materialDesign:ColorZone
                 Grid.Column="0" Grid.Row="1"
                 Mode="Custom"
@@ -40,10 +39,10 @@
                 </Grid.RowDefinitions>
 
                 <DockPanel Grid.Row="0">
-                    <Button Content="Terug" Width="100" Height="40" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10" Background="#FFF3EFF5" Foreground="Black" FontSize="20"/>
+                    <Button Content="Terug" Width="100" Height="40" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10" Background="#FFF3EFF5" Foreground="Black" FontSize="20" Click="Button_Click_Terug"/>
                     <DockPanel HorizontalAlignment="Right">
-                        <Button Content="Verwijderen" Width="140" Height="40" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10" Background="#FFF3EFF5" Foreground="Black" FontSize="20"/>
-                        <Button Content="Aanpassen" Width="140" Height="40" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10" Background="#FFF3EFF5" Foreground="Black" FontSize="20"/>
+                        <Button Content="Verwijderen" Width="140" Height="40" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10" Background="#FFF3EFF5" Foreground="Black" FontSize="20" Click="Button_Click_Verwijderen"/>
+                        <Button Content="Aanpassen" Width="140" Height="40" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10" Background="#FFF3EFF5" Foreground="Black" FontSize="20" Click="Button_Click_Aanpassen"/>
                     </DockPanel>
                 </DockPanel>
 
@@ -69,6 +68,7 @@
                                     <ColumnDefinition Width="1*"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Grid.Column="0" Text="Dit is een beschrijving over het product." Foreground="Black" FontSize="20"/>
+                                
                                 <materialDesign:ColorZone
                                                 Mode="Custom"
                                                 Background="#333533"
