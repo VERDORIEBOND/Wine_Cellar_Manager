@@ -17,6 +17,7 @@ public static class DataAccess
     public static CountryRepository CountryRepo { get; } = new();
     public static TypeRepository TypeRepo { get; } = new();
     public static StorageLocationRepository LocationRepo { get; } = new();
+    public static NoteRepository NoteRepo { get; } = new();
 
     public static void SetConfiguration(IConfiguration config)
     {

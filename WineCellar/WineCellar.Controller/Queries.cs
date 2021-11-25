@@ -39,6 +39,8 @@ internal static class Queries
     public const string Note_Insert =       "spNote_Insert";
     public const string Note_Delete =       "spNote_Delete";
     public const string Note_Update =       "spNote_Update";
+    public const string Note_AddWine =      "spNote_AddWine";
+    public const string Note_RemoveWine =   "spNote_RemoveWine";
     #endregion
 
     #region StoredProcedures for table StorageLocation
