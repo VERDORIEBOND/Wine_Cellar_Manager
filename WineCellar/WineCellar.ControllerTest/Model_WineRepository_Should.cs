@@ -1,6 +1,6 @@
 ﻿using Controller;
 using Microsoft.Extensions.Configuration;
-using Model;
+using WineCellar.Model;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WineCellar.ControllerTest.Utilities;
 
 namespace WineCellar.ControllerTest
 {
@@ -21,14 +22,7 @@ namespace WineCellar.ControllerTest
         [SetUp]
         public void Setup()
         {
-            // Builder is used for configuring the way configuration is retrieved
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile("appsettings.Development.json", optional: true, reloadOnChange: true);
-
-            // This creates the IConfiguration object
-            Configuration = builder.Build();
+            Configuration = ConfigurationUtility.BuildConfiguration();
 
             // DataAccess requires the configuration to create SqlConnections
             DataAccess.SetConfiguration(Configuration);

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dapper;
-using Model;
+using WineCellar.Model;
 
 namespace Controller.Repositories;
 

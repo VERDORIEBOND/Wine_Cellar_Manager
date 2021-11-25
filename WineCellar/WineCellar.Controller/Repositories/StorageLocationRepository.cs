@@ -1,4 +1,4 @@
-﻿using Model;
+﻿using WineCellar.Model;
 using Dapper;
 using System;
 using System.Collections.Generic;
