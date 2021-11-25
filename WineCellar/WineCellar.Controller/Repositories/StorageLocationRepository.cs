@@ -29,7 +29,7 @@ public class StorageLocationRepository
     public async Task<IEnumerable<StorageLocationRecord>> GetByWine(int wineId)
     {
         using var conn = DataAccess.GetConnection;
-        return await conn.QueryAsync<StorageLocationRecord>(Queries.StorageLocation_Delete, new { IdWine = wineId }, commandType: CommandType.StoredProcedure);
+        return await conn.QueryAsync<StorageLocationRecord>(Queries.StorageLocation_GetByWine, new { IdWine = wineId }, commandType: CommandType.StoredProcedure);
     }
 
     /// <summary>
