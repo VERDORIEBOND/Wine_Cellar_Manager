@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>WineCellar.Database</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{fed59d05-1afb-433d-a8ee-668daa4b89f9}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>WineDB</RootNamespace>
+    <AssemblyName>WineCellar.Database</AssemblyName>
+    <ModelCollation>1033, CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="dbo" />
+    <Folder Include="dbo\Tables" />
+    <Folder Include="dbo\StoredProcedures" />
+    <Folder Include="dbo\StoredProcedures\Wine" />
+    <Folder Include="dbo\StoredProcedures\Note" />
+    <Folder Include="dbo\StoredProcedures\Type" />
+    <Folder Include="dbo\StoredProcedures\Country" />
+    <Folder Include="dbo\StoredProcedures\StorageLocation" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\Country.sql" />
+    <Build Include="dbo\Tables\StorageLocation.sql" />
+    <Build Include="dbo\Tables\Note.sql" />
+    <Build Include="dbo\Tables\Type.sql" />
+    <Build Include="dbo\Tables\Wine.sql" />
+    <Build Include="dbo\StoredProcedures\Wine\spWine_Delete.sql" />
+    <Build Include="dbo\StoredProcedures\Wine\spWine_Get.sql" />
+    <Build Include="dbo\StoredProcedures\Wine\spWine_GetAll.sql" />
+    <Build Include="dbo\StoredProcedures\Wine\spWine_Insert.sql" />
+    <Build Include="dbo\StoredProcedures\Wine\spWine_Update.sql" />
+    <Build Include="dbo\StoredProcedures\Country\spCountry_Delete.sql" />
+    <Build Include="dbo\StoredProcedures\Country\spCountry_Get.sql" />
+    <Build Include="dbo\StoredProcedures\Country\spCountry_GetAll.sql" />
+    <Build Include="dbo\StoredProcedures\Country\spCountry_Insert.sql" />
+    <Build Include="dbo\StoredProcedures\Country\spCountry_Update.sql" />
+    <Build Include="dbo\StoredProcedures\Type\spType_Delete.sql" />
+    <Build Include="dbo\StoredProcedures\Type\spType_Get.sql" />
+    <Build Include="dbo\StoredProcedures\Type\spType_GetAll.sql" />
+    <Build Include="dbo\StoredProcedures\Type\spType_Insert.sql" />
+    <Build Include="dbo\StoredProcedures\Type\spType_Update.sql" />
+    <Build Include="dbo\StoredProcedures\Note\spNote_Delete.sql" />
+    <Build Include="dbo\StoredProcedures\Note\spNote_Get.sql" />
+    <Build Include="dbo\StoredProcedures\Note\spNote_GetAll.sql" />
+    <Build Include="dbo\StoredProcedures\Note\spNote_Insert.sql" />
+    <Build Include="dbo\StoredProcedures\Note\spNote_Update.sql" />
+    <Build Include="dbo\StoredProcedures\Note\spNote_GetByWine.sql" />
+    <Build Include="dbo\StoredProcedures\StorageLocation\spStorageLocation_Delete.sql" />
+    <Build Include="dbo\StoredProcedures\StorageLocation\spStorageLocation_GetByWine.sql" />
+    <Build Include="dbo\StoredProcedures\StorageLocation\spStorageLocation_GetAll.sql" />
+    <Build Include="dbo\StoredProcedures\StorageLocation\spStorageLocation_Insert.sql" />
+    <Build Include="dbo\StoredProcedures\Note\spNote_AddWine.sql" />
+    <Build Include="dbo\StoredProcedures\Note\spNote_RemoveWine.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\Wine_Note.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Script.PostDeployment1.sql" />
+  </ItemGroup>
+</Project>
