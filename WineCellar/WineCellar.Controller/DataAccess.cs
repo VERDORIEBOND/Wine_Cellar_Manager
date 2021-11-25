@@ -14,6 +14,7 @@ public static class DataAccess
 {
     public static IConfiguration? Configuration { get; private set; }
     public static WineRepository WineRepo { get; } = new();
+    public static CountryRepository CountryRepo { get; } = new();
 
     public static void SetConfiguration(IConfiguration config)
     {

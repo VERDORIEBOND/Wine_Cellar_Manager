@@ -61,7 +61,10 @@ public class CountryRepository
     /// <returns>The Id of the inserted record.</returns>
     public async Task<int> Create(CountryRecord country)
     {
+        DynamicParameters parameters = new();
+        parameters.Add("Name", country.Name);
+
         using var conn = DataAccess.GetConnection;
-        return await conn.ExecuteScalarAsync<int>(Queries.Country_Insert, country, commandType: CommandType.StoredProcedure);
+        return await conn.ExecuteScalarAsync<int>(Queries.Country_Insert, parameters, commandType: CommandType.StoredProcedure);
     }
 }
