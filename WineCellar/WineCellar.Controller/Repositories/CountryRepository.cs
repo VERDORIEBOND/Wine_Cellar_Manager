@@ -58,7 +58,7 @@ public class CountryRepository
     /// Inserts a CountryRecord into the database.
     /// </summary>
     /// <param name="country"></param>
-    /// <returns>The Id of the inserted record.</returns>
+    /// <returns>Id of the inserted record.</returns>
     public async Task<int> Create(CountryRecord country)
     {
         DynamicParameters parameters = new();
