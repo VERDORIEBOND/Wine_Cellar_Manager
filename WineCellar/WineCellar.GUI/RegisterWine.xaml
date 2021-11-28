@@ -1,0 +1,33 @@
+﻿<Window x:Class="WineCellar.RegisterWine"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WineCellar"
+        mc:Ignorable="d"
+        Title="Nieuwe wijn toevoegen" Height="463" Width="502"
+        MinWidth="830"
+        MinHeight="800"
+        Margin="20"
+        Background="#292929">
+    <Viewbox Stretch="Uniform" MaxWidth="825">
+        <Border Margin="30" Background="#fafafa" BorderBrush="#dbdbdb" BorderThickness="1" CornerRadius="3">
+            <Canvas Height="470" Width="500" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Canvas.Left="57" TextWrapping="Wrap" Canvas.Top="34" Width="305" Height="37" FontSize="28" FontFamily="Trebuchet MS" FontStretch="Medium" FontStyle="Normal" FontWeight="Bold"><Run Language="nl-nl" Text="REGISTREER WIJN"/></TextBlock>
+
+                <TextBox TextWrapping="Wrap" Text="Naam&#xD;&#xA;" Width="120" Height="25" Canvas.Left="57" Canvas.Top="92"/>
+                <TextBox TextWrapping="Wrap" Text="Inkoopprijs&#xD;&#xA;" Width="120" Height="25" Canvas.Left="57" Canvas.Top="135"/>
+                <TextBox TextWrapping="Wrap" Text="Verkoopprijs&#xD;&#xA;&#xA;" Width="120" Height="25" Canvas.Left="57" Canvas.Top="177"/>
+                <ComboBox Width="120" Canvas.Left="57" Canvas.Top="225"/>
+                <Label Content="Land" RenderTransformOrigin="-0.967,-2.419" Canvas.Left="54" Canvas.Top="223"/>
+                <TextBox x:Name="file" TextWrapping="Wrap" Text="Bestand" Width="120" Canvas.Left="235" Canvas.Top="225"/>
+                <Button Content="Browse " Height="25" FontSize="11" Canvas.Left="375" Canvas.Top="225"/>
+                <TextBox TextWrapping="Wrap" Text="Jaar&#xD;&#xA;&#xA;" Width="120" Height="24" Canvas.Left="235" Canvas.Top="93"/>
+                <TextBox TextWrapping="Wrap" Text="Inhoud (ML)" Width="120" Height="24" Canvas.Left="235" Canvas.Top="135"/>
+                <TextBox TextWrapping="Wrap" Text="Alcohol (%)&#xA;" Width="120" Height="24" Canvas.Left="235" Canvas.Top="177"/>
+                <TextBox TextWrapping="Wrap" Text="Rating&#xD;&#xA;" Width="120" Height="24" Canvas.Left="57" Canvas.Top="272"/>
+                <Button Content="Register&#xD;&#xA;" Canvas.Left="57" Canvas.Top="400" RenderTransformOrigin="-1.609,0.22" Width="305"/>
+            </Canvas>
+        </Border>
+    </Viewbox>
+</Window>
