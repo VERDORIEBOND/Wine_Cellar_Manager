@@ -26,27 +26,20 @@ namespace WineCellar
         public MainWindow()
         {
             InitializeComponent();
+
             var items = Controller.Data.GetWineData();
-            
             WineDataBinding.ItemsSource = items;
-            
-            //var StorageData = (ComboBox)FindName("StorageData");
-            foreach (var wine in items)
-            {
-                foreach (var storagelocation in wine.StorageLocation)
-                {
-                    
-                }
-            }
         }
 
-        private void ListViewItem_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void ListViewItem_Clicked(object sender, MouseButtonEventArgs e)
         {
-            detailedView = new DetailedView();
+            var item = (sender as ListView).SelectedItem;
 
-            if (sender is ListViewItem item)
+            if (item != null)
             {
-                this.Close();
+                detailedView = new DetailedView(WineDataBinding.SelectedIndex);
+
+                Close();
                 detailedView.Show();
             }
         }

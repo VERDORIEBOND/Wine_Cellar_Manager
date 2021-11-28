@@ -14,6 +14,7 @@
         TextOptions.TextRenderingMode="Auto"
         Background="#FF202020"
         FontFamily="{DynamicResource MaterialDesignFont}">
+
     <Grid HorizontalAlignment="Stretch">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -43,7 +44,7 @@
             CornerRadius="16"
             materialDesign:ShadowAssist.ShadowDepth="Depth3" Background="#FF333533">
             <DockPanel>
-                <ListView Margin="10" Name="WineDataBinding" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                <ListView Margin="10" Name="WineDataBinding" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" MouseDoubleClick="ListViewItem_Clicked">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <materialDesign:ColorZone
@@ -66,10 +67,10 @@
                                             <RowDefinition Height="*"/>
                                         </Grid.RowDefinitions>
                                         <Border Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Padding="5">
-                                            <Image Width="50" Source="C:\Users\lucas\source\repos\VERDORIEBOND\Wine_Cellar_Manager\WineCellar\WineCellar\Images\CatenaMalbec" />
+                                            <Image Width="50" Source="C:\Users\mailm\Documents\OOSDD semester\KBS\WineCellar\WineCellar.GUI\DummyImage\Wijn.jpg"/>
                                         </Border>
                                         <Border Grid.Row="0" Grid.Column="1" Padding="5">
-                                            <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="{Binding Name}" FontWeight="Bold" />
+                                            <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="{Binding Name}" FontWeight="Bold"/>
                                         </Border>
                                         <Border Grid.Row="0" Grid.Column="2" Padding="5">
                                             <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" VerticalAlignment="Center" Text="Voorraad: " />
@@ -90,7 +91,7 @@
                                             </materialDesign:ColorZone>
                                         </Border>
                                         <Border Grid.Row="1" Grid.Column="1" Padding="5">
-                                            <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" FontWeight="Bold" ><Run Text="{Binding Age}"/><Run Text=" "/><Run Text="{Binding Type}"/><Run Text=" - "/><Run Text="{Binding OriginCountry}"/></TextBlock>
+                                            <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" FontWeight="Bold" ><Run Text="{Binding HarvestYear}"/><Run Text=" "/><Run Text="{Binding Type}"/><Run Text=" - "/><Run Text="{Binding OriginCountry}"/></TextBlock>
                                         </Border>
                                         <Border Grid.Row="1" Grid.Column="2" Padding="5">
                                             <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" VerticalAlignment="Center" Text="Locatie:" />
@@ -116,11 +117,6 @@
                             </materialDesign:ColorZone>
                         </DataTemplate>
                     </ListView.ItemTemplate>
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <EventSetter Event="PreviewMouseLeftButtonDown" Handler="ListViewItem_PreviewMouseLeftButtonDown" />
-                        </Style>
-                    </ListView.ItemContainerStyle>
                 </ListView>
             </DockPanel>
         </materialDesign:ColorZone>

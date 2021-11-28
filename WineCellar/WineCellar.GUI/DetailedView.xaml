@@ -14,6 +14,10 @@
         TextOptions.TextRenderingMode="Auto"
         Background="#FF202020"
         FontFamily="{DynamicResource MaterialDesignFont}">
+    <Window.DataContext>
+        <local:DataContext/>
+    </Window.DataContext>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -47,78 +51,90 @@
                 </DockPanel>
 
                 <DockPanel Grid.Row="1">
+                    <Border>
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="2*"/>
                         </Grid.ColumnDefinitions>
-                        <Image Grid.Column="0" Width="Auto" Height="Auto" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10"/>
+                        <Image Grid.Column="0" Width="Auto" Height="Auto" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10" Source="C:\Users\mailm\Documents\OOSDD semester\KBS\WineCellar\WineCellar.GUI\DummyImage\Wijn.jpg"/>
 
-                        <Grid Grid.Column="1">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="0.8*"/>
-                                <RowDefinition Height="1*"/>
-                            </Grid.RowDefinitions>
-                            <Label Grid.Row="0" Content="Dit is een wijntje" FontWeight="Bold" Foreground="#FFF3EFF5" FontSize="36" Margin="10"/>
-
-                            <Grid Grid.Row="1" Background="White">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2*"/>
-                                    <ColumnDefinition Width="1*"/>
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Column="0" Text="Dit is een beschrijving over het product." Foreground="Black" FontSize="20"/>
-                                
-                                <materialDesign:ColorZone
-                                                Mode="Custom"
-                                                Background="#333533"
-                                                Foreground="#FFEE32"
-                                                Padding="8"
-                                                CornerRadius="8"
-                                                Grid.Column="1"
-                                                Margin="20"
-                                                HorizontalAlignment="Right"
-                                                VerticalAlignment="Top">
-                                    <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" FontWeight="Bold"> 
-                                        <Run Text="Inkoop: " FontSize="20"/> <Run Text="{Binding BuyPrice}" FontSize="20"/><LineBreak/>
-                                        <Run Text="Verkoop:" FontSize="20"/> <Run Text="{Binding SellPrice}" FontSize="20"/><LineBreak/>
-                                        <Run Text="Voorraad:" FontSize="20"/> <Run Text="{Binding Stock}" FontSize="20"/>
-                                    </TextBlock>
-                                </materialDesign:ColorZone>
-                            </Grid>
-
-                            <Grid Grid.Row="2" Background="White">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="1*"/>
-                                    <ColumnDefinition Width="2*"/>
-                                </Grid.ColumnDefinitions>
+                        
+                            <Grid Grid.Column="1">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="1*"/>
-                                    <RowDefinition Height="1*"/>
-                                    <RowDefinition Height="1*"/>
-                                    <RowDefinition Height="1*"/>
-                                    <RowDefinition Height="1*"/>
-                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="0.8*"/>
                                     <RowDefinition Height="1*"/>
                                 </Grid.RowDefinitions>
-                                <Label Grid.Column="0" Grid.Row="0" Content="Rating" FontSize="26"/>
-                                <Label Grid.Column="0" Grid.Row="1" Content="Soort" FontSize="26"/>
-                                <Label Grid.Column="0" Grid.Row="2" Content="Oogstjaar" FontSize="26"/>
-                                <Label Grid.Column="0" Grid.Row="3" Content="Inhoud - % Vol" FontSize="26"/>
-                                <Label Grid.Column="0" Grid.Row="4" Content="Smaak" FontSize="26"/>
-                                <Label Grid.Column="0" Grid.Row="5" Content="Land" FontSize="26"/>
-                                <Label Grid.Column="0" Grid.Row="6" Content="Locatie" FontSize="26"/>
+                                <TextBlock x:Name="WineName" Grid.Row="0" Style="{StaticResource MaterialDesignHeadline6TextBlock}" FontWeight="Bold" Foreground="#FFF3EFF5" FontSize="36" Margin="10" Text="{Binding}">
+                                </TextBlock>
+                                
+                                <Grid Grid.Row="1" Background="White">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="0.8*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock x:Name="WineDescription" TextWrapping="Wrap" Grid.Column="0" Margin="10" Text="{Binding}" Foreground="Black" FontSize="20"/>
 
-                                <Label Grid.Column="0" Grid.Row="0" Content=""/>
-                                <Label Grid.Column="1" Grid.Row="0" Content=""/>
-                                <Label Grid.Column="2" Grid.Row="0" Content=""/>
-                                <Label Grid.Column="3" Grid.Row="0" Content=""/>
-                                <Label Grid.Column="4" Grid.Row="0" Content=""/>
-                                <Label Grid.Column="5" Grid.Row="0" Content=""/>
-                                <Label Grid.Column="6" Grid.Row="0" Content=""/>
+                                    <Grid Grid.Row="1" Grid.Column="1">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Canvas>
+                                                <Rectangle Margin="0,10" Width="200" Height="100" Fill="#333533" RadiusX="20" RadiusY="20"/>
+                                            </Canvas>
+
+                                            <StackPanel Grid.Row="0" Margin="10">
+                                                <Label Content="Inkoop: " FontSize="20" Foreground="#FFEE32" FontWeight="Bold"/>
+                                                <Label Content="Verkoop:" FontSize="20" Foreground="#FFEE32" FontWeight="Bold"/>
+                                                <Label Content="Voorraad:" FontSize="20" Foreground="#FFEE32" FontWeight="Bold"/>
+                                            </StackPanel>
+
+                                            <StackPanel Grid.Column="1" Margin="10">
+                                                <Label x:Name="WineBuy" Grid.Column="1" Content="{Binding}" FontSize="20" Foreground="#FFEE32" FontWeight="Bold"/>
+                                                <Label x:Name="WineSell" Grid.Column="1" Content="{Binding}" FontSize="20" Foreground="#FFEE32" FontWeight="Bold"/>
+                                                <Label x:Name="WineStock" Grid.Column="1" Content="{Binding}" FontSize="20" Foreground="#FFEE32" FontWeight="Bold"/>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+
+                                <Grid Grid.Row="2" Background="White">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="1*"/>
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Column="0" Grid.Row="0" Content="Rating" FontSize="26"/>
+                                    <Label Grid.Column="0" Grid.Row="1" Content="Soort" FontSize="26"/>
+                                    <Label Grid.Column="0" Grid.Row="2" Content="Oogstjaar" FontSize="26"/>
+                                    <Label Grid.Column="0" Grid.Row="3" Content="Inhoud - % Vol" FontSize="26"/>
+                                    <Label Grid.Column="0" Grid.Row="4" Content="Smaak" FontSize="26"/>
+                                    <Label Grid.Column="0" Grid.Row="5" Content="Land" FontSize="26"/>
+                                    <Label Grid.Column="0" Grid.Row="6" Content="Locatie" FontSize="26"/>
+
+                                    <Label x:Name="WineRating" Grid.Column="1" Grid.Row="0" Content="{Binding}" FontSize="26"/>
+                                    <Label x:Name="WineType" Grid.Column="1" Grid.Row="1" Content="{Binding}" FontSize="26"/>
+                                    <Label x:Name="WineHarvestYear" Grid.Column="1" Grid.Row="2" Content="{Binding}" FontSize="26"/>
+                                    <Label x:Name="WineVolume" Grid.Column="1" Grid.Row="3" Content="{Binding}" FontSize="26"/>
+                                    <Label x:Name="WineTaste" Grid.Column="1" Grid.Row="4" Content="{Binding}" FontSize="26"/>
+                                    <Label x:Name="WineCountry" Grid.Column="1" Grid.Row="5" Content="{Binding}" FontSize="26"/>
+                                    <Label x:Name="WineLocation" Grid.Column="1" Grid.Row="6" Content="{Binding}" FontSize="26"/>
+                                </Grid>
                             </Grid>
                         </Grid>
-                    </Grid>
+                    </Border>
                 </DockPanel>
             </Grid>
         </materialDesign:ColorZone>

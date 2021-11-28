@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\WineCellar.ControllerTest\WineCellar.ControllerTest.csproj" />
     <ProjectReference Include="..\WineCellar.Controller\WineCellar.Controller.csproj" />
     <ProjectReference Include="..\WineCellar.Model\WineCellar.Model.csproj" />
   </ItemGroup>
