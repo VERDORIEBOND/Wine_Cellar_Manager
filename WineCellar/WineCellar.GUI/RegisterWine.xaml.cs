@@ -82,19 +82,23 @@ namespace WineCellar
             return true;
         }
 
-        private bool isYear(String toValidate, int digits)
+        private bool isYear(String toValidate)
         {
-            try
+            int iyear;
+            if (!int.TryParse(toValidate, out iyear))
             {
-                DateTime dateTime;
-                DateTime.TryParse(string.Format("1/1/{0}", toValidate), out dateTime);
-            } catch (Exception)
+                return false;
+            }
+
+            if(iyear < 1000 || iyear > 2100)
             {
                 return false;
             }
 
             return true;
         }
+
+        
         private void AttemptRegister(object sender, RoutedEventArgs e)
         {
             bool validate = this.Validation();
@@ -103,6 +107,7 @@ namespace WineCellar
                 MessageBox.Show("Wine geregistreerd!");
             }
         }
+
 
         private bool Validation()
         {
@@ -121,6 +126,12 @@ namespace WineCellar
             if (!this.isInList(this.country.SelectedItem.ToString(), this.countries))
             {
                 MessageBox.Show("Selecteer een geldig land");
+                return false;
+            }
+
+            if(!this.isYear(year.Text)) 
+            {
+                MessageBox.Show("Ongeldig jaartal");
                 return false;
             }
 
