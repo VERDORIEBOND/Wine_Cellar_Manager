@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using Model;
+using WineCellar.Model;
 
 public class WineData : IWineData
 {
@@ -8,7 +10,7 @@ public class WineData : IWineData
     public string Type { get; set; } = string.Empty;
     public string OriginCountry { get; set; } = string.Empty;
     public int Stock { get; set; }
-    public string[] StorageLocation { get; set; } = new string[0];
+    public string[] StorageLocation { get; set; } = Array.Empty<string>();
     public double BuyPrice { get; set; }
     public double SellPrice { get; set; }
 }
@@ -34,5 +36,30 @@ namespace Controller
                 new WineData {Name = "La Palma", Age = 2020, Type = "Carmenère", OriginCountry = "Chili", Stock = 53, StorageLocation = new []{"A3.6","A18.6","B3.20","B3.21","B3.22","B3.23","B3.24","C2.2"}, BuyPrice = 5.99, SellPrice = 23.99}
             };
         }
+        
+        //Get all the wine data from the database
+        public static async Task<List<IWineData>> GetAllWines()
+        {
+            var result = await DataAccess.WineRepo.GetAll();
+            //convert the result to a list of wine data
+            var wineData = new List<IWineData>();
+            foreach (var wine in result)
+            {
+                wineData.Add(new WineData
+                {
+                    Name = wine.Name,
+                    Age = wine.Year,
+                    //Type = wine.Type,
+                    //OriginCountry = wine.Country,
+                    Stock = wine.Content,
+                    //StorageLocation = wine.StorageLocation,
+                    //BuyPrice = wine.BuyPrice,
+                    //SellPrice = wine.BuyPrice
+                });
+            }
+            return wineData;
+        }
+
+        
     }
 }
