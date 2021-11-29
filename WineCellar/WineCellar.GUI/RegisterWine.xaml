@@ -14,19 +14,18 @@
         <Border Margin="30" Background="#fafafa" BorderBrush="#dbdbdb" BorderThickness="1" CornerRadius="3">
             <Canvas Height="470" Width="500" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock Canvas.Left="57" TextWrapping="Wrap" Canvas.Top="34" Width="305" Height="37" FontSize="28" FontFamily="Trebuchet MS" FontStretch="Medium" FontStyle="Normal" FontWeight="Bold"><Run Language="nl-nl" Text="REGISTREER WIJN"/></TextBlock>
-
-                <TextBox TextWrapping="Wrap" Text="Naam&#xD;&#xA;" Width="120" Height="25" Canvas.Left="57" Canvas.Top="92"/>
-                <TextBox TextWrapping="Wrap" Text="Inkoopprijs&#xD;&#xA;" Width="120" Height="25" Canvas.Left="57" Canvas.Top="135"/>
-                <TextBox TextWrapping="Wrap" Text="Verkoopprijs&#xD;&#xA;&#xA;" Width="120" Height="25" Canvas.Left="57" Canvas.Top="177"/>
-                <ComboBox Width="120" Canvas.Left="57" Canvas.Top="225"/>
+                <TextBox x:Name="name" TextWrapping="Wrap" Text="Naam&#xD;&#xA;" Width="120" Height="25" Canvas.Left="57" Canvas.Top="92"/>
+                <TextBox x:Name="buy" TextWrapping="Wrap" Text="Inkoopprijs&#xD;&#xA;" Width="120" Height="25" Canvas.Left="57" Canvas.Top="135"/>
+                <TextBox x:Name="sell" TextWrapping="Wrap" Text="Verkoopprijs&#xD;&#xA;&#xA;" Width="120" Height="25" Canvas.Left="57" Canvas.Top="177"/>
+                <ComboBox x:Name="country" Width="120" Canvas.Left="57" Canvas.Top="225"/>
                 <Label Content="Land" RenderTransformOrigin="-0.967,-2.419" Canvas.Left="54" Canvas.Top="223"/>
-                <TextBox x:Name="file" TextWrapping="Wrap" Text="Bestand" Width="120" Canvas.Left="235" Canvas.Top="225"/>
-                <Button Content="Browse " Height="25" FontSize="11" Canvas.Left="375" Canvas.Top="225"/>
-                <TextBox TextWrapping="Wrap" Text="Jaar&#xD;&#xA;&#xA;" Width="120" Height="24" Canvas.Left="235" Canvas.Top="93"/>
-                <TextBox TextWrapping="Wrap" Text="Inhoud (ML)" Width="120" Height="24" Canvas.Left="235" Canvas.Top="135"/>
-                <TextBox TextWrapping="Wrap" Text="Alcohol (%)&#xA;" Width="120" Height="24" Canvas.Left="235" Canvas.Top="177"/>
-                <TextBox TextWrapping="Wrap" Text="Rating&#xD;&#xA;" Width="120" Height="24" Canvas.Left="57" Canvas.Top="272"/>
-                <Button Content="Register&#xD;&#xA;" Canvas.Left="57" Canvas.Top="400" RenderTransformOrigin="-1.609,0.22" Width="305"/>
+                <TextBox x:Name="filePath" TextWrapping="Wrap" Text="Bestand" Width="120" Canvas.Left="235" Canvas.Top="225"/>
+                <Button Content="Browse" Click="BrowseFiles" Height="25" FontSize="11" Canvas.Left="375" Canvas.Top="225"/>
+                <TextBox x:Name="year" TextWrapping="Wrap" Text="Jaar&#xD;&#xA;&#xA;" Width="120" Height="24" Canvas.Left="235" Canvas.Top="93"/>
+                <TextBox x:Name="contents" TextWrapping="Wrap" Text="Inhoud (ML)" Width="120" Height="24" Canvas.Left="235" Canvas.Top="135"/>
+                <TextBox x:Name="alcohol" TextWrapping="Wrap" Text="Alcohol (%)&#xA;" Width="120" Height="24" Canvas.Left="235" Canvas.Top="177"/>
+                <TextBox x:Name="rating" TextWrapping="Wrap" Text="Rating&#xD;&#xA;" Width="120" Height="24" Canvas.Left="57" Canvas.Top="272"/>
+                <Button x:Name="register" Click="AttemptRegister" Content="Register&#xD;&#xA;" Canvas.Left="57" Canvas.Top="400" RenderTransformOrigin="-1.609,0.22" Width="305"/>
             </Canvas>
         </Border>
     </Viewbox>
