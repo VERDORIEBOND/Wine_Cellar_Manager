@@ -26,7 +26,7 @@
                 <TextBox x:Name="alcohol" TextWrapping="Wrap" Text="Alcohol (%)&#xA;" Width="120" Height="24" Canvas.Left="235" Canvas.Top="177"/>
                 <TextBox x:Name="rating" TextWrapping="Wrap" Text="Rating&#xD;&#xA;" Width="120" Height="24" Canvas.Left="57" Canvas.Top="272"/>
                 <Button x:Name="register" Click="AttemptRegister" Content="Register&#xD;&#xA;" Canvas.Left="57" Canvas.Top="400" RenderTransformOrigin="-1.609,0.22" Width="267"/>
-                <Button x:Name="goback" Content="Annuleren" Canvas.Left="333" Canvas.Top="400" RenderTransformOrigin="-1.609,0.22" Width="110"/>
+                <Button x:Name="cancel" Click="CancelRegister" Content="Annuleren" Canvas.Left="333" Canvas.Top="400" RenderTransformOrigin="-1.609,0.22" Width="110"/>
             </Canvas>
         </Border>
     </Viewbox>

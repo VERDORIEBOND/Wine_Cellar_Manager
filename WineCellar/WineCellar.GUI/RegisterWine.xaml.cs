@@ -44,6 +44,13 @@ namespace WineCellar
             this.country.ItemsSource = countries;
         }
 
+        private void CancelRegister(object sender, RoutedEventArgs e)
+        {
+            MainWindow window = new MainWindow();
+            window.Show();
+            this.Close();
+        }
+
         private void BrowseFiles(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
