@@ -64,24 +64,20 @@ namespace WineCellar
 
         private bool isValidString(String toValidate)
         {
-            if(toValidate != null)
+            if (toValidate != null 
+                && toValidate.Length > 0 
+                && toValidate.Length < 255)
             {
-                if (toValidate.Length > 0 && toValidate.Length < 255)
-                {
-                    return true;
-                }
+                return true;
             }
             return false;
         }
 
         private bool isInList(String toValidate, List<String> list)
         {
-            if(toValidate != null)
+            if (toValidate != null && !list.Contains(toValidate))
             {
-                if (!list.Contains(toValidate))
-                {
-                    return false;
-                }
+                return false;
             }
             return true;
         }
