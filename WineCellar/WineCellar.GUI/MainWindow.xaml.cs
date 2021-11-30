@@ -26,7 +26,18 @@ namespace WineCellar
         public MainWindow()
         {
             InitializeComponent();
-            FillList();
+            //add shadow to the list items
+            FrameworkElement.StyleProperty.OverrideMetadata(typeof(Window), new FrameworkPropertyMetadata
+            {
+                DefaultValue = FindResource(typeof(Window))
+            });
+
+            var items = Controller.Data.GetWineData();
+            WineDataBinding.ItemsSource = items;
+            
+            
+            //InitializeComponent();
+            //FillList();
             //var StorageData = (ComboBox)FindName("StorageData");
             
         }

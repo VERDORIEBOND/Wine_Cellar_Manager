@@ -12,7 +12,7 @@
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
-        Background="#FF202020"
+        Background="#000000"
         FontFamily="{DynamicResource MaterialDesignFont}">
     <Grid HorizontalAlignment="Stretch">
         <Grid.ColumnDefinitions>
@@ -29,7 +29,7 @@
                 Mode="Custom"
                 Margin="6" VerticalAlignment="Stretch"
                 CornerRadius="16"
-                materialDesign:ShadowAssist.ShadowDepth="Depth3" Background="#FF333533">
+                materialDesign:ShadowAssist.ShadowDepth="Depth3" Background="#121212">
 
             <DockPanel>
                 
@@ -41,15 +41,15 @@
             Mode="Custom"
             Margin="6" VerticalAlignment="Stretch"
             CornerRadius="16"
-            materialDesign:ShadowAssist.ShadowDepth="Depth3" Background="#FF333533">
+            materialDesign:ShadowAssist.ShadowDepth="Depth3" Background="#121212">
             <DockPanel>
                 <ListView Margin="10" Name="WineDataBinding" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <materialDesign:ColorZone
                                 Mode="Custom"
-                                Background="#F3EFF5"
-                                Foreground="#202020"
+                                Background="#353535"
+                                Foreground="#FFFFFF"
                                 Padding="8"
                                 CornerRadius="8">
                                 <WrapPanel>
@@ -69,7 +69,7 @@
                                             <Image Width="50" Source="C:\Users\lucas\source\repos\VERDORIEBOND\Wine_Cellar_Manager\WineCellar\WineCellar\Images\CatenaMalbec" />
                                         </Border>
                                         <Border Grid.Row="0" Grid.Column="1" Padding="5">
-                                            <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="{Binding Name}" FontWeight="Bold" />
+                                            <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="{Binding Name}" FontWeight="Normal" />
                                         </Border>
                                         <Border Grid.Row="0" Grid.Column="2" Padding="5">
                                             <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" VerticalAlignment="Center" Text="Voorraad: " />
@@ -81,16 +81,16 @@
                                         <Border Grid.Row="0" Grid.Column="4" Grid.RowSpan="2" Padding="5">
                                             <materialDesign:ColorZone
                                                 Mode="Custom"
-                                                Background="#333533"
-                                                Foreground="#FFEE32"
+                                                Background="#000000"
+                                                Foreground="#BB86FC"
                                                 Padding="8"
                                                 CornerRadius="8"
                                                 VerticalAlignment="Center">
-                                                <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" FontWeight="Bold" ><Run Text="Inkoop: "/><Run Text="{Binding BuyPrice}"/><LineBreak/><Run Text="Verkoop:"/><Run Text="{Binding SellPrice}"/></TextBlock>
+                                                <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" FontWeight="Normal" ><Run Text="Inkoop: "/><Run Text="{Binding BuyPrice}"/><LineBreak/><Run Text="Verkoop:"/><Run Text="{Binding SellPrice}"/></TextBlock>
                                             </materialDesign:ColorZone>
                                         </Border>
                                         <Border Grid.Row="1" Grid.Column="1" Padding="5">
-                                            <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" FontWeight="Bold" ><Run Text="{Binding Age}"/><Run Text=" "/><Run Text="{Binding Type}"/><Run Text=" - "/><Run Text="{Binding OriginCountry}"/></TextBlock>
+                                            <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" FontWeight="Normal" ><Run Text="{Binding Age}"/><Run Text=" "/><Run Text="{Binding Type}"/><Run Text=" - "/><Run Text="{Binding OriginCountry}"/></TextBlock>
                                         </Border>
                                         <Border Grid.Row="1" Grid.Column="2" Padding="5">
                                             <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" VerticalAlignment="Center" Text="Locatie:" />
