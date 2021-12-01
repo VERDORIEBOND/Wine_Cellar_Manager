@@ -13,7 +13,7 @@
 AS
 BEGIN
 	INSERT
-	INTO [dbo].[Wine] ([Name], [Buy], [Sell], [Type], [Country], [Picture], [Year], [Content], [Alcohol], [Rating], [Description])
+	INTO [dbo].[Wine] ([Name], [Buy], [Sell], [TypeId], [CountryId], [Picture], [Year], [Content], [Alcohol], [Rating], [Description])
 	OUTPUT INSERTED.Id
 	VALUES (@Name, @Buy, @Sell, @Type, @Country, @Picture, @Year, @Content, @Alcohol, @Rating, @Description);
 END

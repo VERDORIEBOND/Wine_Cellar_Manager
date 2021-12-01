@@ -41,7 +41,7 @@ INSERT INTO dbo.Type
 ('Carmenère');
 
 INSERT INTO dbo.Wine
-(Name,                                      Buy,    Sell,   Type,   Country,    Picture,    Year,   Content,    Alcohol,    Rating,     Description) VALUES
+(Name,                                      Buy,    Sell,   TypeId, CountryId,  Picture,    Year,   Content,    Alcohol,    Rating,     Description) VALUES
 ('Catena Malbec',                           11.99,  19.92,  1,      5,          'empty',    2019,   700,        12.5,       5,          'Beschrijving van de Catena Malbec'),
 ('Faustino V Rioja Reserva',                11.99,  15.86,  2,      4,          'empty',    2016,   500,        15.0,       3,          'Beschrijving van de Faustino V Rioja Reserva'),
 ('Cantina di Verona Valpolicella Ripasso',  10.65,  13.32,  3,      6,          'empty',    2019,   700,        10.0,       2,          'Beschrijving van de Cantina di Verona Valpolicella Ripasso'),
