@@ -1,8 +1,8 @@
-﻿<Application x:Class="WineCellar.App"
+<Application x:Class="WineCellar.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:WineCellar"
-             StartupUri="RegisterWine.xaml" Startup="Application_Startup">
+             StartupUri="MainWindow.xaml" Startup="Application_Startup">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

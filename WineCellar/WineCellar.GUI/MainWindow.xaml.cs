@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Controller;
 using Model;
 
 namespace WineCellar
@@ -24,8 +26,14 @@ namespace WineCellar
         public MainWindow()
         {
             InitializeComponent();
-            var items = Controller.Data.GetWineData();
+            FillList();
+            var StorageData = (ComboBox)FindName("StorageData");
             
+        }
+
+        public async void FillList()
+        {
+            var items = await Data.GetAllWines();
             WineDataBinding.ItemsSource = items;
         }
     }

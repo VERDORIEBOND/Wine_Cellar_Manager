@@ -12,7 +12,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         MinHeight="890">
     <Viewbox Stretch="Uniform" MaxWidth="850">
-        <Grid Height="500" Width="500" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid Height="560" Width="500" HorizontalAlignment="Center" VerticalAlignment="Center">
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <StackPanel.Resources>
                     <Style TargetType="{x:Type StackPanel}">
@@ -37,7 +37,13 @@
                 <StackPanel Orientation="Horizontal" Margin="0 0 0 0">
                     <Label Content="Naam" />
                     <TextBox LostFocus="PlaceholderLostFocus" GotFocus="PlaceholderFocus"  x:Name="name" 
-                             TextWrapping="Wrap" Text="Naam&#xD;&#xA;" Width="200" Height="25" />    
+                             TextWrapping="Wrap" Text="Naam&#xD;&#xA;" Width="200" Height="25" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0 0 0 0">
+                    <Label Content="Soort" />
+                    <TextBox LostFocus="PlaceholderLostFocus" GotFocus="PlaceholderFocus"  x:Name="type" 
+                             TextWrapping="Wrap" Text="Soort&#xD;&#xA;" Width="200" Height="25" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
@@ -47,13 +53,13 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <Label Content="Inkoopprijs"/>
+                    <Label Content="Inkoopprijs (€)&#xD;&#xA;"/>
                     <TextBox x:Name="buy" TextWrapping="Wrap" LostFocus="PlaceholderLostFocus" GotFocus="PlaceholderFocus" 
                              Text="Inkoopprijs&#xD;&#xA;" Width="200" Height="25" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <Label Content="Verkoopprijs"/>
+                    <Label Content="Verkoopprijs (€)&#xD;&#xA;"/>
                     <TextBox x:Name="sell" TextWrapping="Wrap" LostFocus="PlaceholderLostFocus" GotFocus="PlaceholderFocus"  
                              Text="Verkoopprijs&#xD;&#xA;&#xA;" Width="200" Height="25"/>
                 </StackPanel>
