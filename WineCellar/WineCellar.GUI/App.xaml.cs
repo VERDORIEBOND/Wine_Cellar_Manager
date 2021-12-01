@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using WineCellar.Views.DatabaseSetup;
 
 namespace WineCellar
 {
@@ -33,6 +34,13 @@ namespace WineCellar
 
             // DataAccess requires the configuration to create SqlConnections
             DataAccess.SetConfiguration(Configuration);
+
+            var selection = new DatabaseSelectWindow();
+            selection.ShowDialog();
+
+            var mainWindow = new MainWindow();
+            MainWindow = mainWindow;
+            mainWindow.Show();
         }
     }
 }
