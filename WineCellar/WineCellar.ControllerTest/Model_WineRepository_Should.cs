@@ -16,7 +16,7 @@ namespace WineCellar.ControllerTest
     public class Model_WineRepository_Should
     {
         private IConfiguration? Configuration { get; set; }
-        private WineRecord Expected { get; set; } = new(0, "TestWine", 12.10m, 13.20m, 1, 1, "empty", 2001, 700, 12.50m, 3, "Beschrijving");
+        private WineRecord Expected { get; set; } = new(0, "TestWine", 12.10m, 13.20m, 1, "Malbec", 1, "Nederland", "empty", 2001, 700, 12.50m, 3, "Beschrijving");
         private int InsertedId { get; set; }
 
         [SetUp]
