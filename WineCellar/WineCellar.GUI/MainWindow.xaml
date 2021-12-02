@@ -5,15 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WineCellar"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="1200"
+        Title="Wine Cellar Manager" Height="800" Width="1200"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        TextElement.FontWeight="Regular"
-        TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
-        Background="#000000"
-        FontFamily="{DynamicResource MaterialDesignFont}">
+        Background="{DynamicResource MaterialDesignPaper}">
     <Grid HorizontalAlignment="Stretch">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -21,28 +18,193 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="65" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <materialDesign:ColorZone
-                Grid.Column="0" Grid.Row="1"
-                Mode="Custom"
+            Grid.Column="0" Grid.Row="0"
+            Mode="SecondaryDark"
+            Margin="6" VerticalAlignment="Stretch"
+            CornerRadius="16"
+            materialDesign:ShadowAssist.ShadowDepth="Depth3">
+            <DockPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <StackPanel Margin="15 10 15 10" Grid.Column="0">
+                        <Button
+                            Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                            ToolTip="Resource name: MaterialDesignRaisedDarkButton"
+                            Content="Wijn Toevoegen"/>
+                    </StackPanel>
+                    <StackPanel Margin="15 10 15 10" Grid.Column="1">
+                        <Button
+                            Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                            ToolTip="Resource name: MaterialDesignRaisedLightButton"
+                            Content="--------" />
+                    </StackPanel>
+                </Grid>
+                
+            </DockPanel>
+        </materialDesign:ColorZone>
+        
+        <materialDesign:ColorZone
+                Grid.Column="0" Grid.Row="1" Grid.RowSpan="2"
+                Mode="SecondaryDark"
                 Margin="6" VerticalAlignment="Stretch"
                 CornerRadius="16"
-                materialDesign:ShadowAssist.ShadowDepth="Depth3" Background="#121212">
+                materialDesign:ShadowAssist.ShadowDepth="Depth3">
 
             <DockPanel>
-                <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="asdasdasdasdasd" FontWeight="Normal" Foreground="White" />
-
+                <StackPanel>
+                    <StackPanel Margin="30 10 30 0">
+                        <TextBox
+                            Style="{StaticResource MaterialDesignFilledTextBox}"
+                            VerticalAlignment="Top"
+                            AcceptsReturn="True"
+                            TextWrapping="Wrap"
+                            
+                            materialDesign:HintAssist.Hint="Wijn naam"
+                            materialDesign:HintAssist.Foreground="White"
+                            IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledTextBoxEnabledComboBox}" Foreground="White"/>
+                    </StackPanel>
+                    <StackPanel Margin="30 10 30 0">
+                        <TextBlock
+                            Style="{StaticResource MaterialDesignBody2TextBlock}"
+                            Text="Prijs vanaf" />
+                        <Slider
+                            Value="0"
+                            Minimum="0"
+                            Maximum="100"
+                            Style="{StaticResource MaterialDesignDiscreteSlider}"
+                            TickFrequency="{Binding DiscreteHorizontal.TickFrequency}"
+                            TickPlacement="Both" />
+                    </StackPanel>
+                    <StackPanel Margin="30 10 30 0">
+                        <TextBlock
+                            Style="{StaticResource MaterialDesignBody2TextBlock}"
+                            Text="Prijs tot" />
+                        <Slider
+                            Value="100"
+                            Minimum="0"
+                            Maximum="100"
+                            Style="{StaticResource MaterialDesignDiscreteSlider}"
+                            TickFrequency="{Binding DiscreteHorizontal.TickFrequency}"
+                            TickPlacement="Both" />
+                    </StackPanel>
+                    <StackPanel Margin="30 10 30 0">
+                        <ComboBox
+                            x:Name="FilledComboBox"
+                            Style="{StaticResource MaterialDesignFilledComboBox}"
+                            IsEnabled="{Binding Path=IsChecked, ElementName=FilledComboBoxEnabledCheckBox}"
+                            materialDesign:HintAssist.Hint="Type Wijn">
+                            <ComboBoxItem
+                                Content="Malbec" />
+                            <ComboBoxItem
+                                Content="Tempranillo" />
+                            <ComboBoxItem
+                                Content="Corvina" />
+                            <ComboBoxItem
+                                Content="Merlot" />
+                            <ComboBoxItem
+                                Content="Sauvignon Blanc" />
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Margin="30 10 30 0">
+                        <ComboBox
+                            x:Name="FilledComboBox2"
+                            Style="{StaticResource MaterialDesignFilledComboBox}"
+                            IsEnabled="{Binding Path=IsChecked, ElementName=FilledComboBoxEnabledCheckBox}"
+                            materialDesign:HintAssist.Hint="Opslag locatie">
+                            <ComboBoxItem
+                                Content="A2.1" />
+                            <ComboBoxItem
+                                Content="A2.2" />
+                            <ComboBoxItem
+                                Content="A2.3" />
+                            <ComboBoxItem
+                                Content="B3.1" />
+                            <ComboBoxItem
+                                Content="B3.2" />
+                            <ComboBoxItem
+                                Content="B3.3" />
+                            <ComboBoxItem
+                                Content="B3.4" />
+                            <ComboBoxItem
+                                Content="B3.5" />
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Margin="30 10 30 0">
+                        <TextBlock
+                            Style="{StaticResource MaterialDesignBody2TextBlock}"
+                            Text="Jaartal vanaf" />
+                        <Slider
+                            Value="1980"
+                            Minimum="1980"
+                            Maximum="2021"
+                            Style="{StaticResource MaterialDesignDiscreteSlider}"
+                            TickFrequency="{Binding DiscreteHorizontal.TickFrequency}"
+                            TickPlacement="Both" />
+                    </StackPanel>
+                    <StackPanel Margin="30 10 30 0">
+                        <TextBlock
+                            Style="{StaticResource MaterialDesignBody2TextBlock}"
+                            Text="Jaartal tot" />
+                        <Slider
+                            Value="2021"
+                            Minimum="1980"
+                            Maximum="2021"
+                            Style="{StaticResource MaterialDesignDiscreteSlider}"
+                            TickFrequency="{Binding DiscreteHorizontal.TickFrequency}"
+                            TickPlacement="Both" />
+                    </StackPanel>
+                    <StackPanel Margin="30 10 30 0">
+                        <TextBlock
+                            Style="{StaticResource MaterialDesignBody2TextBlock}"
+                            Text="Smaaktonen" />
+                        <ListBox
+                            Style="{StaticResource MaterialDesignFilterChipAccentOutlineListBox}">
+                            <ListBoxItem
+                                Content="Zoet" />
+                            <ListBoxItem
+                                Content="Fris" />
+                            <ListBoxItem
+                                Content="Fruitig" />
+                            <ListBoxItem
+                                Content="Strak" />
+                            <ListBoxItem
+                                Content="Zacht" />
+                            <ListBoxItem
+                                Content="Tropish" />
+                            <ListBoxItem
+                                Content="Rijk" />
+                            <ListBoxItem
+                                Content="Sappig" />
+                        </ListBox>
+                    </StackPanel>
+                    <StackPanel Margin="30 10 30 0">
+                        <TextBlock
+                            Style="{StaticResource MaterialDesignBody2TextBlock}"
+                            Text="Rating" />
+                        <materialDesign:RatingBar
+                            x:Name="BasicRatingBar"
+                            Value="3" />
+                    </StackPanel>
+                    
+                </StackPanel>
             </DockPanel>
         </materialDesign:ColorZone>
 
         <materialDesign:ColorZone
-            Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2"
-            Mode="Custom"
+            Grid.Column="1" Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="2"
+            Mode="PrimaryDark"
             Margin="6" VerticalAlignment="Stretch"
             CornerRadius="16"
-            materialDesign:ShadowAssist.ShadowDepth="Depth3" Background="#121212">
+            materialDesign:ShadowAssist.ShadowDepth="Depth3">
             <DockPanel>
                 <ListView Margin="10" Name="WineDataBinding" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
                     <ListView.ItemTemplate>
@@ -52,7 +214,8 @@
                                 Background="#353535"
                                 Foreground="#FFFFFF"
                                 Padding="8"
-                                CornerRadius="8">
+                                CornerRadius="8"
+                                materialDesign:ShadowAssist.ShadowDepth="Depth2">
                                 <WrapPanel>
                                     <Grid>
                                         <Grid.ColumnDefinitions>
@@ -83,10 +246,10 @@
                                             <materialDesign:ColorZone
                                                 Mode="Custom"
                                                 Background="#000000"
-                                                Foreground="#BB86FC"
+                                                Foreground="White"
                                                 Padding="8"
                                                 CornerRadius="8"
-                                                VerticalAlignment="Center">
+                                                VerticalAlignment="Center"><!--BB86FC -->
                                                 <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" FontWeight="Normal" ><Run Text="Inkoop: "/><Run Text="{Binding BuyPrice}"/><LineBreak/><Run Text="Verkoop:"/><Run Text="{Binding SellPrice}"/></TextBlock>
                                             </materialDesign:ColorZone>
                                         </Border>
