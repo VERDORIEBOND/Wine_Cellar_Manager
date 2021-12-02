@@ -40,22 +40,33 @@ namespace Controller
         //Get all the wine data from the database
         public static async Task<List<IWineData>> GetAllWines()
         {
-            var result = await DataAccess.WineRepo.GetAll();
+            var wineRepo = await DataAccess.WineRepo.GetAll();
             //convert the result to a list of wine data
             var wineData = new List<IWineData>();
-            foreach (var wine in result)
+            
+            foreach (var wine in wineRepo)
             {
-                wineData.Add(new WineData
+                var wineEntry = new WineData();
+                wineEntry.Name = wine.Name;
+                wineEntry.Age = wine.Year;
+                wineEntry.Stock = wine.Content;
+                wineEntry.Type = wine.Type;
+                wineEntry.OriginCountry = wine.Country;
+                wineEntry.BuyPrice = (double)wine.Buy;
+                wineEntry.SellPrice = (double)wine.Sell;
+                
+                var storageLocations = new string[] {};
+                foreach (var location in await DataAccess.LocationRepo.GetByWine(wine.Id))
                 {
-                    Name = wine.Name,
-                    Age = wine.Year,
-                    //Type = wine.Type,
-                    //OriginCountry = wine.Country,
-                    Stock = wine.Content,
-                    //StorageLocation = wine.StorageLocation,
-                    //BuyPrice = wine.BuyPrice,
-                    //SellPrice = wine.BuyPrice
-                });
+                    //create array and add the location to it
+                    if (location.IdWine == wine.Id)
+                    {
+                        storageLocations = storageLocations.Append(location.Shelf + location.Row + "." + location.Col).ToArray();
+                    }
+                }
+                wineEntry.StorageLocation = storageLocations;
+                
+                wineData.Add(wineEntry);
             }
             return wineData;
         }

@@ -32,7 +32,8 @@
                 materialDesign:ShadowAssist.ShadowDepth="Depth3" Background="#121212">
 
             <DockPanel>
-                
+                <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="asdasdasdasdasd" FontWeight="Normal" Foreground="White" />
+
             </DockPanel>
         </materialDesign:ColorZone>
 
