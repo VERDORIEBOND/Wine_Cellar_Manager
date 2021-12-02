@@ -8,135 +8,171 @@
         Title="MainWindow" Height="800" Width="1200"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        TextElement.FontWeight="Regular"
-        TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
-        Background="#FF202020"
-        FontFamily="{DynamicResource MaterialDesignFont}">
-    <Window.DataContext>
-        <local:DataContext/>
-    </Window.DataContext>
+        Background="{DynamicResource MaterialDesignPaper}">
 
-    <Grid>
+    <Grid HorizontalAlignment="Stretch">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+
         <materialDesign:ColorZone
-                Grid.Column="0" Grid.Row="1"
-                Mode="Custom"
+                Grid.Column="0" Grid.Row="0"
+                Mode="SecondaryDark"
                 Margin="6" VerticalAlignment="Stretch"
                 CornerRadius="16"
-                materialDesign:ShadowAssist.ShadowDepth="Depth3" Background="#FF333533">
-
-            <Grid>
+                materialDesign:ShadowAssist.ShadowDepth="Depth3">
+            <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
                 <DockPanel Grid.Row="0">
-                    <Button Content="Terug" Width="100" Height="40" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10" Background="#FFF3EFF5" Foreground="Black" FontSize="20" Click="Button_Click_Terug"/>
+                    <Button Content="Terug" VerticalAlignment="Top" HorizontalAlignment="Left" Width="100" Height="45" Margin="10" Style="{StaticResource MaterialDesignRaisedDarkButton}" Click="Button_Click_Terug" FontWeight="Bold" FontSize="20"/>
                     <DockPanel HorizontalAlignment="Right">
-                        <Button Content="Verwijderen" Width="140" Height="40" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10" Background="#FFF3EFF5" Foreground="Black" FontSize="20" Click="Button_Click_Verwijderen"/>
-                        <Button Content="Aanpassen" Width="140" Height="40" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10" Background="#FFF3EFF5" Foreground="Black" FontSize="20" Click="Button_Click_Aanpassen"/>
+                        <Button Content="Verwijderen" Width="150" Height="40" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10" Style="{StaticResource MaterialDesignRaisedDarkButton}" FontSize="20"  Click="Button_Click_Verwijderen" FontWeight="Bold"/>
+                        <Button Content="Aanpassen" Width="140" Height="40" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10" Style="{StaticResource MaterialDesignRaisedDarkButton}" FontSize="20" Click="Button_Click_Aanpassen" FontWeight="Bold"/>
                     </DockPanel>
-                </DockPanel>
-
-                <DockPanel Grid.Row="1">
-                    <Border>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="2*"/>
-                        </Grid.ColumnDefinitions>
-                        <Image Grid.Column="0" Width="Auto" Height="Auto" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10" Source="C:\Users\mailm\Documents\OOSDD semester\KBS\WineCellar\WineCellar.GUI\DummyImage\Wijn.jpg"/>
-
-                        
-                            <Grid Grid.Column="1">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="0.8*"/>
-                                    <RowDefinition Height="1*"/>
-                                </Grid.RowDefinitions>
-                                <TextBlock x:Name="WineName" Grid.Row="0" Style="{StaticResource MaterialDesignHeadline6TextBlock}" FontWeight="Bold" Foreground="#FFF3EFF5" FontSize="36" Margin="10" Text="{Binding}">
-                                </TextBlock>
-                                
-                                <Grid Grid.Row="1" Background="White">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="2*"/>
-                                        <ColumnDefinition Width="0.8*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock x:Name="WineDescription" TextWrapping="Wrap" Grid.Column="0" Margin="10" Text="{Binding}" Foreground="Black" FontSize="20"/>
-
-                                    <Grid Grid.Row="1" Grid.Column="1">
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="auto"/>
-                                                <ColumnDefinition Width="*"/>
-                                            </Grid.ColumnDefinitions>
-
-                                            <Canvas>
-                                                <Rectangle Margin="0,10" Width="200" Height="100" Fill="#333533" RadiusX="20" RadiusY="20"/>
-                                            </Canvas>
-
-                                            <StackPanel Grid.Row="0" Margin="10">
-                                                <Label Content="Inkoop: " FontSize="20" Foreground="#FFEE32" FontWeight="Bold"/>
-                                                <Label Content="Verkoop:" FontSize="20" Foreground="#FFEE32" FontWeight="Bold"/>
-                                                <Label Content="Voorraad:" FontSize="20" Foreground="#FFEE32" FontWeight="Bold"/>
-                                            </StackPanel>
-
-                                            <StackPanel Grid.Column="1" Margin="10">
-                                                <Label x:Name="WineBuy" Grid.Column="1" Content="{Binding}" FontSize="20" Foreground="#FFEE32" FontWeight="Bold"/>
-                                                <Label x:Name="WineSell" Grid.Column="1" Content="{Binding}" FontSize="20" Foreground="#FFEE32" FontWeight="Bold"/>
-                                                <Label x:Name="WineStock" Grid.Column="1" Content="{Binding}" FontSize="20" Foreground="#FFEE32" FontWeight="Bold"/>
-                                            </StackPanel>
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-
-                                <Grid Grid.Row="2" Background="White">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="1*"/>
-                                        <ColumnDefinition Width="2*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="1*"/>
-                                        <RowDefinition Height="1*"/>
-                                        <RowDefinition Height="1*"/>
-                                        <RowDefinition Height="1*"/>
-                                        <RowDefinition Height="1*"/>
-                                        <RowDefinition Height="1*"/>
-                                        <RowDefinition Height="1*"/>
-                                    </Grid.RowDefinitions>
-                                    <Label Grid.Column="0" Grid.Row="0" Content="Rating" FontSize="26"/>
-                                    <Label Grid.Column="0" Grid.Row="1" Content="Soort" FontSize="26"/>
-                                    <Label Grid.Column="0" Grid.Row="2" Content="Oogstjaar" FontSize="26"/>
-                                    <Label Grid.Column="0" Grid.Row="3" Content="Inhoud - % Vol" FontSize="26"/>
-                                    <Label Grid.Column="0" Grid.Row="4" Content="Smaak" FontSize="26"/>
-                                    <Label Grid.Column="0" Grid.Row="5" Content="Land" FontSize="26"/>
-                                    <Label Grid.Column="0" Grid.Row="6" Content="Locatie" FontSize="26"/>
-
-                                    <Label x:Name="WineRating" Grid.Column="1" Grid.Row="0" Content="{Binding}" FontSize="26"/>
-                                    <Label x:Name="WineType" Grid.Column="1" Grid.Row="1" Content="{Binding}" FontSize="26"/>
-                                    <Label x:Name="WineHarvestYear" Grid.Column="1" Grid.Row="2" Content="{Binding}" FontSize="26"/>
-                                    <Label x:Name="WineVolume" Grid.Column="1" Grid.Row="3" Content="{Binding}" FontSize="26"/>
-                                    <Label x:Name="WineTaste" Grid.Column="1" Grid.Row="4" Content="{Binding}" FontSize="26"/>
-                                    <Label x:Name="WineCountry" Grid.Column="1" Grid.Row="5" Content="{Binding}" FontSize="26"/>
-                                    <Label x:Name="WineLocation" Grid.Column="1" Grid.Row="6" Content="{Binding}" FontSize="26"/>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                    </Border>
                 </DockPanel>
             </Grid>
         </materialDesign:ColorZone>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.6*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <materialDesign:ColorZone
+            Grid.Column="0" Grid.Row="0"
+                Mode="SecondaryDark"
+                Margin="6" VerticalAlignment="Stretch"
+                CornerRadius="16"
+                materialDesign:ShadowAssist.ShadowDepth="Depth3">
+                <Image Width="auto" Height="auto" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10" Source="C:\Users\mailm\Pictures\Camera Roll\CatenaMalbec.png" />
+            </materialDesign:ColorZone>
+
+            <materialDesign:ColorZone
+                    Grid.Column="1" Grid.Row="0"
+                    Mode="PrimaryDark"
+                    Margin="6" VerticalAlignment="Stretch"
+                    CornerRadius="16"
+                    materialDesign:ShadowAssist.ShadowDepth="Depth3">
+                <Image Width="auto" Height="auto" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10" />
+            </materialDesign:ColorZone>
+
+            <Grid Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="0.6*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <materialDesign:ColorZone
+                    Grid.Column="0" Grid.Row="0"
+                    Mode="SecondaryDark"
+                    Margin="6" VerticalAlignment="Stretch"
+                    CornerRadius="16"
+                    materialDesign:ShadowAssist.ShadowDepth="Depth3">
+                    <TextBlock x:Name="WineName" Text="{Binding}" FontSize="36" FontWeight="Bold" Margin="10"/>
+                </materialDesign:ColorZone>
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Column="0" x:Name="WineDescription" Text="{Binding}" TextWrapping="Wrap" Margin="20" FontSize="20" Foreground="White"/>
+
+                    <materialDesign:ColorZone
+                        Grid.Column="1" Grid.Row="0"
+                        Mode="Custom"
+                        Background="Black"
+                        Foreground="White"
+                        Margin="20,25"
+                        CornerRadius="16"
+                        VerticalAlignment="Top"
+                        materialDesign:ShadowAssist.ShadowDepth="Depth3">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <StackPanel Grid.Column="0">
+                                <Label Content="Inkoop: " FontSize="20" Foreground="White" HorizontalAlignment="Left" Margin="10,6,0,0"/>
+                                <Label Content="Verkoop:" FontSize="20" Foreground="White" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                                <Label Content="Voorraad:" FontSize="20" Foreground="White" HorizontalAlignment="Left" Margin="10,0,0,6"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1">
+                                <Label x:Name="WineBuy" Content="{Binding}" FontSize="20" Foreground="White" HorizontalAlignment="Left" Margin="8,6,0,0"/>
+                                <Label x:Name="WineSell" Content="{Binding}" FontSize="20" Foreground="White" HorizontalAlignment="Left" Margin="8,0,0,0"/>
+                                <Label x:Name="WineStock" Content="{Binding}" FontSize="20" Foreground="White" HorizontalAlignment="Left" Margin="8,0,0,6"/>
+                            </StackPanel>
+                        </Grid>
+                    </materialDesign:ColorZone>
+                </Grid>
+
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Column="0" Grid.Row="0" Content="Rating" FontSize="26" Foreground="White" Margin="10,0,0,0"/>
+                    <Label Grid.Column="0" Grid.Row="1" Content="Soort" FontSize="26" Foreground="White" Margin="10,0,0,0"/>
+                    <Label Grid.Column="0" Grid.Row="2" Content="Oogstjaar" FontSize="26" Foreground="White" Margin="10,0,0,0"/>
+                    <Label Grid.Column="0" Grid.Row="3" Content="Inhoud - % Vol" FontSize="26" Foreground="White" Margin="10,0,0,0"/>
+                    <Label Grid.Column="0" Grid.Row="4" Content="Smaak" FontSize="26" Foreground="White" Margin="10,0,0,0"/>
+                    <Label Grid.Column="0" Grid.Row="5" Content="Land" FontSize="26" Foreground="White" Margin="10,0,0,0"/>
+                    <Label Grid.Column="0" Grid.Row="6" Content="Locatie" FontSize="26" Foreground="White" Margin="10,0,0,0"/>
+
+                    <Label x:Name="WineRating" Grid.Column="1" Grid.Row="0" Content="{Binding}" FontSize="26" Foreground="White"/>
+                    <Label x:Name="WineType" Grid.Column="1" Grid.Row="1" Content="{Binding}" FontSize="26" Foreground="White"/>
+                    <Label x:Name="WineHarvestYear" Grid.Column="1" Grid.Row="2" Content="{Binding}" FontSize="26" Foreground="White"/>
+                    <Label x:Name="WineVolume" Grid.Column="1" Grid.Row="3" Content="{Binding}" FontSize="26" Foreground="White"/>
+                    <ListBox x:Name="WineTaste" Grid.Column="1" Grid.Row="4" Style="{StaticResource MaterialDesignChoiceChipPrimaryListBox}"/>
+                    <Label x:Name="WineCountry" Grid.Column="1" Grid.Row="5" Content="{Binding}" FontSize="26" Foreground="White"/>
+                    <Label x:Name="WineLocation" Grid.Column="1" Grid.Row="6" Content="{Binding}" FontSize="26" Foreground="White"/>
+                </Grid>
+
+            </Grid>
+
+        </Grid>
+
+
+
     </Grid>
 </Window>

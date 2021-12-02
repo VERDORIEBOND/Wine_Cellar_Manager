@@ -10,7 +10,7 @@
         public string OriginCountry { get; set; }
         public int HarvestYear { get; set; }
         public string Taste { get; set; }
-        public int Alcohol { get; set; }
+        public double Alcohol { get; set; }
         public int Rating { get; set; }
         public string Description { get; set; }
 

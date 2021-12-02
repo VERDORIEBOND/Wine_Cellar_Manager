@@ -13,7 +13,7 @@ public class WineData : IWineData
     public string OriginCountry { get; set; } = string.Empty;
     public int HarvestYear { get; set; }
     public string Taste { get; set; } = string.Empty;
-    public int Alcohol { get; set; }
+    public double Alcohol { get; set; }
     public int Rating { get; set; }
     public string Description { get; set; } = string.Empty;
 
@@ -54,9 +54,14 @@ namespace Controller
             foreach (var wine in wineRepo)
             {
                 var wineEntry = new WineData();
+
+                wineEntry.ID = wine.Id;
                 wineEntry.Name = wine.Name;
-                wineEntry.Age = wine.Year;
+                wineEntry.Description = wine.Description;
+                wineEntry.Rating = wine.Rating;
+                wineEntry.HarvestYear = wine.Year;
                 wineEntry.Stock = wine.Content;
+                wineEntry.Alcohol = (double)wine.Alcohol;
                 wineEntry.Type = wine.Type;
                 wineEntry.OriginCountry = wine.Country;
                 wineEntry.BuyPrice = (double)wine.Buy;

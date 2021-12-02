@@ -33,22 +33,22 @@ namespace WineCellar
             mainWindow = new MainWindow();
         }
 
-        private void SetData(int index)
+        private async void SetData(int index)
         {
-            var items = Data.GetWineData();
+            var items = await Data.GetAllWines();
 
             foreach (var item in items)
             {
-                if (index == item.ID)
+                if (item.ID == index + 1)
                 {
                     WineName.DataContext = item.Name;
                     WineDescription.DataContext = item.Description;
 
-                    WineRating.DataContext = item.Rating;
+                    WineRating.DataContext = Rating(item.Rating);
                     WineType.DataContext = item.Type;
                     WineHarvestYear.DataContext = item.HarvestYear;
                     WineVolume.DataContext = item.Alcohol;
-                    WineTaste.DataContext = item.Taste;
+                    Taste(new[] { "Vers", "Bitter", "Zoet" });
                     WineCountry.DataContext = item.OriginCountry;
                     WineLocation.DataContext = item.StorageLocation[0];
 
@@ -59,6 +59,27 @@ namespace WineCellar
             }
         }
 
+        public string Rating(int rating)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            for (int i = 0; i < rating; i++)
+            {
+                sb.Append('★');
+            }
+
+            return sb.ToString();
+        }
+
+        public void Taste(string[] arrayTaste)
+        {         
+            foreach (string item in arrayTaste)
+            {
+                ListBoxItem listBoxItem = new ListBoxItem();
+                listBoxItem.Content = item;
+                WineTaste.Items.Add(listBoxItem);
+            }
+        }
 
         private void Button_Click_Terug(object sender, RoutedEventArgs e)
         {
