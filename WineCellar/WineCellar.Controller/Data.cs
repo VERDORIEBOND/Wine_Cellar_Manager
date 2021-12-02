@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using Model;
+using WineCellar.Model;
 
 public class WineData : IWineData
 {
@@ -41,5 +43,41 @@ namespace Controller
                 new WineData {ID = 9, Name = "La Palma", HarvestYear = 2020, Rating = 2, Type = "Carmenère", Alcohol = 80, OriginCountry = "Chili", Stock = 53, Taste = "Bes, Pruim en Braam", StorageLocation = new []{"A3.6","A18.6","B3.20","B3.21","B3.22","B3.23","B3.24","C2.2"}, BuyPrice = 5.99, SellPrice = 23.99, Description = "De La Palma wijnen worden gemaakt door het Chileense wijnbedrijf Viña la Rosa. Alle wijnen van Viña la Rosa worden duurzaam geproduceerd met respect voor werknemers, leveranciers en nabijgelegen gemeenschap. In deze 100% chardonnay proef je de smaak van tropisch fruit. Denk aan ananas, banaan en een vleugje limoen. Daarnaast ontdek je perzik, gele appel en geroosterde hazelnoten. Hij is rijk, vol en romig. Juist daarom lekker bij gegrilde kip, gerookte zalm of varkenshaas met champignonroomsaus."}
             };
         }
+        
+        //Get all the wine data from the database
+        public static async Task<List<IWineData>> GetAllWines()
+        {
+            var wineRepo = await DataAccess.WineRepo.GetAll();
+            //convert the result to a list of wine data
+            var wineData = new List<IWineData>();
+            
+            foreach (var wine in wineRepo)
+            {
+                var wineEntry = new WineData();
+                wineEntry.Name = wine.Name;
+                wineEntry.Age = wine.Year;
+                wineEntry.Stock = wine.Content;
+                wineEntry.Type = wine.Type;
+                wineEntry.OriginCountry = wine.Country;
+                wineEntry.BuyPrice = (double)wine.Buy;
+                wineEntry.SellPrice = (double)wine.Sell;
+                
+                var storageLocations = new string[] {};
+                foreach (var location in await DataAccess.LocationRepo.GetByWine(wine.Id))
+                {
+                    //create array and add the location to it
+                    if (location.IdWine == wine.Id)
+                    {
+                        storageLocations = storageLocations.Append(location.Shelf + location.Row + "." + location.Col).ToArray();
+                    }
+                }
+                wineEntry.StorageLocation = storageLocations;
+                
+                wineData.Add(wineEntry);
+            }
+            return wineData;
+        }
+
+        
     }
 }

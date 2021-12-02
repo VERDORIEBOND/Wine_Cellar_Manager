@@ -31,8 +31,22 @@ public class WineRepository
 
     public async Task<int> Update(WineRecord wine)
     {
+        DynamicParameters parameters = new();
+        parameters.Add("Id", wine.Id);
+        parameters.Add("Name", wine.Name);
+        parameters.Add("Buy", wine.Buy, dbType: DbType.Decimal, precision: 10, scale: 2);
+        parameters.Add("Sell", wine.Sell, dbType: DbType.Decimal, precision: 10, scale: 2);
+        parameters.Add("TypeId", wine.TypeId);
+        parameters.Add("CountryId", wine.CountryId);
+        parameters.Add("Picture", wine.Picture);
+        parameters.Add("Year", wine.Year);
+        parameters.Add("Content", wine.Content);
+        parameters.Add("Alcohol", wine.Alcohol, dbType: DbType.Decimal, precision: 10, scale: 2);
+        parameters.Add("Rating", wine.Rating);
+        parameters.Add("Description", wine.Description);
+
         using var conn = DataAccess.GetConnection;
-        return await conn.ExecuteAsync(Queries.Wine_Update, wine, commandType: CommandType.StoredProcedure);
+        return await conn.ExecuteAsync(Queries.Wine_Update, parameters, commandType: CommandType.StoredProcedure);
     }
 
     public async Task<int> Create(WineRecord wine)
@@ -41,8 +55,8 @@ public class WineRepository
         parameters.Add("Name", wine.Name);
         parameters.Add("Buy", wine.Buy, dbType: DbType.Decimal, precision: 10, scale: 2);
         parameters.Add("Sell", wine.Sell, dbType: DbType.Decimal, precision: 10, scale: 2);
-        parameters.Add("Type", wine.Type);
-        parameters.Add("Country", wine.Country);
+        parameters.Add("TypeId", wine.TypeId);
+        parameters.Add("CountryId", wine.CountryId);
         parameters.Add("Picture", wine.Picture);
         parameters.Add("Year", wine.Year);
         parameters.Add("Content", wine.Content);
