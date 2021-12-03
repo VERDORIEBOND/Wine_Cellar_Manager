@@ -13,7 +13,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using WineCellar.Model;
 
 namespace WineCellar
 {
@@ -43,6 +42,7 @@ namespace WineCellar
             "Nigeria"
         };
 
+        
         public RegisterWine()
         {
             InitializeComponent();
@@ -104,9 +104,13 @@ namespace WineCellar
 
         private bool isValidString(String toValidate)
         {
-            return toValidate != null 
+            if (toValidate != null 
                 && toValidate.Length > 0 
-                && toValidate.Length < 255;
+                && toValidate.Length < 255)
+            {
+                return true;
+            }
+            return false;
         }
 
         private bool isInList(String toValidate, List<String> list)
@@ -140,21 +144,10 @@ namespace WineCellar
             bool validate = this.Validation();
             if (validate)
             {
-                
-                WineData wine = new WineData ();
-
-                wine.Name = name.Text;
-                wine.Age = Convert.ToInt32(year.Text);
-                wine.Type = type.Text;
-                wine.OriginCountry = country.Text;
-                wine.Stock = 0;
-                wine.BuyPrice = Convert.ToDouble(buy.Text);
-                wine.SellPrice = Convert.ToDouble(sell.Text);
-
-                Controller.Data.Create(wine);
                 MessageBox.Show("Wine geregistreerd!");
             }
         }
+
 
         private bool Validation()
         {

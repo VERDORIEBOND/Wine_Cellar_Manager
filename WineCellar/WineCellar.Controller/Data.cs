@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using Controller.Repositories;
 using Model;
-using WineCellar.Model;
 
 public class WineData : IWineData
 {
@@ -14,6 +12,7 @@ public class WineData : IWineData
     public double BuyPrice { get; set; }
     public double SellPrice { get; set; }
 }
+
 
 namespace Controller
 {
@@ -34,12 +33,6 @@ namespace Controller
                 new WineData {Name = "La Palma", Age = 2019, Type = "Chardonnay", OriginCountry = "Chili", Stock = 2, StorageLocation = new []{"A3.6","A18.6","B3.20","B3.21","B3.22","B3.23","B3.24","C2.2"}, BuyPrice = 5.99, SellPrice = 23.99},
                 new WineData {Name = "La Palma", Age = 2020, Type = "Carmenère", OriginCountry = "Chili", Stock = 53, StorageLocation = new []{"A3.6","A18.6","B3.20","B3.21","B3.22","B3.23","B3.24","C2.2"}, BuyPrice = 5.99, SellPrice = 23.99}
             };
-        }
-
-        public static async void Create (WineRecord wine)
-        {
-            WineRepository repo = new WineRepository();
-            await repo.Create(wine);
         }
     }
 }
