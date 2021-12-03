@@ -25,10 +25,6 @@ namespace WineCellar
     {
         public MainWindow()
         {
-            //var items = Controller.Data.GetWineData();
-            //WineDataBinding.ItemsSource = items;
-            
-            
             InitializeComponent();
             FillList();
             var StorageData = (ComboBox)FindName("StorageData");
@@ -38,18 +34,7 @@ namespace WineCellar
         public async void FillList()
         {
             var items = await Data.GetAllWines();
-            foreach (var VARIABLE in items)
-            {
-                Debug.Print(VARIABLE.Name);
-            }
             WineDataBinding.ItemsSource = items;
-            foreach (var wine in items)
-            {
-                foreach (var storagelocation in wine.StorageLocation)
-                {
-                    
-                }
-            }
         }
     }
 }
