@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Dapper;
 
 namespace Controller;
 
@@ -30,6 +31,21 @@ public static class DataAccess
     public static void SetConnectionString(string connectionString)
     {
         _ConnectionString = connectionString;
+    }
+
+    public static async Task<bool> CheckConnectionFor(string connectionString)
+    {
+        try
+        {
+            using var conn = new SqlConnection(connectionString);
+            int value = await conn.QuerySingleAsync<int>("SELECT 12345", commandType: CommandType.Text);
+            
+            return value == 12345;
+        }
+        catch (Exception)
+        {
+            return false;
+        }
     }
 
     public static IDbConnection GetConnection
