@@ -53,7 +53,7 @@ namespace WineCellar
                     return;
 
                 DatabaseInformation sdb = selection.GetSelectedDatabase();
-                DataAccess.SetConnectionString($"Data Source={sdb.Host},{sdb.Port};Initial Catalog={sdb.Database};User ID={sdb.User};Password={sdb.Password};Connect Timeout=60");
+                DataAccess.SetConnectionString(sdb.ConnectionString);
 
                 MainWindow mainWindow = new();
                 MainWindow = mainWindow;

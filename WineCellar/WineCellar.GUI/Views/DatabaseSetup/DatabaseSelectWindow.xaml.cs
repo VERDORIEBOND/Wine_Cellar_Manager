@@ -43,16 +43,25 @@ namespace WineCellar.Views.DatabaseSetup
             _DatabaseNewWindow.ShowDialog();
         }
 
-        private void ButtonConnect_Click(object sender, RoutedEventArgs e)
+        private async void ButtonConnect_Click(object sender, RoutedEventArgs e)
         {
             if (_DatabaseSelectContext.SelectedDatabase is not null)
             {
-                DialogResult = true;
-                Close();
-            }
-            else
-            {
-                MessageBox.Show("Select a database before proceeding.");
+                progressConnect.Visibility = Visibility.Visible;
+
+                bool success = await DataAccess.CheckConnectionFor(_DatabaseSelectContext.SelectedDatabase.ConnectionString);
+
+                progressConnect.Visibility = Visibility.Hidden;
+
+                if (success)
+                {
+                    DialogResult = true;
+                    Close();
+                }
+                else
+                {
+                    MessageBox.Show("Couldn't connect to the database!", "Connection failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
 
@@ -65,6 +74,18 @@ namespace WineCellar.Views.DatabaseSetup
         {
             if (DialogResult == false)
                 Application.Current.Shutdown();
+        }
+
+        private void Database_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (_DatabaseSelectContext.SelectedDatabase is not null)
+            {
+                btnConnect.IsEnabled = true;
+            }
+            else
+            {
+                btnConnect.IsEnabled = false;
+            }
         }
     }
 }

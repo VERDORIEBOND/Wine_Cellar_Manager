@@ -14,4 +14,6 @@ public class DatabaseInformation
     public string? User { get; set; }
     public string? Password { get; set; }
     public string? Database { get; set; }
+
+    public string ConnectionString => $"Data Source={Host},{Port};Initial Catalog={Database};User ID={User};Password={Password};Connect Timeout=30";
 }
