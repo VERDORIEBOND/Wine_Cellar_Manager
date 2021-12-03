@@ -13,7 +13,7 @@ namespace Controller;
 
 public static class DataAccess
 {
-    private static string _ConnectionString { get; set; }
+    private static string? _ConnectionString { get; set; }
     public static IConfiguration? Configuration { get; private set; }
     public static WineRepository WineRepo { get; } = new();
     public static CountryRepository CountryRepo { get; } = new();

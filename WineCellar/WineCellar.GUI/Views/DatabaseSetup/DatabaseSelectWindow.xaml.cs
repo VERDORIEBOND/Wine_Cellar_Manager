@@ -48,14 +48,23 @@ namespace WineCellar.Views.DatabaseSetup
             if (_DatabaseSelectContext.SelectedDatabase is not null)
             {
                 DialogResult = true;
-                Debug.WriteLine("Attempting to close dialog");
                 Close();
+            }
+            else
+            {
+                MessageBox.Show("Select a database before proceeding.");
             }
         }
 
         public DatabaseInformation GetSelectedDatabase()
         {
             return _DatabaseSelectContext.SelectedDatabase;
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            if (DialogResult == false)
+                Application.Current.Shutdown();
         }
     }
 }

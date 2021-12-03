@@ -8,7 +8,11 @@
         Title="New connection..." ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         Height="auto" MaxHeight="250"
-        MinWidth="300" MaxWidth="300" Width="300">
+        MinWidth="300" MaxWidth="300" Width="300"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}">
     <Grid Margin="10 10 10 10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
