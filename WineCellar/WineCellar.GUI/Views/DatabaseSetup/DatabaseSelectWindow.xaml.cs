@@ -78,14 +78,7 @@ namespace WineCellar.Views.DatabaseSetup
 
         private void Database_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (_DatabaseSelectContext.SelectedDatabase is not null)
-            {
-                btnConnect.IsEnabled = true;
-            }
-            else
-            {
-                btnConnect.IsEnabled = false;
-            }
+            btnConnect.IsEnabled = _DatabaseSelectContext.SelectedDatabase is not null;
         }
     }
 }
