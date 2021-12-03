@@ -36,7 +36,7 @@ namespace WineCellar
             List<DatabaseInformation> databases = new();
             foreach (IConfigurationSection db in Configuration.GetSection("Databases").GetChildren())
             {
-                DatabaseInformation dbInfo = db.Get<DatabaseInformation>();
+                var dbInfo = db.Get<DatabaseInformation>();
                 dbInfo.Name = db.Key;
                 databases.Add(dbInfo);
             }
