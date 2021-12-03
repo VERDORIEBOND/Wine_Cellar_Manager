@@ -21,7 +21,13 @@ namespace WineCellar
     /// </summary>
     public partial class RegisterWine : Window
     {
-        private TextBox FilePath;
+
+        private Dictionary<string, string> 
+            placeholders = new Dictionary<string, string>();
+
+        private string lastFocus = "";
+
+        //private TextBox FilePath;
         private List<String> countries = new List<String> {
             "Netherlands",
             "Italy",
@@ -36,11 +42,12 @@ namespace WineCellar
             "Nigeria"
         };
 
+        
         public RegisterWine()
         {
             InitializeComponent();
 
-            this.FilePath = filePath;
+            //this.FilePath = filePath;
             this.country.ItemsSource = countries;
         }
 
@@ -49,6 +56,32 @@ namespace WineCellar
             MainWindow window = new MainWindow();
             window.Show();
             this.Close();
+        }
+        private void PlaceholderFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox textBox = (TextBox) sender;
+
+            if (this.placeholders.ContainsValue(textBox.Text))
+            {
+                textBox.Text = "";
+            }
+            else
+            {
+                if (!this.placeholders.ContainsKey(textBox.Name))
+                {
+                    this.placeholders[textBox.Name] = textBox.Text;
+                    textBox.Text = "";
+                }
+            }            
+        }
+
+        private void PlaceholderLostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+            if (textBox.Text.Length == 0)
+            {
+                textBox.Text = this.placeholders[textBox.Name];
+            }
         }
 
         private void BrowseFiles(object sender, RoutedEventArgs e)
@@ -65,7 +98,7 @@ namespace WineCellar
                 {
                     var fileContent = reader.ReadToEnd();
                 }
-                FilePath.Text = openFileDialog.FileName;
+                //FilePath.Text = openFileDialog.FileName;
             }
         }
 
