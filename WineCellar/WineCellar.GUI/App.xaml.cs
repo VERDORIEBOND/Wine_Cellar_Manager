@@ -1,6 +1,7 @@
 ﻿using Controller;
 using Controller.Repositories;
 using Microsoft.Extensions.Configuration;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -32,14 +33,27 @@ namespace WineCellar
             // This creates the IConfiguration object
             Configuration = builder.Build();
 
+            List<DatabaseInformation> databases = new();
+            foreach (IConfigurationSection db in Configuration.GetSection("Databases").GetChildren())
+            {
+                DatabaseInformation dbInfo = db.Get<DatabaseInformation>();
+                dbInfo.Name = db.Key;
+                databases.Add(dbInfo);
+            }
+
             // DataAccess requires the configuration to create SqlConnections
             DataAccess.SetConfiguration(Configuration);
 
-            var selection = new DatabaseSelectWindow();
+            ShutdownMode = ShutdownMode.OnExplicitShutdown;
+            DatabaseSelectWindow selection = new(databases);
             selection.ShowDialog();
 
-            var mainWindow = new MainWindow();
+            var sdb = selection.GetSelectedDatabase();
+            Debug.WriteLine($"[{sdb.Name}] Data Source={sdb.Host},{sdb.Port};Initial Catalog={sdb.Database};User ID={sdb.User};Password={sdb.Password};Connect Timeout=60");
+
+            MainWindow mainWindow = new();
             MainWindow = mainWindow;
+            ShutdownMode = ShutdownMode.OnMainWindowClose;
             mainWindow.Show();
         }
     }

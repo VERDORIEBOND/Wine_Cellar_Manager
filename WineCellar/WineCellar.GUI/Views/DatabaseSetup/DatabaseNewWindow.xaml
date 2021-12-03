@@ -21,19 +21,22 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <Label Grid.Column="0" Grid.Row="0">IP:</Label>
+        <Label Grid.Column="0" Grid.Row="0">Host:</Label>
         <TextBox Grid.Column="1" Grid.Row="0"/>
-        <Label Grid.Column="0" Grid.Row="1">Username:</Label>
+        <Label Grid.Column="0" Grid.Row="1">Port:</Label>
         <TextBox Grid.Column="1" Grid.Row="1"/>
-        <Label Grid.Column="0" Grid.Row="2">Password:</Label>
+        <Label Grid.Column="0" Grid.Row="2">Username:</Label>
         <TextBox Grid.Column="1" Grid.Row="2"/>
-        <Button Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Margin="0 5 0 5" HorizontalAlignment="Center">Connect</Button>
-        <Label Grid.Column="0" Grid.Row="4">Database:</Label>
-        <ComboBox Grid.Column="1" Grid.Row="4" IsEnabled="False">
+        <Label Grid.Column="0" Grid.Row="3">Password:</Label>
+        <TextBox Grid.Column="1" Grid.Row="3"/>
+        <Button Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Margin="0 5 0 5" HorizontalAlignment="Center">Connect</Button>
+        <Label Grid.Column="0" Grid.Row="5">Database:</Label>
+        <ComboBox Grid.Column="1" Grid.Row="5" IsEnabled="False">
             <ComboBoxItem Content="WineDB"/>
             <ComboBoxItem Content="TestDB"/>
         </ComboBox>
-        <Button Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Margin="0 5 0 5" HorizontalAlignment="Center" IsEnabled="False">Add connection</Button>
+        <Button Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Margin="0 5 0 5" HorizontalAlignment="Center" IsEnabled="False">Add connection</Button>
     </Grid>
 </Window>
