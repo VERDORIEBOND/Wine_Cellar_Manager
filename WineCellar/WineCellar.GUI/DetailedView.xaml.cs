@@ -1,4 +1,5 @@
 ﻿using Controller;
+using Model;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,8 @@ namespace WineCellar
     public partial class DetailedView : Window
     {
         private MainWindow mainWindow;
+        private int indexID;
+        private string testID;
 
         public DetailedView(int value)
         {
@@ -35,11 +38,12 @@ namespace WineCellar
 
         private async void SetData(int index)
         {
-            var items = await Data.GetAllWines();
+            List<IWineData> items = await Data.GetAllWines();
+            int lijstIndex = 0;
 
             foreach (var item in items)
             {
-                if (item.ID == index + 1)
+                if (index == lijstIndex)
                 {
                     WineName.DataContext = item.Name;
                     WineDescription.DataContext = item.Description;
@@ -47,7 +51,7 @@ namespace WineCellar
                     WineRating.DataContext = Rating(item.Rating);
                     WineType.DataContext = item.Type;
                     WineHarvestYear.DataContext = item.HarvestYear;
-                    WineVolume.DataContext = item.Alcohol;
+                    WineVolume.DataContext = item.Alcohol + "%";
                     Taste(new[] { "Vers", "Bitter", "Zoet" });
                     WineCountry.DataContext = item.OriginCountry;
                     WineLocation.DataContext = item.StorageLocation[0];
@@ -55,6 +59,14 @@ namespace WineCellar
                     WineBuy.DataContext = item.BuyPrice;
                     WineSell.DataContext = item.SellPrice;
                     WineStock.DataContext = item.Stock;
+
+                    indexID = item.ID;
+                    testID = item.Name;
+                    break;
+                }
+                else
+                {
+                    lijstIndex++;
                 }
             }
         }
@@ -72,7 +84,7 @@ namespace WineCellar
         }
 
         public void Taste(string[] arrayTaste)
-        {         
+        {
             foreach (string item in arrayTaste)
             {
                 ListBoxItem listBoxItem = new ListBoxItem();
@@ -87,9 +99,11 @@ namespace WineCellar
             mainWindow.Show();
         }
 
-        private void Button_Click_Verwijderen(object sender, RoutedEventArgs e)
+        private async void Button_Click_Verwijderen(object sender, RoutedEventArgs e)
         {
-
+            MessageBox.Show(indexID.ToString());
+            MessageBox.Show(testID);
+            await Data.DeleteWine(indexID);
         }
 
         private void Button_Click_Aanpassen(object sender, RoutedEventArgs e)

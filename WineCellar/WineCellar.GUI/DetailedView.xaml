@@ -85,11 +85,12 @@
 
                 <materialDesign:ColorZone
                     Grid.Column="0" Grid.Row="0"
-                    Mode="SecondaryDark"
+                    Mode="SecondaryLight"
                     Margin="6" VerticalAlignment="Stretch"
                     CornerRadius="16"
+                    Background="White"
                     materialDesign:ShadowAssist.ShadowDepth="Depth3">
-                    <TextBlock x:Name="WineName" Text="{Binding}" FontSize="36" FontWeight="Bold" Margin="10"/>
+                    <TextBlock x:Name="WineName" Foreground="Black" Text="{Binding}" FontSize="36" FontWeight="Bold" Margin="10"/>
                 </materialDesign:ColorZone>
 
                 <Grid Grid.Row="1">
@@ -105,8 +106,7 @@
 
                     <materialDesign:ColorZone
                         Grid.Column="1" Grid.Row="0"
-                        Mode="Custom"
-                        Background="Black"
+                        Mode="SecondaryDark"
                         Foreground="White"
                         Margin="20,25"
                         CornerRadius="16"

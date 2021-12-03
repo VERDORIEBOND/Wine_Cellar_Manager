@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using Model;
 using WineCellar.Model;
@@ -50,10 +51,10 @@ namespace Controller
             var wineRepo = await DataAccess.WineRepo.GetAll();
             //convert the result to a list of wine data
             var wineData = new List<IWineData>();
-            
+
             foreach (var wine in wineRepo)
             {
-                var wineEntry = new WineData();
+                WineData wineEntry = new WineData();
 
                 wineEntry.ID = wine.Id;
                 wineEntry.Name = wine.Name;
@@ -66,7 +67,7 @@ namespace Controller
                 wineEntry.OriginCountry = wine.Country;
                 wineEntry.BuyPrice = (double)wine.Buy;
                 wineEntry.SellPrice = (double)wine.Sell;
-                
+
                 var storageLocations = new string[] {};
                 foreach (var location in await DataAccess.LocationRepo.GetByWine(wine.Id))
                 {
@@ -80,9 +81,13 @@ namespace Controller
                 
                 wineData.Add(wineEntry);
             }
+
             return wineData;
         }
 
-        
+        public static async Task DeleteWine(int wineId)
+        {
+            await DataAccess.WineRepo.Delete(wineId);
+        }
     }
 }
