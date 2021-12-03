@@ -1,5 +1,6 @@
 ﻿using Controller.Repositories;
 using Microsoft.Extensions.Configuration;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,6 +13,7 @@ namespace Controller;
 
 public static class DataAccess
 {
+    private static string _ConnectionString { get; set; }
     public static IConfiguration? Configuration { get; private set; }
     public static WineRepository WineRepo { get; } = new();
     public static CountryRepository CountryRepo { get; } = new();
@@ -22,13 +24,19 @@ public static class DataAccess
     public static void SetConfiguration(IConfiguration config)
     {
         Configuration = config;
+        _ConnectionString = config.GetConnectionString("DefaultConnection");
+    }
+
+    public static void SetConnectionString(string connectionString)
+    {
+        _ConnectionString = connectionString;
     }
 
     public static IDbConnection GetConnection
     {
         get
         {
-            return new SqlConnection(Configuration.GetConnectionString("DefaultConnection"));
+            return new SqlConnection(_ConnectionString);
         }
     }
 }

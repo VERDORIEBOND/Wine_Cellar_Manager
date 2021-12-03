@@ -46,15 +46,22 @@ namespace WineCellar
 
             ShutdownMode = ShutdownMode.OnExplicitShutdown;
             DatabaseSelectWindow selection = new(databases);
-            selection.ShowDialog();
+            bool? success = selection.ShowDialog();
 
-            var sdb = selection.GetSelectedDatabase();
-            Debug.WriteLine($"[{sdb.Name}] Data Source={sdb.Host},{sdb.Port};Initial Catalog={sdb.Database};User ID={sdb.User};Password={sdb.Password};Connect Timeout=60");
+            if (success is not null)
+            {
+                if ((bool)!success)
+                    return;
 
-            MainWindow mainWindow = new();
-            MainWindow = mainWindow;
-            ShutdownMode = ShutdownMode.OnMainWindowClose;
-            mainWindow.Show();
+                DatabaseInformation sdb = selection.GetSelectedDatabase();
+                Debug.WriteLine($"[{sdb.Name}] Data Source={sdb.Host},{sdb.Port};Initial Catalog={sdb.Database};User ID={sdb.User};Password={sdb.Password};Connect Timeout=60");
+
+                MainWindow mainWindow = new();
+                MainWindow = mainWindow;
+                ShutdownMode = ShutdownMode.OnMainWindowClose;
+                mainWindow.Show();
+            }
+            
         }
     }
 }
