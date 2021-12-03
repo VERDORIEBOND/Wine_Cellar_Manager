@@ -33,6 +33,7 @@ namespace WineCellar
             // This creates the IConfiguration object
             Configuration = builder.Build();
 
+            // Retrieve database information from appsettings
             List<DatabaseInformation> databases = new();
             foreach (IConfigurationSection db in Configuration.GetSection("Databases").GetChildren())
             {
@@ -41,9 +42,7 @@ namespace WineCellar
                 databases.Add(dbInfo);
             }
 
-            // DataAccess requires the configuration to create SqlConnections
-            DataAccess.SetConfiguration(Configuration);
-
+            // Temporarily disable shutdown on mainwindow close, as closing dialog would also cause it to shutdown
             ShutdownMode = ShutdownMode.OnExplicitShutdown;
             DatabaseSelectWindow selection = new(databases);
             bool? success = selection.ShowDialog();
@@ -54,7 +53,7 @@ namespace WineCellar
                     return;
 
                 DatabaseInformation sdb = selection.GetSelectedDatabase();
-                Debug.WriteLine($"[{sdb.Name}] Data Source={sdb.Host},{sdb.Port};Initial Catalog={sdb.Database};User ID={sdb.User};Password={sdb.Password};Connect Timeout=60");
+                DataAccess.SetConnectionString($"Data Source={sdb.Host},{sdb.Port};Initial Catalog={sdb.Database};User ID={sdb.User};Password={sdb.Password};Connect Timeout=60");
 
                 MainWindow mainWindow = new();
                 MainWindow = mainWindow;
