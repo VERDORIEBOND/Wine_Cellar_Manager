@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WineCellar.Views.DatabaseSetup"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:dataContexts="clr-namespace:WineCellar.DataContexts"
+        d:DataContext="{d:DesignInstance dataContexts:DatabaseSelectContext}"
         mc:Ignorable="d"
         Title="Database selection" ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
@@ -21,20 +23,17 @@
                 <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0" Grid.Column="0">Database:</Label>
-            <ComboBox Grid.Row="0" Grid.Column="1" SelectedIndex="0">
-                <ComboBoxItem Content="WineDB"></ComboBoxItem>
-                <ComboBoxItem Content="WineDB2"></ComboBoxItem>
-                <ComboBoxItem Content="WineDB3"></ComboBoxItem>
+            <ComboBox Grid.Row="0" Grid.Column="1" SelectedIndex="0" ItemsSource="{Binding Databases}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedDatabase}">
             </ComboBox>
             <Label Grid.Row="1" Grid.Column="0">Username:</Label>
-            <Label Grid.Row="1" Grid.Column="1">sa</Label>
+            <Label Grid.Row="1" Grid.Column="1" Content="{Binding SelectedDatabase.User}"/>
         </Grid>
         <Grid VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0 0 5 5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button FontSize="10" Grid.Column="1">Connect</Button>
+            <Button FontSize="10" Grid.Column="1" Click="ButtonConnect_Click">Connect</Button>
             <Button FontSize="10" Grid.Column="0" Margin="0 0 5 0" Click="ButtonNewConnection_Click">New connection</Button>
         </Grid>
     </Grid>

@@ -1,4 +1,5 @@
 ﻿using Controller;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -13,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WineCellar.DataContexts;
 
 namespace WineCellar.Views.DatabaseSetup
 {
@@ -22,10 +24,17 @@ namespace WineCellar.Views.DatabaseSetup
     public partial class DatabaseSelectWindow : Window
     {
         private DatabaseNewWindow _DatabaseNewWindow { get; set; }
+        private DatabaseSelectContext _DatabaseSelectContext { get; set; }
 
-        public DatabaseSelectWindow()
+        public DatabaseSelectWindow(List<DatabaseInformation> databases)
         {
             InitializeComponent();
+
+            DatabaseSelectContext context = new();
+            context.Databases = databases;
+
+            _DatabaseSelectContext = context;
+            DataContext = context;
         }
 
         private void ButtonNewConnection_Click(object sender, RoutedEventArgs e)
@@ -34,9 +43,19 @@ namespace WineCellar.Views.DatabaseSetup
             _DatabaseNewWindow.ShowDialog();
         }
 
-        private async void ButtonConnect_Click(object sender, RoutedEventArgs e)
+        private void ButtonConnect_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            if (_DatabaseSelectContext.SelectedDatabase is not null)
+            {
+                DialogResult = true;
+                Debug.WriteLine("Attempting to close dialog");
+                Close();
+            }
+        }
+
+        public DatabaseInformation GetSelectedDatabase()
+        {
+            return _DatabaseSelectContext.SelectedDatabase;
         }
     }
 }
