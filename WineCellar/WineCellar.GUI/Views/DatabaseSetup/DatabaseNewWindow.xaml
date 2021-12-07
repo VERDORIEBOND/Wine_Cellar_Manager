@@ -4,10 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WineCellar.Views.DatabaseSetup"
+        xmlns:dataContexts="clr-namespace:WineCellar.DataContexts"
+        d:DataContext="{d:DesignInstance dataContexts:DatabaseNewContext}"
         mc:Ignorable="d"
         Title="New connection..." ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
-        Height="auto" MaxHeight="250"
+        Height="auto" MaxHeight="300"
         MinWidth="300" MaxWidth="300" Width="300"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextOptions.TextFormattingMode="Ideal"
@@ -26,21 +28,23 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Label Grid.Column="0" Grid.Row="0">Host:</Label>
-        <TextBox Grid.Column="1" Grid.Row="0"/>
+        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding InputHost}" TabIndex="1"/>
         <Label Grid.Column="0" Grid.Row="1">Port:</Label>
-        <TextBox Grid.Column="1" Grid.Row="1"/>
+        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding InputPort}" TabIndex="2" PreviewTextInput="PortTextBox_PreviewTextInput"/>
         <Label Grid.Column="0" Grid.Row="2">Username:</Label>
-        <TextBox Grid.Column="1" Grid.Row="2"/>
+        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding InputUsername}" TabIndex="3"/>
         <Label Grid.Column="0" Grid.Row="3">Password:</Label>
-        <TextBox Grid.Column="1" Grid.Row="3"/>
-        <Button Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Margin="0 5 0 5" HorizontalAlignment="Center">Connect</Button>
-        <Label Grid.Column="0" Grid.Row="5">Database:</Label>
-        <ComboBox Grid.Column="1" Grid.Row="5" IsEnabled="False">
+        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding InputPassword}" TabIndex="4"/>
+        <Button Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Margin="0 5 0 5" HorizontalAlignment="Center" Click="ConnectButton_Click">Connect</Button>
+        <ProgressBar x:Name="progressConnection" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Margin="15 5 15 5" Height="15" IsIndeterminate="True" Visibility="Hidden"/>
+        <Label Grid.Column="0" Grid.Row="6">Database:</Label>
+        <ComboBox Grid.Column="1" Grid.Row="6" IsEnabled="False">
             <ComboBoxItem Content="WineDB"/>
             <ComboBoxItem Content="TestDB"/>
         </ComboBox>
-        <Button Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Margin="0 5 0 5" HorizontalAlignment="Center" IsEnabled="False">Add connection</Button>
+        <Button Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" Margin="0 5 0 5" HorizontalAlignment="Center" IsEnabled="False" Click="AddButton_Click">Add connection</Button>
     </Grid>
 </Window>
