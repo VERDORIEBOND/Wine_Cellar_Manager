@@ -34,7 +34,7 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-
+                    
                     <StackPanel Margin="15 10 15 10" Grid.Column="0">
                         <Button
                             Style="{StaticResource MaterialDesignRaisedDarkButton}"
@@ -48,10 +48,10 @@
                             Content="--------" />
                     </StackPanel>
                 </Grid>
-
+                
             </DockPanel>
         </materialDesign:ColorZone>
-
+        
         <materialDesign:ColorZone
                 Grid.Column="0" Grid.Row="1" Grid.RowSpan="2"
                 Mode="SecondaryDark"
@@ -194,7 +194,7 @@
                             x:Name="BasicRatingBar"
                             Value="3" />
                     </StackPanel>
-
+                    
                 </StackPanel>
             </DockPanel>
         </materialDesign:ColorZone>
@@ -249,8 +249,7 @@
                                                 Foreground="White"
                                                 Padding="8"
                                                 CornerRadius="8"
-                                                VerticalAlignment="Center">
-                                                <!--BB86FC -->
+                                                VerticalAlignment="Center"><!--BB86FC -->
                                                 <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" FontWeight="Normal" ><Run Text="Inkoop: "/><Run Text="{Binding BuyPrice}"/><LineBreak/><Run Text="Verkoop:"/><Run Text="{Binding SellPrice}"/></TextBlock>
                                             </materialDesign:ColorZone>
                                         </Border>
