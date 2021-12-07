@@ -28,15 +28,19 @@ namespace WineCellar
         public MainWindow()
         {
             InitializeComponent();
+
+            WineDataBinding.Items.Clear();
             FillList();
-            var StorageData = (ComboBox)FindName("StorageData");
-            
         }
 
         public async void FillList()
         {
+            WineDataBinding.ItemsSource = null;
+            WineDataBinding.Items.Refresh();
+
             var items = await Data.GetAllWines();
             WineDataBinding.ItemsSource = items;
+            WineDataBinding.Items.Refresh();
         }
 
         private void ListViewItem_Clicked(object sender, MouseButtonEventArgs e)
@@ -47,8 +51,9 @@ namespace WineCellar
             {
                 detailedView = new DetailedView(WineDataBinding.SelectedIndex);
 
-                Close();
+                Application.Current.MainWindow = detailedView;
                 detailedView.Show();
+                Close();
             }
         }
     }
