@@ -44,9 +44,10 @@ internal static class Queries
     #endregion
 
     #region StoredProcedures for table StorageLocation
-    public const string StorageLocation_GetAll =    "spStorageLocation_GetAll";
-    public const string StorageLocation_GetByWine = "spStorageLocation_GetByWine";
-    public const string StorageLocation_Insert =    "spStorageLocation_Insert";
-    public const string StorageLocation_Delete =    "spStorageLocation_Delete";
+    public const string StorageLocation_GetAll =                "spStorageLocation_GetAll";
+    public const string StorageLocation_GetByWine =             "spStorageLocation_GetByWine";
+    public const string StorageLocation_Insert =                "spStorageLocation_Insert";
+    public const string StorageLocation_Delete =                "spStorageLocation_Delete";
+    public const string StorageLocation_DeleteAllByWine =       "spStorageLocation_DeleteAllByWine";
     #endregion
 }
