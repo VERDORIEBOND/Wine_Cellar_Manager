@@ -27,9 +27,16 @@ namespace WineCellar
         private int indexID;
         private string testID;
 
+        private IConfiguration? Configuration { get; set; }
+
         public DetailedView(int value)
         {
             InitializeComponent();
+
+            Configuration = ConfigurationUtility.BuildConfiguration();
+
+            // DataAccess requires the configuration to create SqlConnections
+            DataAccess.SetConfiguration(Configuration);
 
             SetData(value);
 
@@ -52,9 +59,9 @@ namespace WineCellar
                     WineType.DataContext = item.Type;
                     WineHarvestYear.DataContext = item.HarvestYear;
                     WineVolume.DataContext = item.Alcohol + "%";
-                    Taste(new[] { "Vers", "Bitter", "Zoet" });
+                    Taste(item.Taste);
                     WineCountry.DataContext = item.OriginCountry;
-                    WineLocation.DataContext = item.StorageLocation[0];
+                    //WineLocation.DataContext = item.StorageLocation[0];
 
                     WineBuy.DataContext = item.BuyPrice;
                     WineSell.DataContext = item.SellPrice;
@@ -87,8 +94,7 @@ namespace WineCellar
         {
             foreach (string item in arrayTaste)
             {
-                ListBoxItem listBoxItem = new ListBoxItem();
-                listBoxItem.Content = item;
+                ListBoxItem listBoxItem = new ListBoxItem { Content = item };
                 WineTaste.Items.Add(listBoxItem);
             }
         }
@@ -101,9 +107,9 @@ namespace WineCellar
 
         private async void Button_Click_Verwijderen(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(indexID.ToString());
-            MessageBox.Show(testID);
-            await Data.DeleteWine(indexID);
+            await Data.DeleteWine(indexID); //System.Data.SqlClient.SqlException: 'The DELETE statement conflicted with the REFERENCE constraint "FK_Wine_ToType". The conflict occurred in database "WineDB", table "dbo.Wine", column 'TypeId'.
+            Close();
+            mainWindow.Show();
         }
 
         private void Button_Click_Aanpassen(object sender, RoutedEventArgs e)
