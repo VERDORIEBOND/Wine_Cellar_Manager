@@ -1,4 +1,5 @@
 ﻿using Controller;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -39,10 +40,12 @@ namespace WineCellar.Views.DatabaseSetup
 
         private bool ValidateFields()
         {
-            if (_DatabaseNewContext.InputHost.Length == 0 ||
-                _DatabaseNewContext.InputPort.Length == 0 ||
-                _DatabaseNewContext.InputUsername.Length == 0 ||
-                _DatabaseNewContext.InputPassword.Length == 0)
+            if (string.IsNullOrEmpty(_DatabaseNewContext.InputName) ||
+                string.IsNullOrEmpty(_DatabaseNewContext.InputHost) ||
+                string.IsNullOrEmpty(_DatabaseNewContext.InputPort) ||
+                string.IsNullOrEmpty(_DatabaseNewContext.InputUsername) ||
+                string.IsNullOrEmpty(_DatabaseNewContext.InputPassword) ||
+                string.IsNullOrEmpty(_DatabaseNewContext.InputDatabase))
                 return false;
 
             return true;
@@ -55,16 +58,24 @@ namespace WineCellar.Views.DatabaseSetup
 
             progressConnection.Visibility = Visibility.Visible;
 
+            // Build the ConnectionString based on the provided information
             SqlConnectionStringBuilder builder = new();
             builder.DataSource = $"{_DatabaseNewContext.InputHost},{_DatabaseNewContext.InputPort}";
             builder.UserID = _DatabaseNewContext.InputUsername;
             builder.Password = _DatabaseNewContext.InputPassword;
+            builder.InitialCatalog = _DatabaseNewContext.InputDatabase;
             builder.Encrypt = false;
             builder.ConnectTimeout = 10;
             
             try
             {
-                await DataAccess.CheckConnectionFor(builder.ConnectionString);
+                // Check if the provided settings actually work
+                bool success = await DataAccess.CheckConnectionFor(builder.ConnectionString);
+                if (success)
+                    btnAddConnection.IsEnabled = true;
+                else
+                    MessageBox.Show("Couldn't connect to the database!", "Connection failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                    
             }
             catch (Exception ex)
             {
@@ -77,12 +88,37 @@ namespace WineCellar.Views.DatabaseSetup
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
+            // Extra check for field validation
+            if (!ValidateFields())
+                return;
 
+            progressConnection.Visibility = Visibility.Visible;
+
+            // Add the provided settings to the database
+            ConfigurationAccess.AddDatabase(new DatabaseInformation(
+                _DatabaseNewContext.InputName,
+                _DatabaseNewContext.InputHost,
+                _DatabaseNewContext.InputPort,
+                _DatabaseNewContext.InputUsername,
+                _DatabaseNewContext.InputPassword,
+                _DatabaseNewContext.InputDatabase));
+
+            progressConnection.Visibility = Visibility.Hidden;
+
+            // Set the result to success and close the application
+            DialogResult = true;
+            Close();
         }
 
         private void PortTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = _numberRegex.IsMatch(e.Text);
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            // Disable the AddConnection button to force user to verify provided settings again
+            btnAddConnection.IsEnabled = false;
         }
     }
 }

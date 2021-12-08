@@ -1,4 +1,5 @@
 ﻿using Controller;
+using Microsoft.Extensions.Configuration;
 using Model;
 using System;
 using System.Collections.Generic;
@@ -25,22 +26,27 @@ namespace WineCellar.Views.DatabaseSetup
     {
         private DatabaseNewWindow _DatabaseNewWindow { get; set; }
         private DatabaseSelectContext _DatabaseSelectContext { get; set; }
+        private IConfiguration _Configuration { get; init; }
 
-        public DatabaseSelectWindow(List<DatabaseInformation> databases)
+        public DatabaseSelectWindow(IConfiguration config)
         {
             InitializeComponent();
 
-            DatabaseSelectContext context = new();
-            context.Databases = databases;
+            _Configuration = config;
 
-            _DatabaseSelectContext = context;
-            DataContext = context;
+            _DatabaseSelectContext = new DatabaseSelectContext();
+            DataContext = _DatabaseSelectContext;
         }
 
-        private void ButtonNewConnection_Click(object sender, RoutedEventArgs e)
+        private async void ButtonNewConnection_Click(object sender, RoutedEventArgs e)
         {
             _DatabaseNewWindow = new DatabaseNewWindow();
-            _DatabaseNewWindow.ShowDialog();
+            bool? success = _DatabaseNewWindow.ShowDialog();
+            if (success == true)
+            {
+                _DatabaseSelectContext.Databases = await ConfigurationAccess.GetDatabasesAsync();
+                _DatabaseSelectContext.SelectedDatabase = null;
+            }
         }
 
         private async void ButtonConnect_Click(object sender, RoutedEventArgs e)
@@ -79,6 +85,11 @@ namespace WineCellar.Views.DatabaseSetup
         private void Database_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             btnConnect.IsEnabled = _DatabaseSelectContext.SelectedDatabase is not null;
+        }
+
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            _DatabaseSelectContext.Databases = await ConfigurationAccess.GetDatabasesAsync();
         }
     }
 }

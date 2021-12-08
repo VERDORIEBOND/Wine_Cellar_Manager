@@ -33,25 +33,13 @@ namespace WineCellar
             // This creates the IConfiguration object
             Configuration = builder.Build();
 
-            // Retrieve database information from appsettings
-            List<DatabaseInformation> databases = new();
-            foreach (IConfigurationSection db in Configuration.GetSection("Databases").GetChildren())
-            {
-                DatabaseInformation dbInfo = db.Get<DatabaseInformation>();
-                dbInfo.Name = db.Key;
-                databases.Add(dbInfo);
-            }
-
             // Temporarily disable shutdown on mainwindow close, as closing dialog would also cause it to shutdown
             ShutdownMode = ShutdownMode.OnExplicitShutdown;
-            DatabaseSelectWindow selection = new(databases);
+            DatabaseSelectWindow selection = new(Configuration);
             bool? success = selection.ShowDialog();
 
-            if (success is not null)
+            if (success == true)
             {
-                if ((bool)!success)
-                    return;
-
                 DatabaseInformation sdb = selection.GetSelectedDatabase();
                 DataAccess.SetConnectionString(sdb.ConnectionString);
 
@@ -60,7 +48,10 @@ namespace WineCellar
                 ShutdownMode = ShutdownMode.OnMainWindowClose;
                 mainWindow.Show();
             }
-            
+            else
+            {
+                Shutdown();
+            }
         }
     }
 }
