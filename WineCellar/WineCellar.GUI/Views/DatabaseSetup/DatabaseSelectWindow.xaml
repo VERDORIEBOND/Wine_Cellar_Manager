@@ -16,7 +16,7 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
-        Closed="Window_Closed">
+        Closed="Window_Closed" Loaded="Window_Loaded">
     <Grid>
         <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="5 10 5 0">
             <Grid.RowDefinitions>
