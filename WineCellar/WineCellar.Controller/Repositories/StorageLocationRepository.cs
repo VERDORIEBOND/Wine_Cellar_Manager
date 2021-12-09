@@ -44,6 +44,17 @@ public class StorageLocationRepository
     }
 
     /// <summary>
+    /// Deletes all StorageLocationRecords associated with provided WineId from the database.
+    /// </summary>
+    /// <param name="wineId"></param>
+    /// <returns>Rows affected</returns>
+    public async Task<int> DeleteAllByWine(int wineId)
+    {
+        using var conn = DataAccess.GetConnection;
+        return await conn.ExecuteAsync(Queries.StorageLocation_DeleteAllByWine, new { IdWine = wineId }, commandType: CommandType.StoredProcedure);
+    }
+
+    /// <summary>
     /// Inserts a StorageLocationRecord into the database.
     /// </summary>
     /// <param name="location"></param>
