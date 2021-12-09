@@ -102,12 +102,12 @@ namespace WineCellar
             if (MessageBox.Show("Weet u het zeker?", "Verwijderen", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
                 await Data.DeleteWine(IndexID);
-            }
 
-            mainWindow = new MainWindow();
-            Application.Current.MainWindow = mainWindow;
-            mainWindow.Show();
-            Close();
+                mainWindow = new MainWindow();
+                Application.Current.MainWindow = mainWindow;
+                mainWindow.Show();
+                Close();
+            }
         }
 
         private void Button_Click_Aanpassen(object sender, RoutedEventArgs e)
