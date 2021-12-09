@@ -14,7 +14,7 @@ namespace Controller;
 
 public static class ConfigurationAccess
 {
-    public static async void AddDatabase(DatabaseInformation information)
+    public static async Task AddDatabaseAsync(DatabaseInformation information)
     {
         // Read the appsettings and convert it to a string
         string json = await File.ReadAllTextAsync(GetAppsettingsPath());
