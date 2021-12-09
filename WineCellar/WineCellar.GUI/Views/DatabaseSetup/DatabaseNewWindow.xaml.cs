@@ -86,7 +86,7 @@ namespace WineCellar.Views.DatabaseSetup
             progressConnection.Visibility = Visibility.Hidden;
         }
 
-        private void AddButton_Click(object sender, RoutedEventArgs e)
+        private async void AddButton_Click(object sender, RoutedEventArgs e)
         {
             // Extra check for field validation
             if (!ValidateFields())
@@ -95,7 +95,7 @@ namespace WineCellar.Views.DatabaseSetup
             progressConnection.Visibility = Visibility.Visible;
 
             // Add the provided settings to the database
-            ConfigurationAccess.AddDatabase(new DatabaseInformation(
+            await ConfigurationAccess.AddDatabaseAsync(new DatabaseInformation(
                 _DatabaseNewContext.InputName,
                 _DatabaseNewContext.InputHost,
                 _DatabaseNewContext.InputPort,

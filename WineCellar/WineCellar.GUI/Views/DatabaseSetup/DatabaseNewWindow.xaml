@@ -9,12 +9,13 @@
         mc:Ignorable="d"
         Title="New connection..." ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
-        Height="auto" MaxHeight="300"
+        SizeToContent="WidthAndHeight"
+        MaxHeight="400"
         MinWidth="300" MaxWidth="300" Width="300"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
-        Background="{DynamicResource MaterialDesignPaper}">
+        Background="{DynamicResource MaterialDesignPaper}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
     <Grid Margin="10 10 10 10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -49,6 +50,6 @@
         </ComboBox>-->
         <ProgressBar x:Name="progressConnection" Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Margin="15 5 15 5" Height="15" IsIndeterminate="True" Visibility="Hidden"/>
         <Button Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="1" Margin="0 5 0 5" HorizontalAlignment="Center" Click="ConnectButton_Click">Connect</Button>
-        <Button x:Name="btnAddConnection" Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="1" Margin="0 5 0 5" HorizontalAlignment="Center" IsEnabled="False" Click="AddButton_Click">Add connection</Button>
+        <Button x:Name="btnAddConnection" Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="1" Margin="0 5 5 5" HorizontalAlignment="Right" IsEnabled="False" Click="AddButton_Click">Add connection</Button>
     </Grid>
 </Window>
