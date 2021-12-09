@@ -55,8 +55,8 @@ public class WineRepository
         parameters.Add("Name", wine.Name);
         parameters.Add("Buy", wine.BuyPrice, dbType: DbType.Decimal, precision: 10, scale: 2);
         parameters.Add("Sell", wine.SellPrice, dbType: DbType.Decimal, precision: 10, scale: 2);
-        parameters.Add("CountryId", 1);
-        parameters.Add("TypeId", 1);
+        parameters.Add("CountryId", wine.Country);
+        parameters.Add("TypeId", wine.TypeId);
         parameters.Add("Picture", wine.Picture);
         parameters.Add("Year", wine.Age);
         parameters.Add("Content", wine.Contents);

@@ -28,13 +28,19 @@ namespace WineCellar
             InitializeComponent();
             FillList();
             var StorageData = (ComboBox)FindName("StorageData");
-            
         }
 
         public async void FillList()
         {
-            var items = await Data.GetAllWines();
-            WineDataBinding.ItemsSource = items;
+            //var items = await Data.GetAllWines();
+            WineDataBinding.ItemsSource = null;
+        }
+
+        public void RegisterWineButton(object sender, RoutedEventArgs e)
+        {
+            RegisterWine window = new RegisterWine(); 
+            window.Show();
+            this.Close();
         }
     }
 }

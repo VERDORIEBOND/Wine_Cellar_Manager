@@ -42,8 +42,7 @@
 
                 <StackPanel Orientation="Horizontal" Margin="0 0 0 0">
                     <Label Content="Soort" />
-                    <TextBox LostFocus="PlaceholderLostFocus" GotFocus="PlaceholderFocus"  x:Name="type" 
-                             TextWrapping="Wrap" Text="Soort&#xD;&#xA;" Width="200" Height="25" />
+                    <ComboBox x:Name="type" Width="200" Height="25" Text="Soort&#xD;&#xA;"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
@@ -66,7 +65,7 @@
 
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Land"/>
-                    <ComboBox x:Name="country" Width="175"/>
+                    <ComboBox x:Name="country" Width="200"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">

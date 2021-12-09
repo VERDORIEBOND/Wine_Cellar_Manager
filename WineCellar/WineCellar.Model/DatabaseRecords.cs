@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WineCellar.Model;
+﻿namespace WineCellar.Model;
 
 public record WineRecord(int Id, string Name, decimal Buy, decimal Sell, int TypeId, string Type, 
     int CountryId, string Country, byte[]? Picture, int Year, int Content, decimal Alcohol, 

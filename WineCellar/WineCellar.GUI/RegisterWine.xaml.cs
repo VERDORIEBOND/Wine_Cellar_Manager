@@ -1,4 +1,6 @@
-﻿using Microsoft.Win32;
+﻿using Controller;
+using Controller.Repositories;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -22,41 +24,39 @@ namespace WineCellar
     /// </summary>
     public partial class RegisterWine : Window
     {
-        private byte[] FileContent = null; 
-        private Dictionary<string, string>
-            placeholders = new Dictionary<string, string>();
-
-        private string lastFocus = "";
-
-        //private TextBox FilePath;
-        private List<String> countries = new List<String> {
-            "Netherlands",
-            "Italy",
-            "Spain",
-            "China",
-            "America",
-            "France",
-            "Portugal",
-            "Mexico",
-            "Taiwan",
-            "Belgium",
-            "Nigeria"
-        };
+        private byte[] FileContent = null;
+        private Dictionary<string, string> placeholders = new Dictionary<string, string>();
 
         public RegisterWine()
         {
             InitializeComponent();
-
-            //this.FilePath = filePath;
-            this.country.ItemsSource = countries;
+            SetCountries();
+            SetTypes();
         }
 
+        private async void SetTypes()
+        {
+            var types = await Data.GetAllTypes();
+            this.type.DisplayMemberPath = "Value";
+            this.type.SelectedValuePath = "Key";
+            this.type.ItemsSource = types;
+        }
+
+        private async void SetCountries()
+        {
+            var countries = await Data.GetAllCountries();
+            this.country.DisplayMemberPath = "Value";
+            this.country.SelectedValuePath = "Key";
+            this.country.ItemsSource = countries;
+
+        }
         private void CancelRegister(object sender, RoutedEventArgs e)
         {
             MainWindow window = new MainWindow();
             window.Show();
             this.Close();
         }
+
         private void PlaceholderFocus(object sender, RoutedEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
@@ -129,7 +129,6 @@ namespace WineCellar
             return true;
         }
 
-
         private void AttemptRegister(object sender, RoutedEventArgs e)
         {
             bool validate = this.Validation();
@@ -137,17 +136,18 @@ namespace WineCellar
             {
 
                 WineData wine = new WineData();
-
+                    
                 wine.Name = name.Text;
                 wine.Age = Convert.ToInt32(year.Text);
                 wine.OriginCountry = country.Text;
+                wine.Country = country.SelectedIndex;
                 wine.Stock = 0;
                 wine.Contents = Convert.ToInt32(contents.Text);
                 wine.BuyPrice = Convert.ToDouble(buy.Text);
                 wine.SellPrice = Convert.ToDouble(sell.Text);
                 wine.Alcohol = Convert.ToDecimal(alcohol.Text);
                 wine.Picture = FileContent;
-                wine.TypeId = 0;
+                wine.TypeId = type.SelectedIndex;
                 wine.Description = description.Text;
                 wine.Rating = 5;
 
@@ -171,12 +171,6 @@ namespace WineCellar
             if (this.country.SelectedItem == null)
             {
                 MessageBox.Show("Selecteer een land");
-                return false;
-            }
-
-            if (!this.isInList(this.country.SelectedItem.ToString(), this.countries))
-            {
-                MessageBox.Show("Selecteer een geldig land");
                 return false;
             }
 
