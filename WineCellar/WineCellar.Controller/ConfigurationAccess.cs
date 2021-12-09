@@ -27,7 +27,7 @@ public static class ConfigurationAccess
         // Add the object for databases into the json if it doesn't exist
         if (databases is null)
         {
-            appsettings["Databases"] = new JObject();
+            appsettings["Databases"] = new JArray();
             databases = (JArray?)appsettings["Databases"];
         }
 
