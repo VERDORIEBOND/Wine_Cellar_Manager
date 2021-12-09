@@ -32,7 +32,7 @@ namespace WineCellar
 
         public async void FillList()
         {
-            //var items = await Data.GetAllWines();
+            var items = await Data.GetAllWines();
             WineDataBinding.ItemsSource = null;
         }
 
