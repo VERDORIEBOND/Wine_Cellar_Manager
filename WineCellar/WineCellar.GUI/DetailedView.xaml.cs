@@ -26,15 +26,16 @@ namespace WineCellar
         private MainWindow mainWindow;
 
         public int IndexID { get; set; }
+        public int IndexClicked { get; set; }
 
         public DetailedView(int value)
         {
             InitializeComponent();
 
-            SetData(value);
+            IndexClicked = value;
         }
 
-        private async void SetData(int index)
+        private async Task<List<IWineData>> SetData(int index)
         {
             List<IWineData> items = await Data.GetAllWines();
             int lijstIndex = 0;
@@ -66,6 +67,8 @@ namespace WineCellar
                     lijstIndex++;
                 }
             }
+
+            return items;
         }
 
         public string Rating(int rating)
@@ -112,7 +115,22 @@ namespace WineCellar
 
         private void Button_Click_Aanpassen(object sender, RoutedEventArgs e)
         {
+            // Hier komt de functie naar het 'Aanpassen' Window
+        }
 
+        private async void Voorraad_Add(object sender, RoutedEventArgs e)
+        {
+            WineStock.DataContext = await Data.Add_Stock(IndexID);
+        }
+
+        private async void Voorraad_Remove(object sender, RoutedEventArgs e)
+        {
+            WineStock.DataContext = await Data.Remove_Stock(IndexID);
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            _ = SetData(IndexClicked);
         }
     }
 }

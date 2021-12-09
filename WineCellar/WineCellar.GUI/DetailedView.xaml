@@ -10,6 +10,7 @@
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
+        Loaded="Window_Loaded"
         Background="{DynamicResource MaterialDesignPaper}">
 
     <Grid HorizontalAlignment="Stretch">
@@ -128,9 +129,17 @@
                             </StackPanel>
 
                             <StackPanel Grid.Column="1">
-                                <Label x:Name="WineBuy" Content="{Binding}" FontSize="20" Foreground="White" HorizontalAlignment="Left" Margin="8,6,0,0"/>
-                                <Label x:Name="WineSell" Content="{Binding}" FontSize="20" Foreground="White" HorizontalAlignment="Left" Margin="8,0,0,0"/>
-                                <Label x:Name="WineStock" Content="{Binding}" FontSize="20" Foreground="White" HorizontalAlignment="Left" Margin="8,0,0,6"/>
+                                <Label x:Name="WineBuy" Content="{Binding}" FontSize="20" Foreground="White" HorizontalAlignment="Center" Margin="-8,6,0,0"/>
+                                <Label x:Name="WineSell" Content="{Binding}" FontSize="20" Foreground="White" HorizontalAlignment="Center" Margin="-8,0,0,0"/>
+                                <DockPanel>
+                                    <Button Style="{StaticResource MaterialDesignToolButton}" Width="auto" Height="auto" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="6,0,6,0" Click="Voorraad_Remove">
+                                        <TextBlock Text="-" FontSize="20" Foreground="White"/>
+                                    </Button>
+                                    <Label x:Name="WineStock" Content="{Binding}" FontSize="20" Foreground="White" Width="auto" Height="auto" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    <Button Style="{StaticResource MaterialDesignToolButton}" Width="auto" Height="auto" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="6,0,6,0" Click="Voorraad_Add">
+                                        <TextBlock Text="+" FontSize="20" Foreground="White"/>
+                                    </Button>
+                                </DockPanel>
                             </StackPanel>
                         </Grid>
                     </materialDesign:ColorZone>
@@ -163,16 +172,11 @@
                     <Label x:Name="WineType" Grid.Column="1" Grid.Row="1" Content="{Binding}" FontSize="26" Foreground="White"/>
                     <Label x:Name="WineHarvestYear" Grid.Column="1" Grid.Row="2" Content="{Binding}" FontSize="26" Foreground="White"/>
                     <Label x:Name="WineVolume" Grid.Column="1" Grid.Row="3" Content="{Binding}" FontSize="26" Foreground="White"/>
-                    <ListBox x:Name="WineTaste" Grid.Column="1" Grid.Row="4" Style="{StaticResource MaterialDesignChoiceChipPrimaryListBox}"/>
+                    <ListBox x:Name="WineTaste" Grid.Column="1" Grid.Row="4" Style="{StaticResource MaterialDesignChoiceChipPrimaryListBox}" VerticalAlignment="Center"/>
                     <Label x:Name="WineCountry" Grid.Column="1" Grid.Row="5" Content="{Binding}" FontSize="26" Foreground="White"/>
                     <Label x:Name="WineLocation" Grid.Column="1" Grid.Row="6" Content="{Binding}" FontSize="26" Foreground="White"/>
                 </Grid>
-
             </Grid>
-
         </Grid>
-
-
-
     </Grid>
 </Window>
