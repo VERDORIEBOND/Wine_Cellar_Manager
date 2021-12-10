@@ -98,11 +98,9 @@
     <Build Include="dbo\StoredProcedures\StorageLocation\spStorageLocation_Insert.sql" />
     <Build Include="dbo\StoredProcedures\Note\spNote_AddWine.sql" />
     <Build Include="dbo\StoredProcedures\Note\spNote_RemoveWine.sql" />
+    <Build Include="Script.PostDeployment1.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Wine_Note.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <PostDeploy Include="Script.PostDeployment1.sql" />
   </ItemGroup>
 </Project>
