@@ -33,6 +33,11 @@ public static class DataAccess
         _ConnectionString = connectionString;
     }
 
+    /// <summary>
+    /// Executes a simple query on the provided connectionstring to verify connectivity.
+    /// </summary>
+    /// <param name="connectionString"></param>
+    /// <returns>True if connection and result was verified, false when an exception happened.</returns>
     public static async Task<bool> CheckConnectionFor(string connectionString)
     {
         try
