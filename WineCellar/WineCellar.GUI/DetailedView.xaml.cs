@@ -25,6 +25,7 @@ namespace WineCellar
     {
         private MainWindow mainWindow;
 
+        public List<IWineData> Items { get; set; }
         public int IndexID { get; set; }
         public int IndexClicked { get; set; }
 
@@ -35,14 +36,13 @@ namespace WineCellar
             IndexClicked = value;
         }
 
-        private async Task<List<IWineData>> SetData(int index)
+        private void SetData(int indexClicked, List<IWineData> lijst)
         {
-            List<IWineData> items = await Data.GetAllWines();
             int lijstIndex = 0;
 
-            foreach (var item in items)
+            foreach (var item in lijst)
             {
-                if (index == lijstIndex)
+                if (indexClicked == lijstIndex)
                 {
                     WineName.DataContext = item.Name;
                     WineDescription.DataContext = item.Description;
@@ -67,8 +67,6 @@ namespace WineCellar
                     lijstIndex++;
                 }
             }
-
-            return items;
         }
 
         public string Rating(int rating)
@@ -128,9 +126,10 @@ namespace WineCellar
             WineStock.DataContext = await Data.Remove_Stock(IndexID);
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            _ = SetData(IndexClicked);
+            Items = await Data.GetAllWines();
+            SetData(IndexClicked, Items);
         }
     }
 }

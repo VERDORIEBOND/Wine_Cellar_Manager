@@ -38,7 +38,7 @@ namespace WineCellar
             WineDataBinding.ItemsSource = null;
             WineDataBinding.Items.Refresh();
 
-            var items = await Data.GetAllWines();
+            List<IWineData> items = await Data.GetAllWines();
             WineDataBinding.ItemsSource = items;
             WineDataBinding.Items.Refresh();
         }
