@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WineCellar"
+        xmlns:gif="http://wpfanimatedgif.codeplex.com"
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="1200"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -13,99 +14,108 @@
         Loaded="Window_Loaded"
         Background="{DynamicResource MaterialDesignPaper}">
 
-    <Grid HorizontalAlignment="Stretch">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <materialDesign:ColorZone
+        <Grid HorizontalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <materialDesign:ColorZone
                 Grid.Column="0" Grid.Row="0"
                 Mode="SecondaryDark"
                 Margin="6" VerticalAlignment="Stretch"
                 CornerRadius="16"
                 materialDesign:ShadowAssist.ShadowDepth="Depth3">
-            <Grid Grid.Row="0">
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <DockPanel Grid.Row="0">
+                        <Button Content="Terug" VerticalAlignment="Top" HorizontalAlignment="Left" Width="100" Height="45" Margin="10" Style="{StaticResource MaterialDesignRaisedDarkButton}" Click="Button_Click_Terug" FontWeight="Bold" FontSize="20"/>
+                        <DockPanel HorizontalAlignment="Right">
+                            <Button Content="Verwijderen" Width="150" Height="40" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10" Style="{StaticResource MaterialDesignRaisedDarkButton}" FontSize="20"  Click="Button_Click_Verwijderen" FontWeight="Bold"/>
+                            <Button Content="Aanpassen" Width="140" Height="40" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10" Style="{StaticResource MaterialDesignRaisedDarkButton}" FontSize="20" Click="Button_Click_Aanpassen" FontWeight="Bold"/>
+                        </DockPanel>
+                    </DockPanel>
+                </Grid>
+            </materialDesign:ColorZone>
+
+            <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.6*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <DockPanel Grid.Row="0">
-                    <Button Content="Terug" VerticalAlignment="Top" HorizontalAlignment="Left" Width="100" Height="45" Margin="10" Style="{StaticResource MaterialDesignRaisedDarkButton}" Click="Button_Click_Terug" FontWeight="Bold" FontSize="20"/>
-                    <DockPanel HorizontalAlignment="Right">
-                        <Button Content="Verwijderen" Width="150" Height="40" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10" Style="{StaticResource MaterialDesignRaisedDarkButton}" FontSize="20"  Click="Button_Click_Verwijderen" FontWeight="Bold"/>
-                        <Button Content="Aanpassen" Width="140" Height="40" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10" Style="{StaticResource MaterialDesignRaisedDarkButton}" FontSize="20" Click="Button_Click_Aanpassen" FontWeight="Bold"/>
-                    </DockPanel>
-                </DockPanel>
-            </Grid>
-        </materialDesign:ColorZone>
 
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.6*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-
-            <materialDesign:ColorZone
+                <materialDesign:ColorZone
             Grid.Column="0" Grid.Row="0"
                 Mode="SecondaryDark"
                 Margin="6" VerticalAlignment="Stretch"
                 CornerRadius="16"
                 materialDesign:ShadowAssist.ShadowDepth="Depth3">
-                <Image Width="auto" Height="auto" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10" Source="C:\Users\mailm\Pictures\Camera Roll\CatenaMalbec.png" />
-            </materialDesign:ColorZone>
+                    <Image Width="auto" Height="auto" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10" Source="C:\Users\mailm\Pictures\Camera Roll\CatenaMalbec.png" />
+                </materialDesign:ColorZone>
 
-            <materialDesign:ColorZone
+                <materialDesign:ColorZone
                     Grid.Column="1" Grid.Row="0"
                     Mode="PrimaryDark"
                     Margin="6" VerticalAlignment="Stretch"
                     CornerRadius="16"
                     materialDesign:ShadowAssist.ShadowDepth="Depth3">
-                <Image Width="auto" Height="auto" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10" />
-            </materialDesign:ColorZone>
+                    <Image Width="auto" Height="auto" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10" />
+                </materialDesign:ColorZone>
 
-            <Grid Grid.Column="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="0.6*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+                <Grid Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="0.6*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-                <materialDesign:ColorZone
+                    <materialDesign:ColorZone
                     Grid.Column="0" Grid.Row="0"
                     Mode="SecondaryLight"
                     Margin="6" VerticalAlignment="Stretch"
                     CornerRadius="16"
                     Background="White"
                     materialDesign:ShadowAssist.ShadowDepth="Depth3">
-                    <TextBlock x:Name="WineName" Foreground="Black" Text="{Binding}" FontSize="36" FontWeight="Bold" Margin="10"/>
-                </materialDesign:ColorZone>
+                        <TextBlock x:Name="WineName" Foreground="Black" Text="{Binding}" FontSize="36" FontWeight="Bold" Margin="10"/>
+                    </materialDesign:ColorZone>
 
-                <Grid Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Column="0" x:Name="WineDescription" Text="{Binding}" TextWrapping="Wrap" Margin="20" FontSize="20" Foreground="White"/>
+                        <TextBlock Grid.Column="0" x:Name="WineDescription" Text="{Binding}" TextWrapping="Wrap" Margin="20" FontSize="20" Foreground="White"/>
 
-                    <materialDesign:ColorZone
+                        <materialDesign:ColorZone
                         Grid.Column="1" Grid.Row="0"
                         Mode="SecondaryDark"
                         Foreground="White"
@@ -113,116 +123,133 @@
                         CornerRadius="16"
                         VerticalAlignment="Top"
                         materialDesign:ShadowAssist.ShadowDepth="Depth3">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-
-                            <Viewbox HorizontalAlignment="Left" Grid.Row="0" Margin="10,5,18,5">
-                                <TextBlock Text="Inkoop: " Foreground="White"/>
-                            </Viewbox>
-                            <Viewbox HorizontalAlignment="Left" Grid.Row="1" Margin="5,0,8,0">
-                                <TextBlock Text="Verkoop:" FontSize="20" Foreground="White" Margin="4"/>
-                            </Viewbox>
-                            <Viewbox HorizontalAlignment="Left" Grid.Row="2" Margin="6,0,0,0">
-                                <TextBlock Text="Voorraad:" FontSize="20" Foreground="White" Margin="4"/>
-                            </Viewbox>
-
-                            <Viewbox Grid.Column="1" Grid.Row="0">
-                                <TextBlock x:Name="WineBuy" Text="{Binding}" Foreground="White" Margin="15,0,15,0"/>
-                            </Viewbox>
-                            <Viewbox Grid.Column="1" Grid.Row="1">
-                                <TextBlock x:Name="WineSell" Text="{Binding}" Foreground="White" Margin="15,0,15,0"/>
-                            </Viewbox>
-
-                            <Grid Grid.Column="1" Grid.Row="2" Margin="10,0,10,0">
+                            <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
 
-                                <Button Grid.Column="0" Style="{StaticResource MaterialDesignIconButton}" Width="25" Height="25" Click="Voorraad_Remove">
-                                    <materialDesign:PackIcon Kind="Minus" Foreground="White" Width="15" Height="15"/>
-                                </Button>
-                                <Viewbox Grid.Column="1">
-                                    <TextBlock x:Name="WineStock" Text="{Binding}" Foreground="White" />
+                                <Viewbox HorizontalAlignment="Left" Grid.Row="0" Margin="10,5,18,5">
+                                    <TextBlock Text="Inkoop: " Foreground="White"/>
                                 </Viewbox>
-                                <Button Grid.Column="2" Style="{StaticResource MaterialDesignIconButton}" Width="25" Height="25" Click="Voorraad_Add">
-                                    <materialDesign:PackIcon Kind="Plus" Foreground="White" Width="15" Height="15"/>
-                                </Button>
+                                <Viewbox HorizontalAlignment="Left" Grid.Row="1" Margin="5,0,8,0">
+                                    <TextBlock Text="Verkoop:" FontSize="20" Foreground="White" Margin="4"/>
+                                </Viewbox>
+                                <Viewbox HorizontalAlignment="Left" Grid.Row="2" Margin="6,0,0,0">
+                                    <TextBlock Text="Voorraad:" FontSize="20" Foreground="White" Margin="4"/>
+                                </Viewbox>
+
+                                <Viewbox Grid.Column="1" Grid.Row="0">
+                                    <TextBlock x:Name="WineBuy" Text="{Binding}" Foreground="White" Margin="15,0,15,0"/>
+                                </Viewbox>
+                                <Viewbox Grid.Column="1" Grid.Row="1">
+                                    <TextBlock x:Name="WineSell" Text="{Binding}" Foreground="White" Margin="15,0,15,0"/>
+                                </Viewbox>
+
+                                <Grid Grid.Column="1" Grid.Row="2" Margin="10,0,10,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Button Grid.Column="0" Style="{StaticResource MaterialDesignIconButton}" Width="25" Height="25" Click="Voorraad_Remove">
+                                        <materialDesign:PackIcon Kind="Minus" Foreground="White" Width="15" Height="15"/>
+                                    </Button>
+                                    <Viewbox Grid.Column="1">
+                                        <TextBlock x:Name="WineStock" Text="{Binding}" Foreground="White" />
+                                    </Viewbox>
+                                    <Button Grid.Column="2" Style="{StaticResource MaterialDesignIconButton}" Width="25" Height="25" Click="Voorraad_Add">
+                                        <materialDesign:PackIcon Kind="Plus" Foreground="White" Width="15" Height="15"/>
+                                    </Button>
+                                </Grid>
                             </Grid>
-                        </Grid>
-                    </materialDesign:ColorZone>
-                </Grid>
+                        </materialDesign:ColorZone>
+                    </Grid>
 
-                <Grid Grid.Row="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="2*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
 
-                    <Viewbox HorizontalAlignment="Left" Grid.Row="0" Margin="20,8,20,8">
-                        <TextBlock Text="Rating" Foreground="White"/>
-                    </Viewbox>
-                    <Viewbox HorizontalAlignment="Left" Grid.Row="1" Margin="20,8,20,8">
-                        <TextBlock Text="Soort" Foreground="White"/>
-                    </Viewbox>
-                    <Viewbox HorizontalAlignment="Left" Grid.Row="2" Margin="20,8,20,8">
-                        <TextBlock Text="Oogstjaar" Foreground="White"/>
-                    </Viewbox>
-                    <Viewbox HorizontalAlignment="Left" Grid.Row="3" Margin="20,8,20,8">
-                        <TextBlock Text="Inhoud - % Vol" Foreground="White"/>
-                    </Viewbox>
-                    <Viewbox HorizontalAlignment="Left" Grid.Row="4" Margin="20,8,20,8">
-                        <TextBlock Text="Smaak" Foreground="White"/>
-                    </Viewbox>
-                    <Viewbox HorizontalAlignment="Left" Grid.Row="5" Margin="20,8,20,8">
-                        <TextBlock Text="Land" Foreground="White"/>
-                    </Viewbox>
-                    <Viewbox HorizontalAlignment="Left" Grid.Row="6" Margin="20,8,20,8">
-                        <TextBlock Text="Locatie" Foreground="White"/>
-                    </Viewbox>
+                        <Viewbox HorizontalAlignment="Left" Grid.Row="0" Margin="20,8,20,8">
+                            <TextBlock Text="Rating" Foreground="White"/>
+                        </Viewbox>
+                        <Viewbox HorizontalAlignment="Left" Grid.Row="1" Margin="20,8,20,8">
+                            <TextBlock Text="Soort" Foreground="White"/>
+                        </Viewbox>
+                        <Viewbox HorizontalAlignment="Left" Grid.Row="2" Margin="20,8,20,8">
+                            <TextBlock Text="Oogstjaar" Foreground="White"/>
+                        </Viewbox>
+                        <Viewbox HorizontalAlignment="Left" Grid.Row="3" Margin="20,8,20,8">
+                            <TextBlock Text="Inhoud - % Vol" Foreground="White"/>
+                        </Viewbox>
+                        <Viewbox HorizontalAlignment="Left" Grid.Row="4" Margin="20,8,20,8">
+                            <TextBlock Text="Smaak" Foreground="White"/>
+                        </Viewbox>
+                        <Viewbox HorizontalAlignment="Left" Grid.Row="5" Margin="20,8,20,8">
+                            <TextBlock Text="Land" Foreground="White"/>
+                        </Viewbox>
+                        <Viewbox HorizontalAlignment="Left" Grid.Row="6" Margin="20,8,20,8">
+                            <TextBlock Text="Locatie" Foreground="White"/>
+                        </Viewbox>
 
-                    <Viewbox HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0" Margin="20,8,20,8">
-                        <TextBlock x:Name="WineRating" Text="{Binding}" Foreground="White"/>
-                    </Viewbox>
-                    <Viewbox HorizontalAlignment="Left" Grid.Column="1" Grid.Row="1" Margin="20,8,20,8">
-                        <TextBlock x:Name="WineType" Text="{Binding}" Foreground="White"/>
-                    </Viewbox>
-                    <Viewbox HorizontalAlignment="Left" Grid.Column="1" Grid.Row="2" Margin="20,8,20,8">
-                        <TextBlock x:Name="WineHarvestYear" Text="{Binding}" Foreground="White"/>
-                    </Viewbox>
-                    <Viewbox HorizontalAlignment="Left" Grid.Column="1" Grid.Row="3" Margin="20,8,20,8">
-                        <TextBlock x:Name="WineVolume" Text="{Binding}" Foreground="White"/>
-                    </Viewbox>
-                    <Viewbox HorizontalAlignment="Left" Grid.Column="1" Grid.Row="4" Margin="20,0,20,0">
-                        <ListBox x:Name="WineTaste" Style="{StaticResource MaterialDesignChoiceChipOutlineListBox}" VerticalAlignment="Center"/>
-                    </Viewbox>
-                    <Viewbox HorizontalAlignment="Left" Grid.Column="1" Grid.Row="5" Margin="20,8,20,8">
-                        <TextBlock x:Name="WineCountry" Text="{Binding}" Foreground="White"/>
-                    </Viewbox>
-                    <Viewbox HorizontalAlignment="Left" Grid.Column="1" Grid.Row="6" Margin="20,8,20,8">
-                        <TextBlock x:Name="WineLocation" Text="{Binding}" Foreground="White"/>
-                    </Viewbox>
+                        <Viewbox HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0" Margin="20,8,20,8">
+                            <TextBlock x:Name="WineRating" Text="{Binding}" Foreground="White"/>
+                        </Viewbox>
+                        <Viewbox HorizontalAlignment="Left" Grid.Column="1" Grid.Row="1" Margin="20,8,20,8">
+                            <TextBlock x:Name="WineType" Text="{Binding}" Foreground="White"/>
+                        </Viewbox>
+                        <Viewbox HorizontalAlignment="Left" Grid.Column="1" Grid.Row="2" Margin="20,8,20,8">
+                            <TextBlock x:Name="WineHarvestYear" Text="{Binding}" Foreground="White"/>
+                        </Viewbox>
+                        <Viewbox HorizontalAlignment="Left" Grid.Column="1" Grid.Row="3" Margin="20,8,20,8">
+                            <TextBlock x:Name="WineVolume" Text="{Binding}" Foreground="White"/>
+                        </Viewbox>
+                        <Viewbox HorizontalAlignment="Left" Grid.Column="1" Grid.Row="4" Margin="20,0,20,0">
+                            <ListBox x:Name="WineTaste" Style="{StaticResource MaterialDesignChoiceChipOutlineListBox}" VerticalAlignment="Center"/>
+                        </Viewbox>
+                        <Viewbox HorizontalAlignment="Left" Grid.Column="1" Grid.Row="5" Margin="20,8,20,8">
+                            <TextBlock x:Name="WineCountry" Text="{Binding}" Foreground="White"/>
+                        </Viewbox>
+                        <Viewbox HorizontalAlignment="Left" Grid.Column="1" Grid.Row="6" Margin="20,8,20,8">
+                            <TextBlock x:Name="WineLocation" Text="{Binding}" Foreground="White"/>
+                        </Viewbox>
 
+                    </Grid>
                 </Grid>
             </Grid>
         </Grid>
+
+        <materialDesign:Card
+            UniformCornerRadius="14"
+            Padding="4"
+            x:Name="DataLoading">
+            <DockPanel VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                <Label Content="Loading Data" Foreground="White" VerticalAlignment="Center" FontSize="28"/>
+                <Image gif:ImageBehavior.AnimatedSource="C:\Users\mailm\Pictures\Camera Roll\wineLoad.gif"
+                           gif:ImageBehavior.AutoStart="True"
+                           gif:ImageBehavior.RepeatBehavior="1"
+                           Height="120"/>
+            </DockPanel>
+        </materialDesign:Card>
+
     </Grid>
+
+
 </Window>

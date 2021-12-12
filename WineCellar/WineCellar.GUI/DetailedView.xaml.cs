@@ -36,8 +36,23 @@ namespace WineCellar
             IndexClicked = value;
         }
 
+        private void LoadListStart()
+        {
+            DataLoading.Opacity = 1;
+            DataLoading.IsEnabled = true;
+        }
+
+        private void LoadListStop()
+        {
+            DataLoading.Height = 0;
+            DataLoading.Width = 0;
+            DataLoading.Opacity = 0;
+            DataLoading.IsEnabled = false;
+        }
+
         private void SetData(int indexClicked, List<IWineData> lijst)
         {
+            LoadListStart();
             int lijstIndex = 0;
 
             foreach (var item in lijst)
@@ -67,6 +82,8 @@ namespace WineCellar
                     lijstIndex++;
                 }
             }
+
+            LoadListStop();
         }
 
         public string Rating(int rating)
