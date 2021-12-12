@@ -92,7 +92,7 @@ namespace WineCellar
             if (openDi == true)
             {
                 var filePath = openFileDialog.FileName;
-                byte[] fileContent = System.IO.File.ReadAllBytes(filePath);
+                byte[] fileContent = File.ReadAllBytes(filePath);
                 FileContent = fileContent;
             }
         }
