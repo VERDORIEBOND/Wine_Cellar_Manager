@@ -84,7 +84,7 @@ namespace WineCellar
             }
         }
 
-        private void BrowseFiles(object sender, RoutedEventArgs e)
+        private async void BrowseFiles(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             var openDi = openFileDialog.ShowDialog();
@@ -92,7 +92,7 @@ namespace WineCellar
             if (openDi == true)
             {
                 var filePath = openFileDialog.FileName;
-                byte[] fileContent = File.ReadAllBytes(filePath);
+                byte[] fileContent = await File.ReadAllBytesAsync(filePath);
                 FileContent = fileContent;
             }
         }
