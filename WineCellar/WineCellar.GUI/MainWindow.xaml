@@ -34,12 +34,12 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    
+
                     <StackPanel Margin="15 10 15 10" Grid.Column="0">
                         <Button
                             Style="{StaticResource MaterialDesignRaisedDarkButton}"
                             ToolTip="Resource name: MaterialDesignRaisedDarkButton"
-                            Click="RegisterWineButton"
+                            Click="registerWine"
                             Content="Wijn Toevoegen"/>
                     </StackPanel>
                     <StackPanel Margin="15 10 15 10" Grid.Column="1">
@@ -49,10 +49,10 @@
                             Content="--------" />
                     </StackPanel>
                 </Grid>
-                
+
             </DockPanel>
         </materialDesign:ColorZone>
-        
+
         <materialDesign:ColorZone
                 Grid.Column="0" Grid.Row="1" Grid.RowSpan="2"
                 Mode="SecondaryDark"
@@ -196,7 +196,7 @@
                 IsIndeterminate="True" 
                 Height="10"/>
         </materialDesign:Card>
-        
+
         <materialDesign:ColorZone
             Grid.Column="1" Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="2"
             Mode="PrimaryDark"
@@ -241,7 +241,7 @@
                                         <Border Grid.Row="0" Grid.Column="3" Padding="5">
                                             <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" VerticalAlignment="Center" Text="{Binding Stock}" />
                                         </Border>
-                                        
+
                                         <Border Grid.Row="0" Grid.Column="4" Grid.RowSpan="2" Padding="5">
                                             <materialDesign:ColorZone
                                                 Mode="Custom"
@@ -249,7 +249,8 @@
                                                 Foreground="White"
                                                 Padding="8"
                                                 CornerRadius="8"
-                                                VerticalAlignment="Center"><!--BB86FC -->
+                                                VerticalAlignment="Center">
+                                                <!--BB86FC -->
                                                 <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" FontWeight="Normal" ><Run Text="Inkoop: "/><Run Text="{Binding BuyPrice}"/><LineBreak/><Run Text="Verkoop:"/><Run Text="{Binding SellPrice}"/></TextBlock>
                                             </materialDesign:ColorZone>
                                         </Border>
@@ -259,7 +260,7 @@
                                         <Border Grid.Row="1" Grid.Column="2" Padding="5">
                                             <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" VerticalAlignment="Center" Text="Locatie:" />
                                         </Border>
-                                        
+
                                         <Border Grid.Row="1" Grid.Column="3" Padding="5">
                                             <ComboBox x:Name="StorageData"
                                                       materialDesign:ComboBoxAssist.ShowSelectedItem="{Binding ElementName=DisplaySelectedItemCheckBox, Path=IsChecked}"
