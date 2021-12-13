@@ -49,22 +49,24 @@ public class WineRepository
         return await conn.ExecuteAsync(Queries.Wine_Update, parameters, commandType: CommandType.StoredProcedure);
     }
 
-    public async Task<int> Create(WineRecord wine)
+    public async Task<int> Create(WineData wine)
     {
         DynamicParameters parameters = new();
         parameters.Add("Name", wine.Name);
-        parameters.Add("Buy", wine.Buy, dbType: DbType.Decimal, precision: 10, scale: 2);
-        parameters.Add("Sell", wine.Sell, dbType: DbType.Decimal, precision: 10, scale: 2);
+        parameters.Add("Buy", wine.BuyPrice, dbType: DbType.Decimal, precision: 10, scale: 2);
+        parameters.Add("Sell", wine.SellPrice, dbType: DbType.Decimal, precision: 10, scale: 2);
+        parameters.Add("CountryId", wine.Country);
         parameters.Add("TypeId", wine.TypeId);
-        parameters.Add("CountryId", wine.CountryId);
         parameters.Add("Picture", wine.Picture);
-        parameters.Add("Year", wine.Year);
-        parameters.Add("Content", wine.Content);
+        parameters.Add("Year", wine.Age);
+        parameters.Add("Content", wine.Contents);
         parameters.Add("Alcohol", wine.Alcohol, dbType: DbType.Decimal, precision: 10, scale: 2);
         parameters.Add("Rating", wine.Rating);
         parameters.Add("Description", wine.Description);
-
         using var conn = DataAccess.GetConnection;
-        return await conn.ExecuteScalarAsync<int>(Queries.Wine_Insert, parameters, commandType: CommandType.StoredProcedure);
+        string sql = "INSERT INTO Wine (Name, Buy, Sell, TypeId, CountryId, Picture, Year," +
+            "Content, Alcohol, Rating, Description) VALUES (@Name, @Buy, @Sell, @TypeId, @CountryId," +
+            "@Picture, @Year, @Content, @Alcohol, @Rating, @Description)";
+        return await conn.ExecuteAsync(sql, parameters);
     }
 }

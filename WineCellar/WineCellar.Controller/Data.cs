@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Diagnostics;
 using Model;
 using WineCellar.Model;
@@ -6,13 +6,20 @@ using WineCellar.Model;
 public class WineData : IWineData
 {
     public string Name { get; set; } = string.Empty;
+    public string Description { get; set; }
     public int Age { get; set; }
+    public int Contents { get; set; }
     public string Type { get; set; } = string.Empty;
+    public byte[]? Picture { get; set; } = null;
     public string OriginCountry { get; set; } = string.Empty;
+    public int Country { get; set; }
     public int Stock { get; set; }
+    public int TypeId { get; set; }
     public string[] StorageLocation { get; set; } = Array.Empty<string>();
     public double BuyPrice { get; set; }
     public double SellPrice { get; set; }
+    public decimal Alcohol { get; set; }
+    public int Rating { get; set; }
 }
 
 
@@ -43,7 +50,7 @@ namespace Controller
             var wineRepo = await DataAccess.WineRepo.GetAll();
             //convert the result to a list of wine data
             var wineData = new List<IWineData>();
-            
+
             foreach (var wine in wineRepo)
             {
                 var wineEntry = new WineData();
@@ -54,6 +61,7 @@ namespace Controller
                 wineEntry.OriginCountry = wine.Country;
                 wineEntry.BuyPrice = (double)wine.Buy;
                 wineEntry.SellPrice = (double)wine.Sell;
+                wineEntry.Picture = wine.Picture;
                 
                 var storageLocations = new string[] {};
                 foreach (var location in await DataAccess.LocationRepo.GetByWine(wine.Id))
@@ -71,6 +79,31 @@ namespace Controller
             return wineData;
         }
 
-        
+        public static async void Create(WineData wine)
+        {
+            var wineRepo = await DataAccess.WineRepo.Create(wine);
+        }
+
+        public static async Task<Dictionary<string, string>> GetAllCountries()
+        {
+            Dictionary<string, string> Countries = new Dictionary<string, string>();
+
+            foreach (CountryRecord country in await DataAccess.CountryRepo.GetAll())
+            {
+                Countries.Add(country.Id.ToString(), country.Name);
+            }
+            return Countries;
+        }   
+        public static async Task<Dictionary<string, string>> GetAllTypes()
+        {
+            Dictionary<string, string> Types = new Dictionary<string, string>();
+
+            foreach (TypeRecord type in await DataAccess.TypeRepo.GetAll())
+            {
+                Types.Add(type.Id.ToString(), type.Name);
+            }
+            return Types;
+        }
+
     }
 }
