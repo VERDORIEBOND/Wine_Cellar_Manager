@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -27,7 +27,7 @@ namespace WineCellar
     {
         private List<IWineData> items;
         private List<IWineData> allItems;
-        
+
         //Bottom and top filter variables
         private double _edgePriceFrom = 9999999;
         private double _edgePriceTo;
@@ -36,12 +36,20 @@ namespace WineCellar
         List<string> _contentWineTypes = new List<string>();
         List<string> _contentWineLocation = new List<string>();
         List<string> contentWineNotes = new List<string>();
-        
+
         public MainWindow()
         {
             InitializeComponent();
             FillList();
             FilterOuters();
+        }
+
+        public void RegisterWine(object sender, RoutedEventArgs e)
+        {
+            RegisterWine wine = new RegisterWine();
+            wine.Show();
+            Application.Current.MainWindow = wine;
+            Close();
         }
 
         public async void FillList()
@@ -74,7 +82,7 @@ namespace WineCellar
             {
                 tastingNotes.Add(tastingNote.ToString());
             }
-            items = Data.FilterWine(allItems, tbWineName.Text, slPriceFrom.Value, slPriceTo.Value, CbWinetype.Text, CbStorageLocation.Text, SlYearFrom.Value, SlYearTo.Value, tastingNotes, RbWineRating.Value); 
+            items = Data.FilterWine(allItems, tbWineName.Text, slPriceFrom.Value, slPriceTo.Value, CbWinetype.Text, CbStorageLocation.Text, SlYearFrom.Value, SlYearTo.Value, tastingNotes, RbWineRating.Value);
             WineDataBinding.ItemsSource = items;
         }
 
@@ -114,7 +122,7 @@ namespace WineCellar
             }
             _contentWineTypes.Add("");
             _contentWineLocation.Add("");
-            
+
             slPriceFrom.Minimum = _edgePriceFrom;
             slPriceFrom.Value = _edgePriceFrom;
             slPriceFrom.Maximum = _edgePriceTo;
