@@ -25,8 +25,6 @@ namespace WineCellar
     public partial class DetailedView : Window
     {
         private MainWindow mainWindow;
-        private ChangeWine changeWine;
-        private ChangeWineDataContext changeWineDataContext;
         private WineRecord wineRecord;
 
         public List<IWineData> Items { get; set; }
@@ -136,11 +134,7 @@ namespace WineCellar
 
         private void Button_Click_Aanpassen(object sender, RoutedEventArgs e)
         {
-            changeWineDataContext = new ChangeWineDataContext();
-            changeWine = new ChangeWine();
-            Application.Current.MainWindow = changeWine;
-            changeWine.Show();
-            Close();
+            // Hier komt het 'Aanpassen' scherm
         }
 
         private async void Voorraad_Add(object sender, RoutedEventArgs e)

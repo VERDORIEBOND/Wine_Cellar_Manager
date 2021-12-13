@@ -29,18 +29,13 @@ namespace WineCellar
         {
             InitializeComponent();
 
-            WineDataBinding.Items.Clear();
             FillList();
         }
 
         public async void FillList()
         {
-            WineDataBinding.ItemsSource = null;
-            WineDataBinding.Items.Refresh();
-
             List<IWineData> items = await Data.GetAllWines();
             WineDataBinding.ItemsSource = items;
-            WineDataBinding.Items.Refresh();
         }
 
         private void ListViewItem_Clicked(object sender, MouseButtonEventArgs e)
