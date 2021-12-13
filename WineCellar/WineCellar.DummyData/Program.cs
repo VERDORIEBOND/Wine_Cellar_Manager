@@ -114,7 +114,7 @@ for (int i = 0; i < amountWines; i++)
         string.Empty,
         countries[rand.Next(0, countries.Length)],
         string.Empty,
-        string.Empty,
+        null,
         rand.Next(1975, 2021),
         rand.Next(5, 15) * 100,
         new decimal(rand.NextDouble() * 20),

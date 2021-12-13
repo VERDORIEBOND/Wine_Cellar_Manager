@@ -4,7 +4,7 @@
 	@Sell DECIMAL(10,2),
 	@TypeId INT,
 	@CountryId INT,
-	@Picture VARCHAR(1024),
+	@Picture VARBINARY(MAX),
 	@Year INT,
 	@Content INT,
 	@Alcohol DECIMAL(10,2),
