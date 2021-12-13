@@ -1,5 +1,6 @@
 ﻿using Controller.Repositories;
 using Microsoft.Extensions.Configuration;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -7,11 +8,13 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Dapper;
 
 namespace Controller;
 
 public static class DataAccess
 {
+    private static string? _ConnectionString { get; set; }
     public static IConfiguration? Configuration { get; private set; }
     public static WineRepository WineRepo { get; } = new();
     public static CountryRepository CountryRepo { get; } = new();
@@ -22,13 +25,39 @@ public static class DataAccess
     public static void SetConfiguration(IConfiguration config)
     {
         Configuration = config;
+        _ConnectionString = config.GetConnectionString("DefaultConnection");
+    }
+
+    public static void SetConnectionString(string connectionString)
+    {
+        _ConnectionString = connectionString;
+    }
+
+    /// <summary>
+    /// Executes a simple query on the provided connectionstring to verify connectivity.
+    /// </summary>
+    /// <param name="connectionString"></param>
+    /// <returns>True if connection and result was verified, false when an exception happened.</returns>
+    public static async Task<bool> CheckConnectionFor(string connectionString)
+    {
+        try
+        {
+            using var conn = new SqlConnection(connectionString);
+            int value = await conn.QuerySingleAsync<int>("SELECT 12345", commandType: CommandType.Text);
+            
+            return value == 12345;
+        }
+        catch (Exception)
+        {
+            return false;
+        }
     }
 
     public static IDbConnection GetConnection
     {
         get
         {
-            return new SqlConnection(Configuration.GetConnectionString("DefaultConnection"));
+            return new SqlConnection(_ConnectionString);
         }
     }
 }

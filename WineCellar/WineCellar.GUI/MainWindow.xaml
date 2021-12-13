@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WineCellar"
         mc:Ignorable="d"
-        Title="Wine Cellar Manager" Height="800" Width="1200"
+        Title="Wine Cellar Manager" Height="1000" Width="1400"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextOptions.TextFormattingMode="Ideal"
@@ -69,7 +69,8 @@
                             
                             materialDesign:HintAssist.Hint="Wijn naam"
                             materialDesign:HintAssist.Foreground="White"
-                            IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledTextBoxEnabledComboBox}" Foreground="White"/>
+                            IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledTextBoxEnabledComboBox}" Foreground="White"
+                            x:Name="tbWineName"/>
                     </StackPanel>
                     <StackPanel Margin="30 10 30 0">
                         <TextBlock
@@ -81,7 +82,8 @@
                             Maximum="100"
                             Style="{StaticResource MaterialDesignDiscreteSlider}"
                             TickFrequency="{Binding DiscreteHorizontal.TickFrequency}"
-                            TickPlacement="Both" />
+                            TickPlacement="Both" 
+                            x:Name="slPriceFrom"/>
                     </StackPanel>
                     <StackPanel Margin="30 10 30 0">
                         <TextBlock
@@ -93,48 +95,23 @@
                             Maximum="100"
                             Style="{StaticResource MaterialDesignDiscreteSlider}"
                             TickFrequency="{Binding DiscreteHorizontal.TickFrequency}"
-                            TickPlacement="Both" />
+                            TickPlacement="Both"
+                            x:Name="slPriceTo" />
                     </StackPanel>
                     <StackPanel Margin="30 10 30 0">
                         <ComboBox
-                            x:Name="FilledComboBox"
+                            x:Name="CbWinetype"
                             Style="{StaticResource MaterialDesignFilledComboBox}"
                             IsEnabled="{Binding Path=IsChecked, ElementName=FilledComboBoxEnabledCheckBox}"
                             materialDesign:HintAssist.Hint="Type Wijn">
-                            <ComboBoxItem
-                                Content="Malbec" />
-                            <ComboBoxItem
-                                Content="Tempranillo" />
-                            <ComboBoxItem
-                                Content="Corvina" />
-                            <ComboBoxItem
-                                Content="Merlot" />
-                            <ComboBoxItem
-                                Content="Sauvignon Blanc" />
                         </ComboBox>
                     </StackPanel>
                     <StackPanel Margin="30 10 30 0">
                         <ComboBox
-                            x:Name="FilledComboBox2"
+                            x:Name="CbStorageLocation"
                             Style="{StaticResource MaterialDesignFilledComboBox}"
                             IsEnabled="{Binding Path=IsChecked, ElementName=FilledComboBoxEnabledCheckBox}"
                             materialDesign:HintAssist.Hint="Opslag locatie">
-                            <ComboBoxItem
-                                Content="A2.1" />
-                            <ComboBoxItem
-                                Content="A2.2" />
-                            <ComboBoxItem
-                                Content="A2.3" />
-                            <ComboBoxItem
-                                Content="B3.1" />
-                            <ComboBoxItem
-                                Content="B3.2" />
-                            <ComboBoxItem
-                                Content="B3.3" />
-                            <ComboBoxItem
-                                Content="B3.4" />
-                            <ComboBoxItem
-                                Content="B3.5" />
                         </ComboBox>
                     </StackPanel>
                     <StackPanel Margin="30 10 30 0">
@@ -147,7 +124,8 @@
                             Maximum="2021"
                             Style="{StaticResource MaterialDesignDiscreteSlider}"
                             TickFrequency="{Binding DiscreteHorizontal.TickFrequency}"
-                            TickPlacement="Both" />
+                            TickPlacement="Both"
+                            x:Name="SlYearFrom" />
                     </StackPanel>
                     <StackPanel Margin="30 10 30 0">
                         <TextBlock
@@ -159,14 +137,16 @@
                             Maximum="2021"
                             Style="{StaticResource MaterialDesignDiscreteSlider}"
                             TickFrequency="{Binding DiscreteHorizontal.TickFrequency}"
-                            TickPlacement="Both" />
+                            TickPlacement="Both"
+                            x:Name="SlYearTo" />
                     </StackPanel>
                     <StackPanel Margin="30 10 30 0">
                         <TextBlock
                             Style="{StaticResource MaterialDesignBody2TextBlock}"
                             Text="Smaaktonen" />
                         <ListBox
-                            Style="{StaticResource MaterialDesignFilterChipAccentOutlineListBox}">
+                            Style="{StaticResource MaterialDesignFilterChipAccentOutlineListBox}"
+                            x:Name="LbTastingNotes">
                             <ListBoxItem
                                 Content="Zoet" />
                             <ListBoxItem
@@ -190,20 +170,39 @@
                             Style="{StaticResource MaterialDesignBody2TextBlock}"
                             Text="Rating" />
                         <materialDesign:RatingBar
-                            x:Name="BasicRatingBar"
+                            x:Name="RbWineRating"
                             Value="3" />
                     </StackPanel>
-
+                    <StackPanel Margin="30 10 30 0">
+                        <Button
+                            Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                            ToolTip="Resource name: MaterialDesignRaisedDarkButton"
+                            Click="ButtonBase_OnClick"
+                            Content="Lijst Updaten"/>
+                    </StackPanel>
                 </StackPanel>
             </DockPanel>
         </materialDesign:ColorZone>
 
+        <materialDesign:Card
+            Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2"
+            UniformCornerRadius="14"
+            Padding="4"
+            x:Name="DataLoading">
+            <ProgressBar
+                Margin="20 10 20 10"
+                IsIndeterminate="True" 
+                Height="10"/>
+        </materialDesign:Card>
+        
         <materialDesign:ColorZone
             Grid.Column="1" Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="2"
             Mode="PrimaryDark"
             Margin="6" VerticalAlignment="Stretch"
             CornerRadius="16"
-            materialDesign:ShadowAssist.ShadowDepth="Depth3">
+            materialDesign:ShadowAssist.ShadowDepth="Depth3"
+            Opacity="0"
+            x:Name="ListViewZone">
             <DockPanel>
                 <ListView Margin="10" Name="WineDataBinding" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" MouseDoubleClick="ListViewItem_Clicked" d:ItemsSource="{d:SampleData ItemCount=5}">
                     <ListView.ItemTemplate>

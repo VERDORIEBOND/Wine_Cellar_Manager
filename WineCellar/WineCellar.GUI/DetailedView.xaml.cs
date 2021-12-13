@@ -66,11 +66,19 @@ namespace WineCellar
 
                     WineRating.DataContext = Rating(item.Rating);
                     WineType.DataContext = item.Type;
-                    WineHarvestYear.DataContext = item.HarvestYear;
+                    WineHarvestYear.DataContext = item.Age;
                     WineVolume.DataContext = item.Alcohol + "%";
                     Taste(item.Taste);
                     WineCountry.DataContext = item.OriginCountry;
-                    WineLocation.DataContext = item.StorageLocation[0];
+
+                    if (item.StorageLocation[0] == null)
+                    {
+                        WineLocation.DataContext = "onbekend";
+                    }
+                    else
+                    {
+                        WineLocation.DataContext = item.StorageLocation[0];
+                    }
 
                     WineBuy.DataContext = item.BuyPrice;
                     WineSell.DataContext = item.SellPrice;
@@ -78,7 +86,7 @@ namespace WineCellar
 
                     IndexID = item.ID;
 
-                    wineRecord = new WineRecord(item.ID, item.Name, (decimal)item.BuyPrice, (decimal)item.SellPrice, item.TypeID, item.Type, item.CountryID, item.OriginCountry, "", item.HarvestYear, item.Stock, (decimal)item.Alcohol, item.Rating, item.Description);
+                    wineRecord = new WineRecord(item.ID, item.Name, (decimal)item.BuyPrice, (decimal)item.SellPrice, item.TypeID, item.Type, item.CountryID, item.OriginCountry, null, item.Age, item.Stock, (decimal)item.Alcohol, item.Rating, item.Description);
                     break;
                 }
                 else

@@ -14,13 +14,14 @@ public class WineData : IWineData
     public int TypeID { get; set; }
     public string OriginCountry { get; set; } = string.Empty;
     public int CountryID { get; set; }
-    public int HarvestYear { get; set; }
+    public int Age { get; set; }
     public string[] Taste { get; set; } = new string[0];
     public double Alcohol { get; set; }
     public int Rating { get; set; }
     public string Description { get; set; } = string.Empty;
     public int Stock { get; set; }
-    public string[] StorageLocation { get; set; } = new string[0];
+    public string[] StorageLocation { get; set; } = Array.Empty<string>();
+    public string[] Notes { get; set; } = Array.Empty<string>();
 }
 
 
@@ -44,7 +45,7 @@ namespace Controller
                 wineEntry.Name = wine.Name;
                 wineEntry.Description = wine.Description;
                 wineEntry.Rating = wine.Rating;
-                wineEntry.HarvestYear = wine.Year;
+                wineEntry.Age = wine.Year;
                 wineEntry.Stock = wine.Content;
                 wineEntry.Alcohol = (double)wine.Alcohol;
                 wineEntry.Type = wine.Type;
@@ -54,14 +55,7 @@ namespace Controller
                 wineEntry.BuyPrice = (double)wine.Buy;
                 wineEntry.SellPrice = (double)wine.Sell;
 
-                string[] wineNotes = Array.Empty<string>();
-                foreach (var note in await DataAccess.NoteRepo.GetByWine(wine.Id))
-                {
-                    wineNotes = wineNotes.Append(note.Name).ToArray();
-                }
-                wineEntry.Taste = wineNotes;
-
-                string[] storageLocations = Array.Empty<string>();
+                var storageLocations = new string[] {};
                 foreach (var location in await DataAccess.LocationRepo.GetByWine(wine.Id))
                 {
                     //create array and add the location to it
@@ -78,6 +72,32 @@ namespace Controller
             return wineData;
         }
 
+        public static List<IWineData> FilterWine(List<IWineData> wineDatas, string? name, double priceFrom, double priceTo, string wineType, string storageLocation, double ageFrom, double ageTo, List<string> tastingNotes, int rating)
+        {
+            var filteredWine = new List<IWineData>();
+            foreach (var wine in wineDatas)
+            { 
+                if (wine.Name.ToLower().Contains(name?.ToLower() ?? string.Empty) &&
+                    wine.SellPrice >= priceFrom && 
+                    wine.SellPrice <= priceTo && 
+                    wine.Type.ToLower().Contains(wineType?.ToLower() ?? string.Empty) && 
+                    wine.Age >= ageFrom && 
+                    wine.Age <= ageTo) 
+                {
+                    var wineEntry = new WineData();
+                    wineEntry.Name = wine.Name;
+                    wineEntry.Age = wine.Age;
+                    wineEntry.Stock = wine.Stock;
+                    wineEntry.Type = wine.Type;
+                    wineEntry.OriginCountry = wine.OriginCountry;
+                    wineEntry.BuyPrice = wine.BuyPrice;
+                    wineEntry.SellPrice = wine.SellPrice;
+                    wineEntry.StorageLocation = wine.StorageLocation;
+                    filteredWine.Add(wineEntry);
+                }
+            }
+            return filteredWine;
+        }
         public static async Task DeleteWine(int wineId)
         {
             await DataAccess.LocationRepo.DeleteAllByWine(wineId);

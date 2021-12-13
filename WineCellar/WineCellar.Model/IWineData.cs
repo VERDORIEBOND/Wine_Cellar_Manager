@@ -10,7 +10,7 @@
         public int TypeID { get; set; }
         public string OriginCountry { get; set; }
         public int CountryID { get; set; }
-        public int HarvestYear { get; set; }
+        public int Age { get; set; }
         public string[] Taste { get; set; }
         public double Alcohol { get; set; }
         public int Rating { get; set; }

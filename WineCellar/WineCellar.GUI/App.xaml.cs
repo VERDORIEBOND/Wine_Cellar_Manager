@@ -1,6 +1,7 @@
 ﻿using Controller;
 using Controller.Repositories;
 using Microsoft.Extensions.Configuration;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -10,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using WineCellar.Views.DatabaseSetup;
 
 namespace WineCellar
 {
@@ -31,8 +33,25 @@ namespace WineCellar
             // This creates the IConfiguration object
             Configuration = builder.Build();
 
-            // DataAccess requires the configuration to create SqlConnections
-            DataAccess.SetConfiguration(Configuration);
+            // Temporarily disable shutdown on mainwindow close, as closing dialog would also cause it to shutdown
+            ShutdownMode = ShutdownMode.OnExplicitShutdown;
+            DatabaseSelectWindow selection = new(Configuration);
+            bool? success = selection.ShowDialog();
+
+            if (success == true)
+            {
+                DatabaseInformation sdb = selection.GetSelectedDatabase();
+                DataAccess.SetConnectionString(sdb.ConnectionString);
+
+                MainWindow mainWindow = new();
+                MainWindow = mainWindow;
+                ShutdownMode = ShutdownMode.OnMainWindowClose;
+                mainWindow.Show();
+            }
+            else
+            {
+                Shutdown();
+            }
         }
     }
 }
