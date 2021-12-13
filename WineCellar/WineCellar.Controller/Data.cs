@@ -81,7 +81,22 @@ namespace Controller
 
         public static async void Create(WineData wine)
         {
-            var wineRepo = await DataAccess.WineRepo.Create(wine);
+            WineRecord newWine = new(0,
+                wine.Name,
+                Convert.ToDecimal(wine.BuyPrice),
+                Convert.ToDecimal(wine.SellPrice),
+                wine.TypeId,
+                wine.Type,
+                wine.Country,
+                string.Empty,
+                wine.Picture,
+                wine.Age,
+                wine.Contents,
+                wine.Alcohol,
+                wine.Rating,
+                wine.Description
+            );
+            var wineRepo = await DataAccess.WineRepo.Create(newWine);
         }
 
         public static async Task<Dictionary<string, string>> GetAllCountries()
