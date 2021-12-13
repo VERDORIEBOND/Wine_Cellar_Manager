@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WineCellar.ControllerTest.Utilities;
+using WineCellar.Model;
 
 namespace WineCellar
 {
@@ -24,6 +25,9 @@ namespace WineCellar
     public partial class DetailedView : Window
     {
         private MainWindow mainWindow;
+        private ChangeWine changeWine;
+        private ChangeWineDataContext changeWineDataContext;
+        private WineRecord wineRecord;
 
         public List<IWineData> Items { get; set; }
         public int IndexID { get; set; }
@@ -75,6 +79,8 @@ namespace WineCellar
                     WineStock.DataContext = item.Stock;
 
                     IndexID = item.ID;
+
+                    wineRecord = new WineRecord(item.ID, item.Name, (decimal)item.BuyPrice, (decimal)item.SellPrice, item.TypeID, item.Type, item.CountryID, item.OriginCountry, "", item.HarvestYear, item.Stock, (decimal)item.Alcohol, item.Rating, item.Description);
                     break;
                 }
                 else
@@ -130,7 +136,11 @@ namespace WineCellar
 
         private void Button_Click_Aanpassen(object sender, RoutedEventArgs e)
         {
-            // Hier komt de functie naar het 'Aanpassen' Window
+            changeWineDataContext = new ChangeWineDataContext();
+            changeWine = new ChangeWine();
+            Application.Current.MainWindow = changeWine;
+            changeWine.Show();
+            Close();
         }
 
         private async void Voorraad_Add(object sender, RoutedEventArgs e)

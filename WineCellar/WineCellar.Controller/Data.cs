@@ -11,7 +11,9 @@ public class WineData : IWineData
     public double BuyPrice { get; set; }
     public double SellPrice { get; set; }
     public string Type { get; set; } = string.Empty;
+    public int TypeID { get; set; }
     public string OriginCountry { get; set; } = string.Empty;
+    public int CountryID { get; set; }
     public int HarvestYear { get; set; }
     public string[] Taste { get; set; } = new string[0];
     public double Alcohol { get; set; }
@@ -63,7 +65,9 @@ namespace Controller
                 wineEntry.Stock = wine.Content;
                 wineEntry.Alcohol = (double)wine.Alcohol;
                 wineEntry.Type = wine.Type;
+                wineEntry.TypeID = wine.TypeId;
                 wineEntry.OriginCountry = wine.Country;
+                wineEntry.CountryID = wine.CountryId;
                 wineEntry.BuyPrice = (double)wine.Buy;
                 wineEntry.SellPrice = (double)wine.Sell;
 
