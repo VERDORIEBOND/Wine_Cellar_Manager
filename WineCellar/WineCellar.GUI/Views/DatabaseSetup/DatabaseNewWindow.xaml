@@ -1,0 +1,55 @@
+﻿<Window x:Class="WineCellar.Views.DatabaseSetup.DatabaseNewWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WineCellar.Views.DatabaseSetup"
+        xmlns:dataContexts="clr-namespace:WineCellar.DataContexts"
+        d:DataContext="{d:DesignInstance dataContexts:DatabaseNewContext}"
+        mc:Ignorable="d"
+        Title="New connection..." ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        SizeToContent="WidthAndHeight"
+        MaxHeight="400"
+        MinWidth="300" MaxWidth="300" Width="300"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+    <Grid Margin="10 10 10 10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Column="0" Grid.Row="0">Name:</Label>
+        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding InputName}" TabIndex="1" TextChanged="TextBox_TextChanged"/>
+        <Label Grid.Column="0" Grid.Row="1">Host:</Label>
+        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding InputHost}" TabIndex="1" TextChanged="TextBox_TextChanged"/>
+        <Label Grid.Column="0" Grid.Row="2">Port:</Label>
+        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding InputPort}" TabIndex="2" TextChanged="TextBox_TextChanged" PreviewTextInput="PortTextBox_PreviewTextInput"/>
+        <Label Grid.Column="0" Grid.Row="3">Username:</Label>
+        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding InputUsername}" TabIndex="3" TextChanged="TextBox_TextChanged"/>
+        <Label Grid.Column="0" Grid.Row="4">Password:</Label>
+        <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding InputPassword}" TabIndex="4" TextChanged="TextBox_TextChanged"/>
+        <Label Grid.Column="0" Grid.Row="5">Database:</Label>
+        <TextBox Grid.Column="1" Grid.Row="5" Text="{Binding InputDatabase}" TabIndex="5" TextChanged="TextBox_TextChanged"/>
+        <!--<ComboBox Grid.Column="1" Grid.Row="6" IsEnabled="False">
+            <ComboBoxItem Content="WineDB"/>
+            <ComboBoxItem Content="TestDB"/>
+        </ComboBox>-->
+        <ProgressBar x:Name="progressConnection" Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Margin="15 5 15 5" Height="15" IsIndeterminate="True" Visibility="Hidden"/>
+        <Button Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="1" Margin="0 5 0 5" HorizontalAlignment="Center" Click="ConnectButton_Click">Connect</Button>
+        <Button x:Name="btnAddConnection" Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="1" Margin="0 5 5 5" HorizontalAlignment="Right" IsEnabled="False" Click="AddButton_Click">Add connection</Button>
+    </Grid>
+</Window>

@@ -93,7 +93,7 @@ public class NoteRepository
     }
 
     /// <summary>
-    /// Inserts the id of wine and note into the database, these entries should exist before.
+    /// Removes the association between wine and note, these entries should exist before.
     /// </summary>
     /// <param name="wineId"></param>
     /// <param name="noteId"></param>
@@ -102,5 +102,16 @@ public class NoteRepository
     {
         using var conn = DataAccess.GetConnection;
         return await conn.ExecuteAsync(Queries.Note_RemoveWine, new { IdWine = wineId, IdNote = noteId }, commandType: CommandType.StoredProcedure);
+    }
+
+    /// <summary>
+    /// Removes all association with the provided wineid.
+    /// </summary>
+    /// <param name="wineId"></param>
+    /// <returns>Rows affected</returns>
+    public async Task<int> RemoveByWineId(int wineId)
+    {
+        using var conn = DataAccess.GetConnection;
+        return await conn.ExecuteAsync(Queries.Note_RemoveByWineId, new { IdWine = wineId}, commandType: CommandType.StoredProcedure);
     }
 }
