@@ -9,15 +9,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Loading\CatenaMalbec.png" />
+    <None Remove="Loading\wineLoad.gif" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MaterialDesignThemes" Version="4.2.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
+    <PackageReference Include="WpfAnimatedGif" Version="2.0.2" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\WineCellar.ControllerTest\WineCellar.ControllerTest.csproj" />
     <ProjectReference Include="..\WineCellar.Controller\WineCellar.Controller.csproj" />
     <ProjectReference Include="..\WineCellar.Model\WineCellar.Model.csproj" />
   </ItemGroup>
@@ -36,6 +43,11 @@
     <None Update="appsettings.Development.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Loading\CatenaMalbec.png" />
+    <Resource Include="Loading\wineLoad.gif" />
   </ItemGroup>
 
 </Project>
