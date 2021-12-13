@@ -72,7 +72,7 @@
                 Margin="6" VerticalAlignment="Stretch"
                 CornerRadius="16"
                 materialDesign:ShadowAssist.ShadowDepth="Depth3">
-                    <Image Width="auto" Height="auto" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10" Source="C:\Users\mailm\Pictures\Camera Roll\CatenaMalbec.png" />
+                    <Image Width="auto" Height="auto" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10" Source="\Loading\CatenaMalbec.png" />
                 </materialDesign:ColorZone>
 
                 <materialDesign:ColorZone
@@ -242,7 +242,7 @@
             x:Name="DataLoading">
             <DockPanel VerticalAlignment="Bottom" HorizontalAlignment="Right">
                 <Label Content="Loading Data" Foreground="White" VerticalAlignment="Center" FontSize="28"/>
-                <Image gif:ImageBehavior.AnimatedSource="C:\Users\mailm\Pictures\Camera Roll\wineLoad.gif"
+                <Image gif:ImageBehavior.AnimatedSource="\Loading\wineLoad.gif"
                            gif:ImageBehavior.AutoStart="True"
                            gif:ImageBehavior.RepeatBehavior="1"
                            Height="120"/>
