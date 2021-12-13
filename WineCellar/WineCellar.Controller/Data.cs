@@ -20,30 +20,13 @@ public class WineData : IWineData
     public double SellPrice { get; set; }
     public decimal Alcohol { get; set; }
     public int Rating { get; set; }
+    public string[] Notes { get; set; } = Array.Empty<string>();
 }
-
 
 namespace Controller
 {
     public class Data
     {
-        public static List<IWineData> GetWineData()
-        {
-            return new List<IWineData>
-            {
-                new WineData {Name = "Catena Malbec", Age = 2019, Type = "Malbec", OriginCountry = "Argentinia", Stock = 7, StorageLocation = new []{"A3.6","A18.6","B3.20","B3.21","B3.22","B3.23","B3.24","C2.2"}, BuyPrice = 11.99, SellPrice = 23.99},
-                new WineData {Name = "Faustino V Rioja Reserva", Age = 2016, Type = "tempranillo", OriginCountry = "Spanje", Stock = 2, StorageLocation = new []{"A3.6","A18.6","B3.20","B3.21","B3.22","B3.23","B3.24","C2.2"}, BuyPrice = 11.99, SellPrice = 23.99},
-                new WineData {Name = "Cantina di Verona Valpolicella Ripasso", Age = 2019, Type = "Corvina", OriginCountry = "Italië", Stock = 12, StorageLocation = new []{"A3.6","A18.6","B3.20","B3.21","B3.22","B3.23","B3.24","C2.2"}, BuyPrice = 10.65, SellPrice = 23.99},
-                new WineData {Name = "Mucho Más Tinto", Age = 0, Type = "Tempranillo", OriginCountry = "Spanje", Stock = 23, StorageLocation = new []{"A3.6","A18.6","B3.20","B3.21","B3.22","B3.23","B3.24","C2.2"}, BuyPrice = 5.98, SellPrice = 23.99},
-                new WineData {Name = "Valdivieso Merlot", Age = 2020, Type = "Merlot", OriginCountry = "Chili", Stock = 3, StorageLocation = new []{"A3.6","A18.6","B3.20","B3.21","B3.22","B3.23","B3.24","C2.2"}, BuyPrice = 5.99, SellPrice = 23.99},
-                new WineData {Name = "Bruce Jack", Age = 2019, Type = "Sauvignon Blanc", OriginCountry = "Zuid-Africa", Stock = 7, StorageLocation = new []{"A3.6","A18.6","B3.20","B3.21","B3.22","B3.23","B3.24","C2.2"}, BuyPrice = 6.99, SellPrice = 23.99},
-                new WineData {Name = "Alamos Merlot", Age = 2020, Type = "Merlot", OriginCountry = "Argentinia", Stock = 31, StorageLocation = new []{"A3.6","A18.6","B3.20","B3.21","B3.22","B3.23","B3.24","C2.2"}, BuyPrice = 6.59, SellPrice = 23.99},
-                new WineData {Name = "Domaine Andau", Age = 2019, Type = "Grüner Veltliner", OriginCountry = "Oostenrijk", Stock = 3, StorageLocation = new []{"A3.6","A18.6","B3.20","B3.21","B3.22","B3.23","B3.24","C2.2"}, BuyPrice = 7.99, SellPrice = 23.99},
-                new WineData {Name = "La Palma", Age = 2019, Type = "Chardonnay", OriginCountry = "Chili", Stock = 2, StorageLocation = new []{"A3.6","A18.6","B3.20","B3.21","B3.22","B3.23","B3.24","C2.2"}, BuyPrice = 5.99, SellPrice = 23.99},
-                new WineData {Name = "La Palma", Age = 2020, Type = "Carmenère", OriginCountry = "Chili", Stock = 53, StorageLocation = new []{"A3.6","A18.6","B3.20","B3.21","B3.22","B3.23","B3.24","C2.2"}, BuyPrice = 5.99, SellPrice = 23.99}
-            };
-        }
-        
         //Get all the wine data from the database
         public static async Task<List<IWineData>> GetAllWines()
         {
@@ -62,7 +45,7 @@ namespace Controller
                 wineEntry.BuyPrice = (double)wine.Buy;
                 wineEntry.SellPrice = (double)wine.Sell;
                 wineEntry.Picture = wine.Picture;
-                
+
                 var storageLocations = new string[] {};
                 foreach (var location in await DataAccess.LocationRepo.GetByWine(wine.Id))
                 {
@@ -79,6 +62,7 @@ namespace Controller
             return wineData;
         }
 
+      
         public static async void Create(WineData wine)
         {
             WineRecord newWine = new(0,
@@ -120,5 +104,32 @@ namespace Controller
             return Types;
         }
 
+        public static List<IWineData> FilterWine(List<IWineData> wineDatas, string? name, double priceFrom, double priceTo, string wineType, 
+            string storageLocation, double ageFrom, double ageTo, List<string> tastingNotes, int rating)
+        {
+            var filteredWine = new List<IWineData>();
+            foreach (var wine in wineDatas)
+            { 
+                if (wine.Name.ToLower().Contains(name?.ToLower() ?? string.Empty) &&
+                    wine.SellPrice >= priceFrom && 
+                    wine.SellPrice <= priceTo && 
+                    wine.Type.ToLower().Contains(wineType?.ToLower() ?? string.Empty) && 
+                    wine.Age >= ageFrom && 
+                    wine.Age <= ageTo) 
+                {
+                    var wineEntry = new WineData();
+                    wineEntry.Name = wine.Name;
+                    wineEntry.Age = wine.Age;
+                    wineEntry.Stock = wine.Stock;
+                    wineEntry.Type = wine.Type;
+                    wineEntry.OriginCountry = wine.OriginCountry;
+                    wineEntry.BuyPrice = wine.BuyPrice;
+                    wineEntry.SellPrice = wine.SellPrice;
+                    wineEntry.StorageLocation = wine.StorageLocation;
+                    filteredWine.Add(wineEntry);
+                }
+            }
+            return filteredWine;
+        }
     }
 }

@@ -38,7 +38,7 @@ public class WineRepository
         parameters.Add("Sell", wine.Sell, dbType: DbType.Decimal, precision: 10, scale: 2);
         parameters.Add("TypeId", wine.TypeId);
         parameters.Add("CountryId", wine.CountryId);
-        parameters.Add("Picture", wine.Picture);
+        parameters.Add("Picture", wine.Picture, DbType.Binary, size: -1);
         parameters.Add("Year", wine.Year);
         parameters.Add("Content", wine.Content);
         parameters.Add("Alcohol", wine.Alcohol, dbType: DbType.Decimal, precision: 10, scale: 2);
@@ -57,7 +57,7 @@ public class WineRepository
         parameters.Add("Sell", wine.Sell, dbType: DbType.Decimal, precision: 10, scale: 2);
         parameters.Add("TypeId", wine.TypeId);
         parameters.Add("CountryId", wine.CountryId);
-        parameters.Add("Picture", wine.Picture);
+        parameters.Add("Picture", wine.Picture, DbType.Binary, size: -1);
         parameters.Add("Year", wine.Year);
         parameters.Add("Content", wine.Content);
         parameters.Add("Alcohol", wine.Alcohol, dbType: DbType.Decimal, precision: 10, scale: 2);
