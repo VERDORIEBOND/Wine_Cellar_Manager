@@ -71,13 +71,13 @@ namespace WineCellar
                     Taste(item.Taste);
                     WineCountry.DataContext = item.OriginCountry;
 
-                    if (item.StorageLocation[0] == null)
+                    if (item.StorageLocation.Length > 0)
                     {
-                        WineLocation.DataContext = "onbekend";
+                        WineLocation.DataContext = item.StorageLocation[0];
                     }
                     else
                     {
-                        WineLocation.DataContext = item.StorageLocation[0];
+                        WineLocation.DataContext = "Onbekend";
                     }
 
                     WineBuy.DataContext = item.BuyPrice;
