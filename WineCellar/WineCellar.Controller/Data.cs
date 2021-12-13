@@ -13,6 +13,7 @@ public class WineData : IWineData
     public string[] StorageLocation { get; set; } = Array.Empty<string>();
     public double BuyPrice { get; set; }
     public double SellPrice { get; set; }
+    public string[] Notes { get; set; } = Array.Empty<string>();
 }
 
 
@@ -54,7 +55,7 @@ namespace Controller
                 wineEntry.OriginCountry = wine.Country;
                 wineEntry.BuyPrice = (double)wine.Buy;
                 wineEntry.SellPrice = (double)wine.Sell;
-                
+
                 var storageLocations = new string[] {};
                 foreach (var location in await DataAccess.LocationRepo.GetByWine(wine.Id))
                 {
@@ -71,6 +72,27 @@ namespace Controller
             return wineData;
         }
 
-        
+        public static List<IWineData> FilterWine(List<IWineData> wineDatas, string? name, double priceFrom, double priceTo, string wineType, string storageLocation, double ageFrom, double ageTo, List<string> tastingNotes, int rating)
+        {
+            var filteredWine = new List<IWineData>();
+            foreach (var wine in wineDatas)
+            {
+                //&& wine.SellPrice >= priceFrom && wine.SellPrice <= priceTo && wine.Type.ToLower().Contains(wineType.ToLower()) && wine.Age >= ageFrom && wine.Age <= ageTo
+                if (wine.Name.ToLower().Contains(name?.ToLower() ?? string.Empty) && wine.SellPrice >= priceFrom && wine.SellPrice <= priceTo && wine.Type.ToLower().Contains(wineType?.ToLower() ?? string.Empty) && wine.Age >= ageFrom && wine.Age <= ageTo && wine.StorageLocation.Contains(storageLocation ?? string.Empty))
+                {
+                    var wineEntry = new WineData();
+                    wineEntry.Name = wine.Name;
+                    wineEntry.Age = wine.Age;
+                    wineEntry.Stock = wine.Stock;
+                    wineEntry.Type = wine.Type;
+                    wineEntry.OriginCountry = wine.OriginCountry;
+                    wineEntry.BuyPrice = wine.BuyPrice;
+                    wineEntry.SellPrice = wine.SellPrice;
+                    wineEntry.StorageLocation = wine.StorageLocation;
+                    filteredWine.Add(wineEntry);
+                }
+            }
+            return filteredWine;
+        }
     }
 }
