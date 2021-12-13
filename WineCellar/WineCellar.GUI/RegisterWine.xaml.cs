@@ -155,6 +155,9 @@ namespace WineCellar
                 MainWindow window = new MainWindow();   
 
                 window.Show();
+
+                Application.Current.MainWindow = window;
+
                 Close();
                 MessageBox.Show("Wine geregistreerd!");
             }
