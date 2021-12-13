@@ -1,25 +1,29 @@
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using Model;
 using WineCellar.Model;
 
 public class WineData : IWineData
 {
+    public int ID { get; set; }
     public string Name { get; set; } = string.Empty;
-    public string Description { get; set; }
-    public int Age { get; set; }
-    public int Contents { get; set; }
-    public string Type { get; set; } = string.Empty;
-    public byte[]? Picture { get; set; } = null;
-    public string OriginCountry { get; set; } = string.Empty;
-    public int Country { get; set; }
-    public int Stock { get; set; }
-    public int TypeId { get; set; }
-    public string[] StorageLocation { get; set; } = Array.Empty<string>();
     public double BuyPrice { get; set; }
     public double SellPrice { get; set; }
-    public decimal Alcohol { get; set; }
+    public string Type { get; set; } = string.Empty;
+    public int TypeID { get; set; }
+    public string OriginCountry { get; set; } = string.Empty;
+    public int CountryID { get; set; }
+    public int Age { get; set; }
+    public string[] Taste { get; set; } = new string[0];
     public int Rating { get; set; }
+    public string Description { get; set; } = string.Empty;
+    public int Contents { get; set; }
+    public byte[]? Picture { get; set; } = null;
+    public int Country { get; set; }
+    public int Stock { get; set; }
+    public string[] StorageLocation { get; set; } = Array.Empty<string>();
+    public decimal Alcohol { get; set; }
     public string[] Notes { get; set; } = Array.Empty<string>();
 }
 
@@ -31,17 +35,25 @@ namespace Controller
         public static async Task<List<IWineData>> GetAllWines()
         {
             var wineRepo = await DataAccess.WineRepo.GetAll();
+
             //convert the result to a list of wine data
             var wineData = new List<IWineData>();
 
             foreach (var wine in wineRepo)
             {
-                var wineEntry = new WineData();
+                WineData wineEntry = new WineData();
+
+                wineEntry.ID = wine.Id;
                 wineEntry.Name = wine.Name;
+                wineEntry.Description = wine.Description;
+                wineEntry.Rating = wine.Rating;
                 wineEntry.Age = wine.Year;
                 wineEntry.Stock = wine.Content;
+                wineEntry.Alcohol = wine.Alcohol;
                 wineEntry.Type = wine.Type;
+                wineEntry.TypeID = wine.TypeId;
                 wineEntry.OriginCountry = wine.Country;
+                wineEntry.CountryID = wine.CountryId;
                 wineEntry.BuyPrice = (double)wine.Buy;
                 wineEntry.SellPrice = (double)wine.Sell;
                 wineEntry.Picture = wine.Picture;
@@ -56,9 +68,10 @@ namespace Controller
                     }
                 }
                 wineEntry.StorageLocation = storageLocations;
-                
+
                 wineData.Add(wineEntry);
             }
+
             return wineData;
         }
 
@@ -69,7 +82,7 @@ namespace Controller
                 wine.Name,
                 Convert.ToDecimal(wine.BuyPrice),
                 Convert.ToDecimal(wine.SellPrice),
-                wine.TypeId,
+                wine.TypeID,
                 wine.Type,
                 wine.Country,
                 string.Empty,
@@ -130,6 +143,45 @@ namespace Controller
                 }
             }
             return filteredWine;
+        }
+        public static async Task DeleteWine(int wineId)
+        {
+            await DataAccess.LocationRepo.DeleteAllByWine(wineId);
+            await DataAccess.NoteRepo.RemoveByWineId(wineId);
+
+            await DataAccess.WineRepo.Delete(wineId);
+        }
+
+        public static async Task<int> Add_Stock(int wineId)
+        {
+            var wine = await DataAccess.WineRepo.Get(wineId);
+            int stock = wine.Content;
+
+            if (stock >= 0)
+            {
+                stock++;
+
+                WineRecord wineRecord = new WineRecord(wine.Id, wine.Name, wine.Buy, wine.Sell, wine.TypeId, wine.Type, wine.CountryId, wine.Country, wine.Picture, wine.Year, stock, wine.Alcohol, wine.Rating, wine.Description);
+                await DataAccess.WineRepo.Update(wineRecord);
+            }
+
+            return stock;
+        }
+
+        public static async Task<int> Remove_Stock(int wineId)
+        {
+            var wine = await DataAccess.WineRepo.Get(wineId);
+            int stock = wine.Content;
+
+            if (stock > 0)
+            {
+                stock--;
+
+                WineRecord wineRecord = new WineRecord(wine.Id, wine.Name, wine.Buy, wine.Sell, wine.TypeId, wine.Type, wine.CountryId, wine.Country, wine.Picture, wine.Year, stock, wine.Alcohol, wine.Rating, wine.Description);
+                await DataAccess.WineRepo.Update(wineRecord);
+            }
+
+            return stock;
         }
     }
 }

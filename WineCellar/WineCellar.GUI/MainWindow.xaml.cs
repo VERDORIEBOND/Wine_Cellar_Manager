@@ -37,6 +37,8 @@ namespace WineCellar
         List<string> _contentWineLocation = new List<string>();
         List<string> contentWineNotes = new List<string>();
 
+        private DetailedView detailedView;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -138,6 +140,20 @@ namespace WineCellar
             SlYearTo.Value = _edgeYearTo;
             SlYearTo.Maximum = _edgeYearTo;
             LbTastingNotes.ItemsSource = contentWineNotes;
+        }
+
+        private void ListViewItem_Clicked(object sender, MouseButtonEventArgs e)
+        {
+            var item = (sender as ListView).SelectedItem;
+
+            if (item != null)
+            {
+                detailedView = new DetailedView(WineDataBinding.SelectedIndex);
+
+                Application.Current.MainWindow = detailedView;
+                detailedView.Show();
+                Close();
+            }
         }
     }
 }

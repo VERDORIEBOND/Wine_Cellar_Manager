@@ -49,7 +49,6 @@
                             Content="--------" />
                     </StackPanel>
                 </Grid>
-
             </DockPanel>
         </materialDesign:ColorZone>
 
@@ -206,7 +205,7 @@
             Opacity="0"
             x:Name="ListViewZone">
             <DockPanel>
-                <ListView Margin="10" Name="WineDataBinding" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                <ListView Margin="10" Name="WineDataBinding" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" MouseDoubleClick="ListViewItem_Clicked" d:ItemsSource="{d:SampleData ItemCount=5}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <materialDesign:ColorZone
@@ -216,68 +215,69 @@
                                 Padding="8"
                                 CornerRadius="8"
                                 materialDesign:ShadowAssist.ShadowDepth="Depth2">
-                                <WrapPanel>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="*"/>
-                                            <RowDefinition Height="*"/>
-                                        </Grid.RowDefinitions>
-                                        <Border Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Padding="5">
-                                            <Image Width="50" Source="C:\Users\lucas\source\repos\VERDORIEBOND\Wine_Cellar_Manager\WineCellar\WineCellar\Images\CatenaMalbec" />
-                                        </Border>
-                                        <Border Grid.Row="0" Grid.Column="1" Padding="5">
-                                            <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="{Binding Name}" FontWeight="Normal"/>
-                                        </Border>
-                                        <Border Grid.Row="0" Grid.Column="2" Padding="5">
-                                            <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" VerticalAlignment="Center" Text="Voorraad: " />
-                                        </Border>
-                                        <Border Grid.Row="0" Grid.Column="3" Padding="5">
-                                            <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" VerticalAlignment="Center" Text="{Binding Stock}" />
-                                        </Border>
 
-                                        <Border Grid.Row="0" Grid.Column="4" Grid.RowSpan="2" Padding="5">
-                                            <materialDesign:ColorZone
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Border Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Padding="5">
+                                        <Image Width="50" Source="C:\Users\lucas\source\repos\VERDORIEBOND\Wine_Cellar_Manager\WineCellar\WineCellar\Images\CatenaMalbec" />
+                                    </Border>
+                                    <Border Grid.Row="0" Grid.Column="1" Padding="5">
+                                        <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="{Binding Name}" FontWeight="Normal" />
+                                    </Border>
+                                    <Border Grid.Row="0" Grid.Column="3" Padding="5">
+                                        <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" VerticalAlignment="Center" Text="Voorraad: " />
+                                    </Border>
+                                    <Border Grid.Row="0" Grid.Column="4" Padding="5">
+                                        <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" VerticalAlignment="Center" Text="{Binding Stock}" />
+                                    </Border>
+
+                                    <Border Grid.Row="0" Grid.Column="5" Grid.RowSpan="2" Padding="5">
+                                        <materialDesign:ColorZone
                                                 Mode="Custom"
                                                 Background="#000000"
                                                 Foreground="White"
                                                 Padding="8"
                                                 CornerRadius="8"
                                                 VerticalAlignment="Center">
-                                                <!--BB86FC -->
-                                                <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" FontWeight="Normal" ><Run Text="Inkoop: "/><Run Text="{Binding BuyPrice}"/><LineBreak/><Run Text="Verkoop:"/><Run Text="{Binding SellPrice}"/></TextBlock>
-                                            </materialDesign:ColorZone>
-                                        </Border>
-                                        <Border Grid.Row="1" Grid.Column="1" Padding="5">
-                                            <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" FontWeight="Normal" ><Run Text="{Binding Age}"/><Run Text=" "/><Run Text="{Binding Type}"/><Run Text=" - "/><Run Text="{Binding OriginCountry}"/></TextBlock>
-                                        </Border>
-                                        <Border Grid.Row="1" Grid.Column="2" Padding="5">
-                                            <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" VerticalAlignment="Center" Text="Locatie:" />
-                                        </Border>
+                                            <!--BB86FC -->
+                                            <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" FontWeight="Normal" ><Run Text="Inkoop: "/><Run Text="{Binding BuyPrice}"/><LineBreak/><Run Text="Verkoop:"/><Run Text="{Binding SellPrice}"/></TextBlock>
+                                        </materialDesign:ColorZone>
+                                    </Border>
+                                    <Border Grid.Row="1" Grid.Column="1" Padding="5">
+                                        <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" FontWeight="Normal" ><Run Text="{Binding Age}"/><Run Text=" "/><Run Text="{Binding Type}"/><Run Text=" - "/><Run Text="{Binding OriginCountry}"/></TextBlock>
+                                    </Border>
+                                    <Border Grid.Row="1" Grid.Column="3" Padding="5">
+                                        <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" VerticalAlignment="Center" Text="Locatie:" />
+                                    </Border>
 
-                                        <Border Grid.Row="1" Grid.Column="3" Padding="5">
-                                            <ComboBox x:Name="StorageData"
+                                    <Border Grid.Row="1" Grid.Column="4" Padding="5">
+                                        <ComboBox x:Name="StorageData"
                                                       materialDesign:ComboBoxAssist.ShowSelectedItem="{Binding ElementName=DisplaySelectedItemCheckBox, Path=IsChecked}"
                                                       VerticalAlignment="Center">
-                                                <ComboBoxItem
+                                            <ComboBoxItem
                                                     IsSelected="True"
                                                     Content="{Binding StorageLocation[0]}" />
-                                                <ComboBoxItem
+                                            <ComboBoxItem
                                                     Content="{Binding StorageLocation[1]}" />
-                                                <ComboBoxItem
+                                            <ComboBoxItem
                                                     Content="{Binding StorageLocation[2]}" />
-                                                <ComboBoxItem
+                                            <ComboBoxItem
                                                     Content="{Binding StorageLocation[3]}" />
-                                            </ComboBox>
-                                        </Border>
-                                    </Grid>
-                                </WrapPanel>
+                                        </ComboBox>
+                                    </Border>
+                                </Grid>
+
                             </materialDesign:ColorZone>
                         </DataTemplate>
                     </ListView.ItemTemplate>
