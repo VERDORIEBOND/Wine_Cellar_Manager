@@ -67,4 +67,5 @@ public class WineRepository
         using var conn = DataAccess.GetConnection;
         return await conn.ExecuteScalarAsync<int>(Queries.Wine_Insert, parameters, commandType: CommandType.StoredProcedure);
     }
+
 }

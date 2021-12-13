@@ -12,7 +12,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         MinHeight="890">
     <Viewbox Stretch="Uniform" MaxWidth="850">
-        <Grid Height="500" Width="500" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid Height="560" Width="500" HorizontalAlignment="Center" VerticalAlignment="Center">
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <StackPanel.Resources>
                     <Style TargetType="{x:Type StackPanel}">
@@ -37,7 +37,12 @@
                 <StackPanel Orientation="Horizontal" Margin="0 0 0 0">
                     <Label Content="Naam" />
                     <TextBox LostFocus="PlaceholderLostFocus" GotFocus="PlaceholderFocus"  x:Name="name" 
-                             TextWrapping="Wrap" Text="Naam&#xD;&#xA;" Width="200" Height="25" />    
+                             TextWrapping="Wrap" Text="Naam" Width="200" Height="25" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0 0 0 0">
+                    <Label Content="Soort" />
+                    <ComboBox x:Name="type" Width="200" Height="25" Text="Soort"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
@@ -47,20 +52,20 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <Label Content="Inkoopprijs"/>
+                    <Label Content="Inkoopprijs (€)"/>
                     <TextBox x:Name="buy" TextWrapping="Wrap" LostFocus="PlaceholderLostFocus" GotFocus="PlaceholderFocus" 
-                             Text="Inkoopprijs&#xD;&#xA;" Width="200" Height="25" />
+                             Text="Inkoopprijs" Width="200" Height="25" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <Label Content="Verkoopprijs"/>
+                    <Label Content="Verkoopprijs (€)"/>
                     <TextBox x:Name="sell" TextWrapping="Wrap" LostFocus="PlaceholderLostFocus" GotFocus="PlaceholderFocus"  
-                             Text="Verkoopprijs&#xD;&#xA;&#xA;" Width="200" Height="25"/>
+                             Text="Verkoopprijs" Width="200" Height="25"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Land"/>
-                    <ComboBox x:Name="country" Width="175"/>
+                    <ComboBox x:Name="country" Width="200"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
@@ -71,7 +76,7 @@
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Oogstjaar"/>
                     <TextBox x:Name="year" TextWrapping="Wrap" LostFocus="PlaceholderLostFocus" GotFocus="PlaceholderFocus"  
-                             Text="Jaar&#xD;&#xA;&#xA;" Width="200" Height="24" />
+                             Text="Jaar" Width="200" Height="24" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
@@ -83,7 +88,7 @@
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Alcohol (%)"/>
                     <TextBox x:Name="alcohol" TextWrapping="Wrap" LostFocus="PlaceholderLostFocus" GotFocus="PlaceholderFocus"  
-                             Text="Alcohol (%)&#xA;" Width="200" Height="24" />
+                             Text="Alcohol (%)" Width="200" Height="24" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="0 20 0 0">

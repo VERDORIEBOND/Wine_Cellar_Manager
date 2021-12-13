@@ -39,6 +39,7 @@
                         <Button
                             Style="{StaticResource MaterialDesignRaisedDarkButton}"
                             ToolTip="Resource name: MaterialDesignRaisedDarkButton"
+                            Click="RegisterWine"
                             Content="Wijn Toevoegen"/>
                     </StackPanel>
                     <StackPanel Margin="15 10 15 10" Grid.Column="1">
@@ -194,7 +195,7 @@
                 IsIndeterminate="True" 
                 Height="10"/>
         </materialDesign:Card>
-        
+
         <materialDesign:ColorZone
             Grid.Column="1" Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="2"
             Mode="PrimaryDark"

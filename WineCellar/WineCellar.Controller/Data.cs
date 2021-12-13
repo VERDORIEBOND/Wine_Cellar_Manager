@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using Model;
@@ -16,14 +16,16 @@ public class WineData : IWineData
     public int CountryID { get; set; }
     public int Age { get; set; }
     public string[] Taste { get; set; } = new string[0];
-    public double Alcohol { get; set; }
     public int Rating { get; set; }
     public string Description { get; set; } = string.Empty;
+    public int Contents { get; set; }
+    public byte[]? Picture { get; set; } = null;
+    public int Country { get; set; }
     public int Stock { get; set; }
     public string[] StorageLocation { get; set; } = Array.Empty<string>();
+    public decimal Alcohol { get; set; }
     public string[] Notes { get; set; } = Array.Empty<string>();
 }
-
 
 namespace Controller
 {
@@ -54,6 +56,7 @@ namespace Controller
                 wineEntry.CountryID = wine.CountryId;
                 wineEntry.BuyPrice = (double)wine.Buy;
                 wineEntry.SellPrice = (double)wine.Sell;
+                wineEntry.Picture = wine.Picture;
 
                 var storageLocations = new string[] {};
                 foreach (var location in await DataAccess.LocationRepo.GetByWine(wine.Id))
@@ -72,7 +75,50 @@ namespace Controller
             return wineData;
         }
 
-        public static List<IWineData> FilterWine(List<IWineData> wineDatas, string? name, double priceFrom, double priceTo, string wineType, string storageLocation, double ageFrom, double ageTo, List<string> tastingNotes, int rating)
+      
+        public static async void Create(WineData wine)
+        {
+            WineRecord newWine = new(0,
+                wine.Name,
+                Convert.ToDecimal(wine.BuyPrice),
+                Convert.ToDecimal(wine.SellPrice),
+                wine.TypeId,
+                wine.Type,
+                wine.Country,
+                string.Empty,
+                wine.Picture,
+                wine.Age,
+                wine.Contents,
+                wine.Alcohol,
+                wine.Rating,
+                wine.Description
+            );
+            var wineRepo = await DataAccess.WineRepo.Create(newWine);
+        }
+
+        public static async Task<Dictionary<string, string>> GetAllCountries()
+        {
+            Dictionary<string, string> Countries = new Dictionary<string, string>();
+
+            foreach (CountryRecord country in await DataAccess.CountryRepo.GetAll())
+            {
+                Countries.Add(country.Id.ToString(), country.Name);
+            }
+            return Countries;
+        }   
+        public static async Task<Dictionary<string, string>> GetAllTypes()
+        {
+            Dictionary<string, string> Types = new Dictionary<string, string>();
+
+            foreach (TypeRecord type in await DataAccess.TypeRepo.GetAll())
+            {
+                Types.Add(type.Id.ToString(), type.Name);
+            }
+            return Types;
+        }
+
+        public static List<IWineData> FilterWine(List<IWineData> wineDatas, string? name, double priceFrom, double priceTo, string wineType, 
+            string storageLocation, double ageFrom, double ageTo, List<string> tastingNotes, int rating)
         {
             var filteredWine = new List<IWineData>();
             foreach (var wine in wineDatas)
