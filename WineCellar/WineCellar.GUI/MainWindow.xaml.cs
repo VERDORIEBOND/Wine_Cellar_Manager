@@ -48,7 +48,8 @@ namespace WineCellar
         {
             RegisterWine wine = new RegisterWine();
             wine.Show();
-            this.Close();
+            Application.Current.MainWindow = wine;
+            Close();
         }
 
         public async void FillList()
