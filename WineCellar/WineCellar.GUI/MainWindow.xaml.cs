@@ -42,10 +42,6 @@ namespace WineCellar
             InitializeComponent();
             FillList();
             FilterOuters();
-            var storageData = (ComboBox)FindName("StorageData");
-            
-            //When filter is changed, call the method to fill the list with the filtered data
-            
         }
 
         public async void FillList()
