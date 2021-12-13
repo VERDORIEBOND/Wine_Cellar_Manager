@@ -44,7 +44,7 @@ namespace WineCellar
             FilterOuters();
         }
 
-        public void registerWine()
+        public void RegisterWine(object sender, RoutedEventArgs e)
         {
             RegisterWine wine = new RegisterWine();
             wine.Show();
