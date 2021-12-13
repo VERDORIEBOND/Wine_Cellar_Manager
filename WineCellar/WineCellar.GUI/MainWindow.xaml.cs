@@ -113,7 +113,7 @@ namespace WineCellar
                 _contentWineLocation.Sort();
             }
             _contentWineTypes.Add("");
-            _contentWineLocation.Add(null);
+            _contentWineLocation.Add("");
             
             slPriceFrom.Minimum = _edgePriceFrom;
             slPriceFrom.Value = _edgePriceFrom;
