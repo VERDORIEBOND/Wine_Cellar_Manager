@@ -49,7 +49,7 @@ namespace Controller
                 wineEntry.Rating = wine.Rating;
                 wineEntry.Age = wine.Year;
                 wineEntry.Stock = wine.Content;
-                wineEntry.Alcohol = (double)wine.Alcohol;
+                wineEntry.Alcohol = wine.Alcohol;
                 wineEntry.Type = wine.Type;
                 wineEntry.TypeID = wine.TypeId;
                 wineEntry.OriginCountry = wine.Country;
@@ -82,7 +82,7 @@ namespace Controller
                 wine.Name,
                 Convert.ToDecimal(wine.BuyPrice),
                 Convert.ToDecimal(wine.SellPrice),
-                wine.TypeId,
+                wine.TypeID,
                 wine.Type,
                 wine.Country,
                 string.Empty,

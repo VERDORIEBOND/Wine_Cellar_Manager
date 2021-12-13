@@ -37,39 +37,39 @@ namespace WineCellar
         private async void SetTypes()
         {
             var types = await Data.GetAllTypes();
-            this.type.DisplayMemberPath = "Value";
-            this.type.SelectedValuePath = "Key";
-            this.type.ItemsSource = types;
+            type.DisplayMemberPath = "Value";
+            type.SelectedValuePath = "Key";
+            type.ItemsSource = types;
         }
 
         private async void SetCountries()
         {
             var countries = await Data.GetAllCountries();
-            this.country.DisplayMemberPath = "Value";
-            this.country.SelectedValuePath = "Key";
-            this.country.ItemsSource = countries;
+            country.DisplayMemberPath = "Value";
+            country.SelectedValuePath = "Key";
+            country.ItemsSource = countries;
 
         }
         private void CancelRegister(object sender, RoutedEventArgs e)
         {
             MainWindow window = new MainWindow();
             window.Show();
-            this.Close();
+            Close();
         }
 
         private void PlaceholderFocus(object sender, RoutedEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
 
-            if (this.placeholders.ContainsValue(textBox.Text))
+            if (placeholders.ContainsValue(textBox.Text))
             {
                 textBox.Text = "";
             }
             else
             {
-                if (!this.placeholders.ContainsKey(textBox.Name))
+                if (!placeholders.ContainsKey(textBox.Name))
                 {
-                    this.placeholders[textBox.Name] = textBox.Text;
+                    placeholders[textBox.Name] = textBox.Text;
                     textBox.Text = "";
                 }
             }
@@ -80,7 +80,7 @@ namespace WineCellar
             TextBox textBox = (TextBox)sender;
             if (textBox.Text.Length == 0)
             {
-                textBox.Text = this.placeholders[textBox.Name];
+                textBox.Text = placeholders[textBox.Name];
             }
         }
 
@@ -97,14 +97,14 @@ namespace WineCellar
             }
         }
 
-        private bool isValidString(String toValidate)
+        private bool isValidString(string toValidate)
         {
             return toValidate != null
                 && toValidate.Length > 0
                 && toValidate.Length < 255;
         }
 
-        private bool isInList(String toValidate, List<String> list)
+        private bool isInList(string toValidate, List<string> list)
         {
             if (toValidate != null && !list.Contains(toValidate))
             {
@@ -113,7 +113,7 @@ namespace WineCellar
             return true;
         }
 
-        private bool isYear(String toValidate)
+        private bool isYear(string toValidate)
         {
             int iyear;
             if (!int.TryParse(toValidate, out iyear))
@@ -131,7 +131,7 @@ namespace WineCellar
 
         private void AttemptRegister(object sender, RoutedEventArgs e)
         {
-            bool validate = this.Validation();
+            bool validate = Validation();
             if (validate)
             {
 
@@ -147,34 +147,34 @@ namespace WineCellar
                 wine.SellPrice = Convert.ToDouble(sell.Text);
                 wine.Alcohol = Convert.ToDecimal(alcohol.Text);
                 wine.Picture = FileContent;
-                wine.TypeId = type.SelectedIndex;
+                wine.TypeID = type.SelectedIndex;
                 wine.Description = description.Text;
                 wine.Rating = 5;
 
-                Controller.Data.Create(wine);
+                Data.Create(wine);
                 MainWindow window = new MainWindow();   
 
                 window.Show();
-                this.Close();
+                Close();
                 MessageBox.Show("Wine geregistreerd!");
             }
         }
 
         private bool Validation()
         {
-            if (!this.isValidString(this.name.Text))
+            if (!isValidString(this.name.Text))
             {
                 MessageBox.Show("De naam is te lang of te kort");
                 return false;
             }
 
-            if (this.country.SelectedItem == null)
+            if (country.SelectedItem == null)
             {
                 MessageBox.Show("Selecteer een land");
                 return false;
             }
 
-            if (!this.isYear(year.Text))
+            if (!isYear(year.Text))
             {
                 MessageBox.Show("Ongeldig jaartal");
                 return false;

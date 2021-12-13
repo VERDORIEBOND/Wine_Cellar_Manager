@@ -13,7 +13,7 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "WineCellar.Database", "Wine
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WineCellar.ControllerTest", "WineCellar.ControllerTest\WineCellar.ControllerTest.csproj", "{75290FE7-5B27-40B5-98A4-9C1A4B329AFD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WineCellar.DummyData", "WineCellar.DummyData\WineCellar.DummyData.csproj", "{2FF63A57-C425-4A29-A5A7-7A47FFBB6016}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WineCellar.DummyData", "WineCellar.DummyData\WineCellar.DummyData.csproj", "{2FF63A57-C425-4A29-A5A7-7A47FFBB6016}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
