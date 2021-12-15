@@ -50,4 +50,10 @@
     <Resource Include="Loading\wineLoad.gif" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Page Update="UpdateWine.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+  </ItemGroup>
+
 </Project>

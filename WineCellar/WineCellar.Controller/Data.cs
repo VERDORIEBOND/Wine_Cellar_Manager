@@ -94,6 +94,26 @@ namespace Controller
                 wine.Description
             );
             var wineRepo = await DataAccess.WineRepo.Create(newWine);
+        }   
+        
+        public static async void Update(WineData wine)
+        {
+            WineRecord newWine = new(wine.ID,
+                wine.Name,
+                Convert.ToDecimal(wine.BuyPrice),
+                Convert.ToDecimal(wine.SellPrice),
+                wine.TypeID,
+                wine.Type,
+                wine.Country,
+                string.Empty,
+                wine.Picture,
+                wine.Age,
+                wine.Contents,
+                wine.Alcohol,
+                wine.Rating,
+                wine.Description
+            );
+            var wineRepo = await DataAccess.WineRepo.Update(newWine);
         }
 
         public static async Task<Dictionary<string, string>> GetAllCountries()

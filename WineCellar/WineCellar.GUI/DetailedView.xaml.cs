@@ -142,7 +142,10 @@ namespace WineCellar
 
         private void Button_Click_Aanpassen(object sender, RoutedEventArgs e)
         {
-            // Hier komt het 'Aanpassen' scherm
+            var updateWine = new UpdateWine(IndexID);
+            Application.Current.MainWindow = updateWine;
+            updateWine.Show();
+            Close();
         }
 
         private async void Voorraad_Add(object sender, RoutedEventArgs e)
