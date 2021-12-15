@@ -17,11 +17,13 @@ namespace WineCellar
     {
         private byte[] FileContent = null;
         private int ID = 0;
+        private int PreviousWindowIndexId;
         private WineRecord WineToUpdate;
         private Dictionary<string, string> placeholders = new Dictionary<string, string>();
-        public UpdateWine(int id)
+        public UpdateWine(int id, int selectedIndex)
         {
             ID = id;
+            PreviousWindowIndexId = selectedIndex;
             InitializeComponent();
             SetCountries();
             SetTypes();
@@ -60,8 +62,7 @@ namespace WineCellar
         }
         private void CancelUpdate(object sender, RoutedEventArgs e)
         {
-            Trace.WriteLine(ID);
-            DetailedView window = new DetailedView(ID);
+            DetailedView window = new DetailedView(PreviousWindowIndexId);
             Application.Current.MainWindow = window;
             window.Show();
             Close();
@@ -151,7 +152,7 @@ namespace WineCellar
                 wine.Description = description.Text;
                 wine.Rating = 5;
                 Data.Update(wine);
-                MainWindow window = new MainWindow();
+                DetailedView window = new DetailedView(PreviousWindowIndexId);
                 window.Show();
                 Application.Current.MainWindow = window;
                 Close();

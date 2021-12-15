@@ -142,7 +142,7 @@ namespace WineCellar
 
         private void Button_Click_Aanpassen(object sender, RoutedEventArgs e)
         {
-            var updateWine = new UpdateWine(IndexID);
+            var updateWine = new UpdateWine(IndexID, IndexClicked);
             Application.Current.MainWindow = updateWine;
             updateWine.Show();
             Close();
