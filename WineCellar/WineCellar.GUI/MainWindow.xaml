@@ -220,7 +220,6 @@
                                 <ComboBoxItem Content="Verkoopprijs" />
                                 <ComboBoxItem Content="Type wijn" />
                                 <ComboBoxItem Content="Land van herkomst" />
-                                <ComboBoxItem Content="Opslag locatie" />
                                 <ComboBoxItem Content="Jaartal" />
                                 <ComboBoxItem Content="Voorraad" />
                                 <ComboBoxItem Content="Rating" />

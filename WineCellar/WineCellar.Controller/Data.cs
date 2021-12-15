@@ -213,11 +213,6 @@ namespace Controller
                     if (descending) { sortedlist.Reverse(); }
 
                     return sortedlist;
-                case "Opslag locatie":
-                    sortedlist.Sort((x, y) => x.StorageLocation[0].CompareTo(y.StorageLocation[0]));
-                    if (descending) { sortedlist.Reverse(); }
-
-                    return sortedlist;
                 case "Jaartal":
                     sortedlist.Sort((x, y) => x.Age.CompareTo(y.Age));
                     if (descending) { sortedlist.Reverse(); }
