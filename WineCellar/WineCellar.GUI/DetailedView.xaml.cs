@@ -27,15 +27,13 @@ namespace WineCellar
         private MainWindow mainWindow;
         private WineRecord wineRecord;
 
-        public List<IWineData> Items { get; set; }
         public int IndexID { get; set; }
-        public int IndexClicked { get; set; }
 
-        public DetailedView(int value)
+        public DetailedView(int value, List<IWineData> items)
         {
             InitializeComponent();
 
-            IndexClicked = value;
+            SetData(value, items);
         }
 
         private void LoadListStart()
@@ -153,12 +151,6 @@ namespace WineCellar
         private async void Voorraad_Remove(object sender, RoutedEventArgs e)
         {
             WineStock.DataContext = await Data.Remove_Stock(IndexID);
-        }
-
-        private async void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            Items = await Data.GetAllWines();
-            SetData(IndexClicked, Items);
         }
     }
 }

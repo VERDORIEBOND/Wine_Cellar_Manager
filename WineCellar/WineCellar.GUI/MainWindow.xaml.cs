@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -43,7 +44,7 @@ namespace WineCellar
         {
             InitializeComponent();
             FillList();
-            FilterOuters();
+            //FilterOuters();
         }
 
         public void RegisterWine(object sender, RoutedEventArgs e)
@@ -148,12 +149,21 @@ namespace WineCellar
 
             if (item != null)
             {
-                detailedView = new DetailedView(WineDataBinding.SelectedIndex);
+                detailedView = new DetailedView(WineDataBinding.SelectedIndex, items);
 
                 Application.Current.MainWindow = detailedView;
                 detailedView.Show();
                 Close();
             }
+        }
+
+        private void Button_Click_Sorteer(object sender, RoutedEventArgs e)
+        {
+            items = Data.SortWine(SortingBox.Text, items, (bool)Aflopend.IsChecked);
+            WineDataBinding.ItemsSource = items;
+
+            ICollectionView view = CollectionViewSource.GetDefaultView(WineDataBinding.ItemsSource);
+            view.Refresh();
         }
     }
 }
