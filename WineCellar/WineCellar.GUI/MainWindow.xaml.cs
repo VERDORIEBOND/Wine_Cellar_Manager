@@ -149,7 +149,6 @@ namespace WineCellar
             if (item != null)
             {
                 detailedView = new DetailedView(WineDataBinding.SelectedIndex);
-
                 Application.Current.MainWindow = detailedView;
                 detailedView.Show();
                 Close();
