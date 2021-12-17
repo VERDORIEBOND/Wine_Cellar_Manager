@@ -56,6 +56,13 @@ namespace WineCellar
             window.Show();
             Close();
         }
+        
+        void RegisterWine_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            MainWindow window = new MainWindow();
+            window.Show();
+            Application.Current.MainWindow = window;
+        }
 
         private void PlaceholderFocus(object sender, RoutedEventArgs e)
         {
@@ -155,9 +162,7 @@ namespace WineCellar
                 MainWindow window = new MainWindow();   
 
                 window.Show();
-
                 Application.Current.MainWindow = window;
-
                 Close();
                 MessageBox.Show("Wine geregistreerd!");
             }
