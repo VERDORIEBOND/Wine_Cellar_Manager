@@ -29,7 +29,7 @@ namespace WineCellar.ControllerTest
             DataAccess.SetConfiguration(Configuration);
         }
 
-        private bool CompareNotes(WineNote note1, WineNote note2)
+        private static bool CompareNotes(WineNote note1, WineNote note2)
         {
             return note1.Id == note2.Id
                 && note1.Name.Equals(note2.Name);

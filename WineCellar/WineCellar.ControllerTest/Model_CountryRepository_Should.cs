@@ -29,7 +29,7 @@ namespace WineCellar.ControllerTest
             DataAccess.SetConfiguration(Configuration);
         }
 
-        private bool CompareCountries(Country country1, Country country2)
+        private static bool CompareCountries(Country country1, Country country2)
         {
             return country1.Id == country2.Id
                 && country1.Name.Equals(country2.Name);

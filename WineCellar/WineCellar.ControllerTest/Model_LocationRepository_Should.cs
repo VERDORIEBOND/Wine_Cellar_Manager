@@ -39,7 +39,7 @@ namespace WineCellar.ControllerTest
             DataAccess.SetConfiguration(Configuration);
         }
 
-        private bool CompareLocations(StorageLocation loc1, StorageLocation loc2)
+        private static bool CompareLocations(StorageLocation loc1, StorageLocation loc2)
         {
             return loc1.IdWine == loc2.IdWine
                 && loc1.Shelf.Equals(loc2.Shelf)
