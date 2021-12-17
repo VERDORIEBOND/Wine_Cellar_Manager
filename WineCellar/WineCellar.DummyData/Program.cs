@@ -67,7 +67,7 @@ foreach (string country in PropertyOptions.Countries)
 {
     if (!countriesInDb.Contains(country))
     {
-        await DataAccess.CountryRepo.Create(new CountryRecord(0, country));
+        await DataAccess.CountryRepo.Create(new Country(0, country));
     }
 }
 
@@ -76,7 +76,7 @@ foreach (string type in PropertyOptions.Types)
 {
     if (!typesInDb.Contains(type))
     {
-        await DataAccess.TypeRepo.Create(new TypeRecord(0, type));
+        await DataAccess.TypeRepo.Create(new WineType(0, type));
     }
 }
 
@@ -85,7 +85,7 @@ foreach (string note in PropertyOptions.Notes)
 {
     if (!typesInDb.Contains(note))
     {
-        await DataAccess.NoteRepo.Create(new NoteRecord(0, note));
+        await DataAccess.NoteRepo.Create(new WineNote(0, note));
     }
 }
 
@@ -106,7 +106,7 @@ List<int> createdIds = new(amountWines);
 
 for (int i = 0; i < amountWines; i++)
 {
-    WineRecord newWine = new(0,
+    Wine newWine = new(0,
         PropertyOptions.WineNames[rand.Next(0, PropertyOptions.WineNames.Length)],
         new decimal(rand.NextDouble() * 100),
         new decimal(rand.NextDouble() * 100),
@@ -132,7 +132,7 @@ foreach (int id in createdIds)
     int amtLocations = rand.Next(1, 15);
 
     HashSet<int> occupiedNotes = new(amtNotes);
-    HashSet<StorageLocationRecord> occupiedLocations = new(amtLocations);
+    HashSet<StorageLocation> occupiedLocations = new(amtLocations);
 
     for (int i = 0; i < amtNotes; i++)
     {
@@ -149,7 +149,7 @@ foreach (int id in createdIds)
 
     for (int i = 0; i < amtLocations; i++)
     {
-        StorageLocationRecord selectedLocation = new StorageLocationRecord(
+        StorageLocation selectedLocation = new StorageLocation(
             id,
             ((char)rand.Next(65, 90)).ToString(),
             rand.Next(1, 100),
@@ -157,7 +157,7 @@ foreach (int id in createdIds)
 
         while (occupiedLocations.Contains(selectedLocation))
         {
-            selectedLocation = new StorageLocationRecord(
+            selectedLocation = new StorageLocation(
             id,
             ((char)rand.Next(0, 25)).ToString(),
             rand.Next(1, 100),
