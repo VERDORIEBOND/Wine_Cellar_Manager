@@ -6,5 +6,3 @@ public record WineRecord(int Id, string Name, decimal Buy, decimal Sell, int Typ
 
 public record CountryRecord(int Id, string Name);
 public record TypeRecord(int Id, string Name);
-public record NoteRecord(int Id, string Name);
-public record StorageLocationRecord(int IdWine, string Shelf, int Row, int Col);

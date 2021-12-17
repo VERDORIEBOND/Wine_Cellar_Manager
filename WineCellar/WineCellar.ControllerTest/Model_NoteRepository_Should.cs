@@ -18,7 +18,7 @@ namespace WineCellar.ControllerTest
     {
         private IConfiguration? Configuration { get; set; }
 
-        private NoteRecord Expected { get; set; } = new(0, "TestCountry");
+        private WineNote Expected { get; set; } = new(0, "TestCountry");
 
         [SetUp]
         public void Setup()
@@ -27,6 +27,12 @@ namespace WineCellar.ControllerTest
 
             // DataAccess requires the configuration to create SqlConnections
             DataAccess.SetConfiguration(Configuration);
+        }
+
+        private bool CompareNotes(WineNote note1, WineNote note2)
+        {
+            return note1.Id == note2.Id
+                && note1.Name.Equals(note2.Name);
         }
 
         [Test]
@@ -44,11 +50,11 @@ namespace WineCellar.ControllerTest
             int insertedId = await DataAccess.NoteRepo.Create(Expected);
 
             // Update the Id of the expected result
-            Expected = Expected with { Id = insertedId };
+            Expected.Id = insertedId;
 
             //Verify the record from database
-            NoteRecord result = await DataAccess.NoteRepo.Get(Expected.Id);
-            Assert.AreEqual(Expected, result);
+            WineNote result = await DataAccess.NoteRepo.Get(Expected.Id);
+            Assert.IsTrue(CompareNotes(Expected, result), "Expected inserted note to be the same");
         }
 
         [Test, Order(2)]
@@ -57,15 +63,15 @@ namespace WineCellar.ControllerTest
             Assert.IsTrue(Expected.Id > 0, "Expected InsertedId to return an integer larger than 0.");
 
             // Change name of the CountryRecord
-            Expected = Expected with { Name = "TestNoteAltered" };
+            Expected.Name = "TestNoteAltered";
 
             // Send the update to the database
             int rowsAffected = await DataAccess.NoteRepo.Update(Expected);
             Assert.AreEqual(1, rowsAffected);
 
             // Verify the record from database
-            NoteRecord result = await DataAccess.NoteRepo.Get(Expected.Id);
-            Assert.AreEqual(Expected, result);
+            WineNote result = await DataAccess.NoteRepo.Get(Expected.Id);
+            Assert.IsTrue(CompareNotes(Expected, result), "Expected inserted note to be the same");
         }
 
         [Test, Order(3)]
@@ -77,17 +83,26 @@ namespace WineCellar.ControllerTest
             await DataAccess.NoteRepo.AddWine(1, Expected.Id);
 
             // Retrieve all the notes for the wine and verify the note is added
-            List<NoteRecord> result = (await DataAccess.NoteRepo.GetByWine(1)).ToList();
-            Assert.Contains(Expected, result);
+            List<WineNote> result = (await DataAccess.NoteRepo.GetByWine(1)).ToList();
+            bool found = false;
+            foreach (WineNote item in result)
+            {
+                if (CompareNotes(Expected, item))
+                {
+                    found = true;
+                    break;
+                }
+            }
+            Assert.IsTrue(found, "Couldn't find record");
 
             // Remove the note from the wine
             await DataAccess.NoteRepo.RemoveWine(1, Expected.Id);
 
             // Verify the note is no longer associated with the wine
             result = (await DataAccess.NoteRepo.GetByWine(1)).ToList();
-            foreach (NoteRecord record in result)
+            foreach (WineNote record in result)
             {
-                Assert.AreNotEqual(Expected, record);
+                Assert.IsFalse(CompareNotes(Expected, record));
             }
         }
 

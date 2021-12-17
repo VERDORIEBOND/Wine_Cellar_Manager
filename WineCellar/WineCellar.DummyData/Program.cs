@@ -85,7 +85,7 @@ foreach (string note in PropertyOptions.Notes)
 {
     if (!typesInDb.Contains(note))
     {
-        await DataAccess.NoteRepo.Create(new NoteRecord(0, note));
+        await DataAccess.NoteRepo.Create(new WineNote(0, note));
     }
 }
 
