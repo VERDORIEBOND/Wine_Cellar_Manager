@@ -45,4 +45,9 @@ public class Wine
         Rating = rating;
         Description = description;
     }
+
+    public override string ToString()
+    {
+        return $"Id = {Id}; Name = {Name}; Buy = {Buy}; Sell = {Sell}; TypeId = {TypeId}; Type = {Type}; CountryId = {CountryId}; Country = {Country}; Picture = {Picture}; Year = {Year}; Content = {Content}; Alcohol = {Alcohol}; Rating = {Rating}; Description = {Description};";
+    }
 }

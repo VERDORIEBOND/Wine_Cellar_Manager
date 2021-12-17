@@ -25,7 +25,7 @@ namespace WineCellar
     public partial class DetailedView : Window
     {
         private MainWindow mainWindow;
-        private WineRecord wineRecord;
+        private Wine wineRecord;
 
         public List<IWineData> Items { get; set; }
         public int IndexID { get; set; }
@@ -86,7 +86,7 @@ namespace WineCellar
 
                     IndexID = item.ID;
 
-                    wineRecord = new WineRecord(item.ID, item.Name, (decimal)item.BuyPrice, (decimal)item.SellPrice, item.TypeID, item.Type, item.CountryID, item.OriginCountry, null, item.Age, item.Stock, (decimal)item.Alcohol, item.Rating, item.Description);
+                    wineRecord = new(item.ID, item.Name, (decimal)item.BuyPrice, (decimal)item.SellPrice, item.TypeID, item.Type, item.CountryID, item.OriginCountry, null, item.Age, item.Stock, (decimal)item.Alcohol, item.Rating, item.Description);
                     break;
                 }
                 else

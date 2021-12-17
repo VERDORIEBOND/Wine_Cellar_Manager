@@ -11,16 +11,16 @@ namespace Controller.Repositories;
 
 public class WineRepository
 {
-    public async Task<WineRecord> Get(int id)
+    public async Task<Wine> Get(int id)
     {
         using var conn = DataAccess.GetConnection;
-        return await conn.QuerySingleAsync<WineRecord>(Queries.Wine_Get, new { Id = id }, commandType: CommandType.StoredProcedure);
+        return await conn.QuerySingleAsync<Wine>(Queries.Wine_Get, new { Id = id }, commandType: CommandType.StoredProcedure);
     }
 
-    public async Task<IEnumerable<WineRecord>> GetAll()
+    public async Task<IEnumerable<Wine>> GetAll()
     {
         using var conn = DataAccess.GetConnection;
-        return await conn.QueryAsync<WineRecord>(Queries.Wine_GetAll, commandType: CommandType.StoredProcedure);
+        return await conn.QueryAsync<Wine>(Queries.Wine_GetAll, commandType: CommandType.StoredProcedure);
     }
 
     public async Task<int> Delete(int id)
@@ -29,7 +29,7 @@ public class WineRepository
         return await conn.ExecuteAsync(Queries.Wine_Delete, new { Id = id }, commandType: CommandType.StoredProcedure);
     }
 
-    public async Task<int> Update(WineRecord wine)
+    public async Task<int> Update(Wine wine)
     {
         DynamicParameters parameters = new();
         parameters.Add("Id", wine.Id);
@@ -49,7 +49,7 @@ public class WineRepository
         return await conn.ExecuteAsync(Queries.Wine_Update, parameters, commandType: CommandType.StoredProcedure);
     }
 
-    public async Task<int> Create(WineRecord wine)
+    public async Task<int> Create(Wine wine)
     {
         DynamicParameters parameters = new();
         parameters.Add("Name", wine.Name);

@@ -106,7 +106,7 @@ List<int> createdIds = new(amountWines);
 
 for (int i = 0; i < amountWines; i++)
 {
-    WineRecord newWine = new(0,
+    Wine newWine = new(0,
         PropertyOptions.WineNames[rand.Next(0, PropertyOptions.WineNames.Length)],
         new decimal(rand.NextDouble() * 100),
         new decimal(rand.NextDouble() * 100),
