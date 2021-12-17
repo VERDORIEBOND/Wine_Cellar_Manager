@@ -1,4 +1,4 @@
-﻿namespace Model;
+﻿namespace WineCellar.Model;
 
 public class Country
 {
