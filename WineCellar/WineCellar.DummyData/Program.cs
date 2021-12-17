@@ -67,7 +67,7 @@ foreach (string country in PropertyOptions.Countries)
 {
     if (!countriesInDb.Contains(country))
     {
-        await DataAccess.CountryRepo.Create(new CountryRecord(0, country));
+        await DataAccess.CountryRepo.Create(new Country(0, country));
     }
 }
 

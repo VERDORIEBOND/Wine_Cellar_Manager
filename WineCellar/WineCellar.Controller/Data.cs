@@ -100,7 +100,7 @@ namespace Controller
         {
             Dictionary<string, string> Countries = new Dictionary<string, string>();
 
-            foreach (CountryRecord country in await DataAccess.CountryRepo.GetAll())
+            foreach (Country country in await DataAccess.CountryRepo.GetAll())
             {
                 Countries.Add(country.Id.ToString(), country.Name);
             }
