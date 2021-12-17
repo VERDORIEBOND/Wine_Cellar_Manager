@@ -76,7 +76,7 @@ foreach (string type in PropertyOptions.Types)
 {
     if (!typesInDb.Contains(type))
     {
-        await DataAccess.TypeRepo.Create(new TypeRecord(0, type));
+        await DataAccess.TypeRepo.Create(new WineType(0, type));
     }
 }
 

@@ -18,7 +18,7 @@ namespace WineCellar.ControllerTest
     {
         private IConfiguration? Configuration { get; set; }
 
-        private TypeRecord Expected { get; set; } = new(0, "TestType");
+        private WineType Expected { get; set; } = new(0, "TestType");
 
         [SetUp]
         public void Setup()
@@ -27,6 +27,12 @@ namespace WineCellar.ControllerTest
 
             // DataAccess requires the configuration to create SqlConnections
             DataAccess.SetConfiguration(Configuration);
+        }
+
+        private bool CompareTypes(WineType note1, WineType note2)
+        {
+            return note1.Id == note2.Id
+                && note1.Name.Equals(note2.Name);
         }
 
         [Test]
@@ -44,11 +50,11 @@ namespace WineCellar.ControllerTest
             int insertedId = await DataAccess.TypeRepo.Create(Expected);
 
             // Update the Id of the expected result
-            Expected = Expected with { Id = insertedId };
+            Expected.Id = insertedId;
 
             //Verify the record from database
-            TypeRecord result = await DataAccess.TypeRepo.Get(Expected.Id);
-            Assert.AreEqual(Expected, result);
+            WineType result = await DataAccess.TypeRepo.Get(Expected.Id);
+            Assert.IsTrue(CompareTypes(Expected, result), "Expected inserted type to be the same");
         }
 
         [Test, Order(2)]
@@ -57,15 +63,15 @@ namespace WineCellar.ControllerTest
             Assert.IsTrue(Expected.Id > 0, "Expected InsertedId to return an integer larger than 0.");
 
             // Change name of the TypeRecord
-            Expected = Expected with { Name = "TestTypeAltered" };
+            Expected.Name = "TestTypeAltered";
 
             // Send the update to the database
             int rowsAffected = await DataAccess.TypeRepo.Update(Expected);
             Assert.AreEqual(1, rowsAffected);
 
             // Verify the record from database
-            TypeRecord result = await DataAccess.TypeRepo.Get(Expected.Id);
-            Assert.AreEqual(Expected, result);
+            WineType result = await DataAccess.TypeRepo.Get(Expected.Id);
+            Assert.IsTrue(CompareTypes(Expected, result), "Expected inserted type to be the same");
         }
 
         [Test, Order(3)]

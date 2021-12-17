@@ -110,7 +110,7 @@ namespace Controller
         {
             Dictionary<string, string> Types = new Dictionary<string, string>();
 
-            foreach (TypeRecord type in await DataAccess.TypeRepo.GetAll())
+            foreach (WineType type in await DataAccess.TypeRepo.GetAll())
             {
                 Types.Add(type.Id.ToString(), type.Name);
             }
