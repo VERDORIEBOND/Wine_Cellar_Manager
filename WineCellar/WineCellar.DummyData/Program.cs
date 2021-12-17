@@ -132,7 +132,7 @@ foreach (int id in createdIds)
     int amtLocations = rand.Next(1, 15);
 
     HashSet<int> occupiedNotes = new(amtNotes);
-    HashSet<StorageLocationRecord> occupiedLocations = new(amtLocations);
+    HashSet<StorageLocation> occupiedLocations = new(amtLocations);
 
     for (int i = 0; i < amtNotes; i++)
     {
@@ -149,7 +149,7 @@ foreach (int id in createdIds)
 
     for (int i = 0; i < amtLocations; i++)
     {
-        StorageLocationRecord selectedLocation = new StorageLocationRecord(
+        StorageLocation selectedLocation = new StorageLocation(
             id,
             ((char)rand.Next(65, 90)).ToString(),
             rand.Next(1, 100),
@@ -157,7 +157,7 @@ foreach (int id in createdIds)
 
         while (occupiedLocations.Contains(selectedLocation))
         {
-            selectedLocation = new StorageLocationRecord(
+            selectedLocation = new StorageLocation(
             id,
             ((char)rand.Next(0, 25)).ToString(),
             rand.Next(1, 100),
