@@ -1,0 +1,20 @@
+﻿<Window x:Class="WineCellar.GeographicView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mapsui="clr-namespace:Mapsui.UI.Wpf;assembly=Mapsui.UI.Wpf"
+        xmlns:local="clr-namespace:WineCellar"
+        mc:Ignorable="d"
+        Title="Geographic View" Height="1200" Width="1200"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Closing="GeographicView_Closing"
+        Background="{DynamicResource MaterialDesignPaper}">
+
+    <Grid>
+        <mapsui:MapControl Name="MyMapControl"></mapsui:MapControl>
+    </Grid>
+</Window>

@@ -85,7 +85,7 @@ namespace Controller
 
         public static async void Create(WineData wine)
         {
-            WineRecord newWine = new(0,
+            Wine newWine = new(0,
                 wine.Name,
                 Convert.ToDecimal(wine.BuyPrice),
                 Convert.ToDecimal(wine.SellPrice),
@@ -107,7 +107,7 @@ namespace Controller
         {
             Dictionary<string, string> Countries = new Dictionary<string, string>();
 
-            foreach (CountryRecord country in await DataAccess.CountryRepo.GetAll())
+            foreach (Country country in await DataAccess.CountryRepo.GetAll())
             {
                 Countries.Add(country.Id.ToString(), country.Name);
             }
@@ -118,7 +118,7 @@ namespace Controller
         {
             Dictionary<string, string> Types = new Dictionary<string, string>();
 
-            foreach (TypeRecord type in await DataAccess.TypeRepo.GetAll())
+            foreach (WineType type in await DataAccess.TypeRepo.GetAll())
             {
                 Types.Add(type.Id.ToString(), type.Name);
             }
@@ -170,7 +170,7 @@ namespace Controller
             {
                 stock++;
 
-                WineRecord wineRecord = new WineRecord(wine.Id, wine.Name, wine.Buy, wine.Sell, wine.TypeId, wine.Type, wine.CountryId, wine.Country, wine.Picture, wine.Year, stock, wine.Alcohol, wine.Rating, wine.Description);
+                Wine wineRecord = new(wine.Id, wine.Name, wine.Buy, wine.Sell, wine.TypeId, wine.Type, wine.CountryId, wine.Country, wine.Picture, wine.Year, stock, wine.Alcohol, wine.Rating, wine.Description);
                 await DataAccess.WineRepo.Update(wineRecord);
             }
 
@@ -186,7 +186,7 @@ namespace Controller
             {
                 stock--;
 
-                WineRecord wineRecord = new WineRecord(wine.Id, wine.Name, wine.Buy, wine.Sell, wine.TypeId, wine.Type, wine.CountryId, wine.Country, wine.Picture, wine.Year, stock, wine.Alcohol, wine.Rating, wine.Description);
+                Wine wineRecord = new(wine.Id, wine.Name, wine.Buy, wine.Sell, wine.TypeId, wine.Type, wine.CountryId, wine.Country, wine.Picture, wine.Year, stock, wine.Alcohol, wine.Rating, wine.Description);
                 await DataAccess.WineRepo.Update(wineRecord);
             }
 

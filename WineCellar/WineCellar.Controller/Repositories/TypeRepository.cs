@@ -16,20 +16,20 @@ public class TypeRepository
     /// </summary>
     /// <param name="id"></param>
     /// <returns>A TypeRecord retrieved from database</returns>
-    public async Task<TypeRecord> Get(int id)
+    public async Task<WineType> Get(int id)
     {
         using var conn = DataAccess.GetConnection;
-        return await conn.QuerySingleAsync<TypeRecord>(Queries.Type_Get, new { Id = id }, commandType: CommandType.StoredProcedure);
+        return await conn.QuerySingleAsync<WineType>(Queries.Type_Get, new { Id = id }, commandType: CommandType.StoredProcedure);
     }
 
     /// <summary>
     /// Retrieves all TypeRecord entries in the database.
     /// </summary>
     /// <returns>List containing all TypeRecord entries.</returns>
-    public async Task<IEnumerable<TypeRecord>> GetAll()
+    public async Task<IEnumerable<WineType>> GetAll()
     {
         using var conn = DataAccess.GetConnection;
-        return await conn.QueryAsync<TypeRecord>(Queries.Type_GetAll, commandType: CommandType.StoredProcedure);
+        return await conn.QueryAsync<WineType>(Queries.Type_GetAll, commandType: CommandType.StoredProcedure);
     }
 
     /// <summary>
@@ -48,7 +48,7 @@ public class TypeRepository
     /// </summary>
     /// <param name="type"></param>
     /// <returns>Rows affected</returns>
-    public async Task<int> Update(TypeRecord type)
+    public async Task<int> Update(WineType type)
     {
         using var conn = DataAccess.GetConnection;
         return await conn.ExecuteAsync(Queries.Type_Update, type, commandType: CommandType.StoredProcedure);
@@ -59,7 +59,7 @@ public class TypeRepository
     /// </summary>
     /// <param name="type"></param>
     /// <returns>Id of the inserted record.</returns>
-    public async Task<int> Create(TypeRecord type)
+    public async Task<int> Create(WineType type)
     {
         DynamicParameters parameters = new();
         parameters.Add("Name", type.Name);

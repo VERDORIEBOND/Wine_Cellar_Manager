@@ -48,7 +48,8 @@
                         <Button
                             Style="{StaticResource MaterialDesignRaisedDarkButton}"
                             ToolTip="Resource name: MaterialDesignRaisedLightButton"
-                            Content="--------" />
+                            Click="GeographicView"
+                            Content="Wijn Wereldkaart" />
                     </StackPanel>
                 </Grid>
             </DockPanel>
