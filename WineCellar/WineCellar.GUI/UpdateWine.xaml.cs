@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using WineCellar.Model;
@@ -19,6 +20,7 @@ namespace WineCellar
         private int ID = 0;
         private int PreviousWindowIndexId;
         private WineRecord WineToUpdate;
+
         private Dictionary<string, string> placeholders = new Dictionary<string, string>();
         public UpdateWine(int id, int selectedIndex)
         {
@@ -28,6 +30,7 @@ namespace WineCellar
             SetCountries();
             SetTypes();
             SetDataBinding();
+            GetTastingNotes(ID);
         }
         private async void SetDataBinding()
         {
@@ -47,6 +50,94 @@ namespace WineCellar
                 alcohol.Text = Convert.ToString(wine.Alcohol);
             }
         }
+        private async void GetTastingNotes(int wineId)
+        {
+            var notes = await DataAccess.NoteRepo.GetByWine(wineId);
+            if (notes != null)
+            {
+                List<ListBoxItem> listBoxItems = new List<ListBoxItem>();
+                foreach (var note in notes)
+                {
+                    ListBoxItem item = new ListBoxItem();
+                    item.Content = note.Name;
+                    item.FontSize = 10;
+                    item.IsSelected = true;
+                    item.PreviewMouseLeftButtonDown += PressedItemBox;
+                    listBoxItems.Add(item);
+                }
+                tastingNoteList.ItemsSource = listBoxItems;
+            }
+        }
+        private void PressedItemBox(object sender, RoutedEventArgs e)
+        {
+            ListBoxItem tag = (ListBoxItem) sender;
+            DeleteNoteFromWine(ID, tag.Content.ToString());
+        }
+
+        private async void DeleteNoteFromWine(int wineId, string noteName)
+        {
+            var notes = await GetNotes();
+            int? noteId = null;
+            Trace.WriteLine(noteName);
+            foreach(var note in notes)
+            {
+                if(note.Name.Equals(noteName, StringComparison.CurrentCultureIgnoreCase))
+                {
+                    noteId = note.Id; 
+                }
+            }
+
+            if(noteId != null)
+            {
+                await DataAccess.NoteRepo.RemoveWine(ID, (int) noteId);
+            }
+            GetTastingNotes(ID);
+        }
+
+        private void CreateTastingNote(object sender, RoutedEventArgs e)
+        {
+            // Check if note is in Note table
+            // If it's in note table, we only need to add wine and note id to Wine_Note table
+            // If it's not in Note table we need to add it in note table and add it to Wine_Note
+            DoCreateNote();
+       
+        }
+
+        private async void DoCreateNote()
+        {
+            var notes = await GetNotes();
+            var noteId = GetNoteId(tastingNoteText.Text, notes);
+            int id = 0;
+
+            if (noteId > 0) {
+                id = noteId;
+            } else {
+                int insertedId = await DataAccess.NoteRepo.Create(new(0, tastingNoteText.Text));
+                id = insertedId;
+            }
+
+            await DataAccess.NoteRepo.AddWine(ID, id);
+            GetTastingNotes(ID);
+        }
+
+        private int GetNoteId(string Name, IEnumerable<NoteRecord> notes)
+        {
+            foreach(var note in notes)
+            {
+                if(note.Name == Name)
+                {
+                    return note.Id;
+                }
+            }
+            return 0;
+        }
+
+        private async Task<IEnumerable<NoteRecord>> GetNotes()
+        {
+            var notes = await DataAccess.NoteRepo.GetAll();
+            return notes;
+        }
+
         private async void SetTypes()
         {
             var types = await Data.GetAllTypes();
@@ -136,6 +227,7 @@ namespace WineCellar
             }
             return true;
         }
+
         private void AttemptUpdate(object sender, RoutedEventArgs e)
         {
             bool validate = Validation();
