@@ -53,6 +53,14 @@ namespace WineCellar
             Application.Current.MainWindow = wine;
             Close();
         }
+        
+        public void GeographicView(object sender, RoutedEventArgs e)
+        {
+            GeographicView GeoView = new GeographicView();
+            GeoView.Show();
+            Application.Current.MainWindow = GeoView;
+            Close();
+        }
 
         public async void FillList()
         {

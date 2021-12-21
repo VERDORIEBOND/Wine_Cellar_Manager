@@ -18,7 +18,7 @@ namespace WineCellar.ControllerTest
     {
         private IConfiguration? Configuration { get; set; }
 
-        private CountryRecord Expected { get; set; } = new(0, "TestCountry");
+        private Country Expected { get; set; } = new(0, "TestCountry");
 
         [SetUp]
         public void Setup()
@@ -27,6 +27,12 @@ namespace WineCellar.ControllerTest
 
             // DataAccess requires the configuration to create SqlConnections
             DataAccess.SetConfiguration(Configuration);
+        }
+
+        private static bool CompareCountries(Country country1, Country country2)
+        {
+            return country1.Id == country2.Id
+                && country1.Name.Equals(country2.Name);
         }
 
         [Test]
@@ -44,11 +50,11 @@ namespace WineCellar.ControllerTest
             int insertedId = await DataAccess.CountryRepo.Create(Expected);
 
             // Update the Id of the expected result
-            Expected = Expected with { Id = insertedId };
+            Expected.Id = insertedId;
 
             //Verify the record from database
-            CountryRecord result = await DataAccess.CountryRepo.Get(Expected.Id);
-            Assert.AreEqual(Expected, result);
+            Country result = await DataAccess.CountryRepo.Get(Expected.Id);
+            Assert.IsTrue(CompareCountries(Expected, result), "Expected inserted country to be the same");
         }
 
         [Test, Order(2)]
@@ -57,15 +63,15 @@ namespace WineCellar.ControllerTest
             Assert.IsTrue(Expected.Id > 0, "Expected InsertedId to return an integer larger than 0.");
 
             // Change name of the CountryRecord
-            Expected = Expected with { Name = "TestCountryAltered" };
+            Expected.Name = "TestCountryAltered";
 
             // Send the update to the database
             int rowsAffected = await DataAccess.CountryRepo.Update(Expected);
             Assert.AreEqual(1, rowsAffected);
 
             // Verify the record from database
-            CountryRecord result = await DataAccess.CountryRepo.Get(Expected.Id);
-            Assert.AreEqual(Expected, result);
+            Country result = await DataAccess.CountryRepo.Get(Expected.Id);
+            Assert.IsTrue(CompareCountries(Expected, result), "Expected inserted type to be the same");
         }
 
         [Test, Order(3)]

@@ -17,20 +17,20 @@ public class NoteRepository
     /// </summary>
     /// <param name="id"></param>
     /// <returns>A NoteRecord retrieved from database</returns>
-    public async Task<NoteRecord> Get(int id)
+    public async Task<WineNote> Get(int id)
     {
         using var conn = DataAccess.GetConnection;
-        return await conn.QuerySingleAsync<NoteRecord>(Queries.Note_Get, new { Id = id }, commandType: CommandType.StoredProcedure);
+        return await conn.QuerySingleAsync<WineNote>(Queries.Note_Get, new { Id = id }, commandType: CommandType.StoredProcedure);
     }
 
     /// <summary>
     /// Retrieves all NoteRecord entries in the database.
     /// </summary>
     /// <returns>List containing all NoteRecord entries.</returns>
-    public async Task<IEnumerable<NoteRecord>> GetAll()
+    public async Task<IEnumerable<WineNote>> GetAll()
     {
         using var conn = DataAccess.GetConnection;
-        return await conn.QueryAsync<NoteRecord>(Queries.Note_GetAll, commandType: CommandType.StoredProcedure);
+        return await conn.QueryAsync<WineNote>(Queries.Note_GetAll, commandType: CommandType.StoredProcedure);
     }
 
     /// <summary>
@@ -38,10 +38,10 @@ public class NoteRepository
     /// </summary>
     /// <param name="id"></param>
     /// <returns>List containing all NoteRecord retrieved from database based on provided id</returns>
-    public async Task<IEnumerable<NoteRecord>> GetByWine(int wineId)
+    public async Task<IEnumerable<WineNote>> GetByWine(int wineId)
     {
         using var conn = DataAccess.GetConnection;
-        return await conn.QueryAsync<NoteRecord>(Queries.Note_GetByWine, new { Id = wineId }, commandType: CommandType.StoredProcedure);
+        return await conn.QueryAsync<WineNote>(Queries.Note_GetByWine, new { Id = wineId }, commandType: CommandType.StoredProcedure);
     }
 
     /// <summary>
@@ -60,7 +60,7 @@ public class NoteRepository
     /// </summary>
     /// <param name="note"></param>
     /// <returns>Rows affected</returns>
-    public async Task<int> Update(NoteRecord note)
+    public async Task<int> Update(WineNote note)
     {
         using var conn = DataAccess.GetConnection;
         return await conn.ExecuteAsync(Queries.Note_Update, note, commandType: CommandType.StoredProcedure);
@@ -71,7 +71,7 @@ public class NoteRepository
     /// </summary>
     /// <param name="note"></param>
     /// <returns>Id of the inserted record.</returns>
-    public async Task<int> Create(NoteRecord note)
+    public async Task<int> Create(WineNote note)
     {
         DynamicParameters parameters = new();
         parameters.Add("Name", note.Name);
