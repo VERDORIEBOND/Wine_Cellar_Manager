@@ -100,7 +100,6 @@ namespace WineCellar
             // If it's in note table, we only need to add wine and note id to Wine_Note table
             // If it's not in Note table we need to add it in note table and add it to Wine_Note
             DoCreateNote();
-       
         }
 
         private async void DoCreateNote()
@@ -145,10 +144,7 @@ namespace WineCellar
             type.SelectedValuePath = "Key";
             type.ItemsSource = types;
         }
-        private void AttemptAddTastingNote(object sender, RoutedEventArgs e)
-        {
-            Trace.WriteLine("OK");
-        }
+
         private async void SetCountries()
         {
             var countries = await Data.GetAllCountries();
