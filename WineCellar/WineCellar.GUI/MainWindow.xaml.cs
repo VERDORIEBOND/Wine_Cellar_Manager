@@ -43,6 +43,7 @@ namespace WineCellar
             InitializeComponent();
             FillList();
             _ = FilterOuters();
+            SetTastingNotesAsync();
         }
 
         public void RegisterWine(object sender, RoutedEventArgs e)
@@ -52,7 +53,7 @@ namespace WineCellar
             Application.Current.MainWindow = wine;
             Close();
         }
-        
+
         public void GeographicView(object sender, RoutedEventArgs e)
         {
             GeographicView GeoView = new GeographicView();
@@ -84,18 +85,63 @@ namespace WineCellar
             DataLoading.IsEnabled = false;
         }
 
-        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        private List<string> SelectedTastingNotes()
         {
             var tastingNotes = new List<string>();
-            foreach (var tastingNote in LbTastingNotes.SelectedItems)
-            {
-                tastingNotes.Add(tastingNote.ToString());
-            }
-            items = Data.FilterWine(allItems, tbWineName.Text, slPriceFrom.Value, slPriceTo.Value, CbWinetype.Text, CbStorageLocation.Text, SlYearFrom.Value, SlYearTo.Value, tastingNotes, RbWineRating.Value);
-            WineDataBinding.ItemsSource = items;
 
-            ICollectionView view = CollectionViewSource.GetDefaultView(WineDataBinding.ItemsSource);
-            view.Refresh();
+            foreach (var item in LbTastingNotes.SelectedItems)
+            {
+                tastingNotes.Add((item as ListBoxItem).Content.ToString());
+            }
+
+            return tastingNotes;
+        }
+
+        private void SetFilter(List<IWineData> filter, List<IWineData> filteredList, List<int> wineIds)
+        {
+            foreach (var item in filter)
+            {
+                if (!wineIds.Contains(item.ID))
+                {
+                    filteredList.Add(item);
+                    wineIds.Add(item.ID);
+                }
+            }
+        }
+
+        private bool GetNameFilter()
+        {
+            return tbWineName.Text != "";
+        }
+
+        private bool GetPriceFilter()
+        {
+            return slPriceFrom.Value > slPriceFrom.Minimum || slPriceTo.Value < slPriceTo.Maximum;
+        }
+
+        private bool GetTypeFilter()
+        {
+            return CbWinetype.Text != "";
+        }
+
+        private bool GetStorageFilter()
+        {
+            return CbStorageLocation.Text != "";
+        }
+
+        private bool GetAgeFilter()
+        {
+            return SlYearFrom.Value > SlYearFrom.Minimum || SlYearTo.Value < SlYearTo.Maximum;
+        }
+
+        private bool GetTasteFilter()
+        {
+            return LbTastingNotes.SelectedItems.Count > 0;
+        }
+
+        private bool GetRatingFilter()
+        {
+            return RbWineRating.Value > 0;
         }
 
         private async Task FilterOuters()
@@ -152,6 +198,27 @@ namespace WineCellar
             LbTastingNotes.ItemsSource = contentWineNotes;
         }
 
+        private async void SetTastingNotesAsync()
+        {
+            items = await Data.GetAllWines();
+            List<string> notes = new List<string>();
+            List<ListBoxItem> listBoxItems = new List<ListBoxItem>();
+
+            foreach (var item in items)
+            {
+                foreach (string tasteNote in item.Taste)
+                {
+                    if (!notes.Contains(tasteNote))
+                    {
+                        notes.Add(tasteNote);
+                        ListBoxItem listBoxItem = new ListBoxItem { Content = tasteNote };
+                        listBoxItems.Add(listBoxItem);
+                    }
+                }
+            }
+            LbTastingNotes.ItemsSource = listBoxItems;
+        }
+
         private int GetItemID(int indexClicked, List<IWineData> list)
         {
             int id = 0;
@@ -190,6 +257,68 @@ namespace WineCellar
         private void Button_Click_Sorteer(object sender, RoutedEventArgs e)
         {
             items = Data.SortWine(SortingBox.Text, items, (bool)Aflopend.IsChecked);
+            WineDataBinding.ItemsSource = items;
+
+            ICollectionView view = CollectionViewSource.GetDefaultView(WineDataBinding.ItemsSource);
+            view.Refresh();
+        }
+
+        private void ResetRating_Click(object sender, RoutedEventArgs e)
+        {
+            RbWineRating.Value = 0;
+        }
+
+        private void ResetList_Click(object sender, RoutedEventArgs e)
+        {
+            FillList();
+
+            ICollectionView view = CollectionViewSource.GetDefaultView(WineDataBinding.ItemsSource);
+            view.Refresh();
+        }
+
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            List<IWineData> filteredList = new List<IWineData>();
+            List<int> wineIds = new List<int>();
+            wineIds.Clear();
+
+            if (GetNameFilter())
+            {
+                var filterName = Data.FilterWineName(allItems, tbWineName.Text);
+                SetFilter(filterName, filteredList, wineIds);
+            }
+            else if (GetPriceFilter())
+            {
+                var filterPrice = Data.FilterWinePrice(allItems, slPriceFrom.Value, slPriceTo.Value);
+                SetFilter(filterPrice, filteredList, wineIds);
+            }
+            else if (GetTypeFilter())
+            {
+                var filterType = Data.FilterWineType(allItems, CbWinetype.Text);
+                SetFilter(filterType, filteredList, wineIds);
+            }
+            else if (GetStorageFilter())
+            {
+                var filterStorage = Data.FilterWineStorage(allItems, CbStorageLocation.Text);
+                SetFilter(filterStorage, filteredList, wineIds);
+            }
+            else if (GetAgeFilter())
+            {
+                var filterAge = Data.FilterWineAge(allItems, SlYearFrom.Value, SlYearTo.Value);
+                SetFilter(filterAge, filteredList, wineIds);
+            }
+            else if (GetTasteFilter())
+            {
+                var filterTaste = Data.FilterWineTaste(allItems, SelectedTastingNotes());
+                SetFilter(filterTaste, filteredList, wineIds);
+            }
+            else if (GetRatingFilter())
+            {
+                var filterRating = Data.FilterWineRating(allItems, RbWineRating.Value);
+                SetFilter(filterRating, filteredList, wineIds);
+            }
+
+            items = filteredList;
             WineDataBinding.ItemsSource = items;
 
             ICollectionView view = CollectionViewSource.GetDefaultView(WineDataBinding.ItemsSource);
