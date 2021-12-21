@@ -15,6 +15,6 @@
         Background="{DynamicResource MaterialDesignPaper}">
 
     <Grid>
-        <mapsui:MapControl Name="MyMapControl"></mapsui:MapControl>
+        <mapsui:MapControl x:Name="MyMapControl"></mapsui:MapControl>
     </Grid>
 </Window>
