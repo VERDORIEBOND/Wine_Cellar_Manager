@@ -77,7 +77,7 @@ namespace Controller
 
         public static async void Update(WineData wine)
         {
-            WineRecord newWine = new(wine.ID,
+            Wine newWine = new(wine.ID,
                 wine.Name,
                 Convert.ToDecimal(wine.BuyPrice),
                 Convert.ToDecimal(wine.SellPrice),
@@ -94,7 +94,6 @@ namespace Controller
             );
             var wineRepo = await DataAccess.WineRepo.Update(newWine);
         }
-
         public static async void Create(WineData wine)
         {
             Wine newWine = new(0,
