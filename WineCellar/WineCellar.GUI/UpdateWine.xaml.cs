@@ -19,7 +19,7 @@ namespace WineCellar
         private byte[] FileContent = null;
         private int ID = 0;
         private int PreviousWindowIndexId;
-        private WineRecord WineToUpdate;
+        private Wine WineToUpdate;
 
         private Dictionary<string, string> placeholders = new Dictionary<string, string>();
         public UpdateWine(int id, int selectedIndex)
@@ -34,7 +34,7 @@ namespace WineCellar
         }
         private async void SetDataBinding()
         {
-            WineRecord wine = await DataAccess.WineRepo.Get(ID);
+            Wine wine = await DataAccess.WineRepo.Get(ID);
             if (wine != null)
             {
                 WineToUpdate = wine;
@@ -119,7 +119,7 @@ namespace WineCellar
             GetTastingNotes(ID);
         }
 
-        private int GetNoteId(string Name, IEnumerable<NoteRecord> notes)
+        private int GetNoteId(string Name, IEnumerable<WineNote> notes)
         {
             foreach(var note in notes)
             {
@@ -131,7 +131,7 @@ namespace WineCellar
             return 0;
         }
 
-        private async Task<IEnumerable<NoteRecord>> GetNotes()
+        private async Task<IEnumerable<WineNote>> GetNotes()
         {
             var notes = await DataAccess.NoteRepo.GetAll();
             return notes;
