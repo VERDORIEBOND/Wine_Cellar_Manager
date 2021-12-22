@@ -43,7 +43,6 @@ namespace WineCellar
             InitializeComponent();
             FillList();
             _ = FilterOuters();
-            SetTastingNotesAsync();
         }
 
         public void RegisterWine(object sender, RoutedEventArgs e)
@@ -196,6 +195,8 @@ namespace WineCellar
             SlYearTo.Value = _edgeYearTo;
             SlYearTo.Maximum = _edgeYearTo;
             LbTastingNotes.ItemsSource = contentWineNotes;
+
+            SetTastingNotesAsync();
         }
 
         private async void SetTastingNotesAsync()
@@ -210,9 +211,9 @@ namespace WineCellar
                 {
                     if (!notes.Contains(tasteNote))
                     {
-                        notes.Add(tasteNote);
                         ListBoxItem listBoxItem = new ListBoxItem { Content = tasteNote };
                         listBoxItems.Add(listBoxItem);
+                        notes.Add(tasteNote);
                     }
                 }
             }
@@ -279,43 +280,113 @@ namespace WineCellar
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
             List<IWineData> filteredList = new List<IWineData>();
-            List<int> wineIds = new List<int>();
-            wineIds.Clear();
+            HashSet<int> filteredSet = new HashSet<int>();
+
+            foreach (var item in allItems)
+            {
+                filteredSet.Add(item.ID);
+            }
 
             if (GetNameFilter())
             {
                 var filterName = Data.FilterWineName(allItems, tbWineName.Text);
-                SetFilter(filterName, filteredList, wineIds);
+                HashSet<int> filteredName = new HashSet<int>();
+
+                foreach (var item in filterName)
+                {
+                    filteredName.Add(item.ID);
+                }
+
+                filteredSet.IntersectWith(filteredName);
             }
-            else if (GetPriceFilter())
+
+            if (GetPriceFilter())
             {
                 var filterPrice = Data.FilterWinePrice(allItems, slPriceFrom.Value, slPriceTo.Value);
-                SetFilter(filterPrice, filteredList, wineIds);
+                HashSet<int> filteredPrice = new HashSet<int>();
+
+                foreach (var item in filterPrice)
+                {
+                    filteredPrice.Add(item.ID);
+                }
+
+                filteredSet.IntersectWith(filteredPrice);
             }
-            else if (GetTypeFilter())
+
+            if (GetTypeFilter())
             {
                 var filterType = Data.FilterWineType(allItems, CbWinetype.Text);
-                SetFilter(filterType, filteredList, wineIds);
+                HashSet<int> filteredType = new HashSet<int>();
+
+                foreach (var item in filterType)
+                {
+                    filteredType.Add(item.ID);
+                }
+
+                filteredSet.IntersectWith(filteredType);
             }
-            else if (GetStorageFilter())
+
+            if (GetStorageFilter())
             {
                 var filterStorage = Data.FilterWineStorage(allItems, CbStorageLocation.Text);
-                SetFilter(filterStorage, filteredList, wineIds);
+                HashSet<int> filteredStorage = new HashSet<int>();
+
+                foreach (var item in filterStorage)
+                {
+                    filteredStorage.Add(item.ID);
+                }
+
+                filteredSet.IntersectWith(filteredStorage);
             }
-            else if (GetAgeFilter())
+
+            if (GetAgeFilter())
             {
                 var filterAge = Data.FilterWineAge(allItems, SlYearFrom.Value, SlYearTo.Value);
-                SetFilter(filterAge, filteredList, wineIds);
+                HashSet<int> filteredAge = new HashSet<int>();
+
+                foreach (var item in filterAge)
+                {
+                    filteredAge.Add(item.ID);
+                }
+
+                filteredSet.IntersectWith(filteredAge);
             }
-            else if (GetTasteFilter())
+
+            if (GetTasteFilter())
             {
                 var filterTaste = Data.FilterWineTaste(allItems, SelectedTastingNotes());
-                SetFilter(filterTaste, filteredList, wineIds);
+                HashSet<int> filteredTaste = new HashSet<int>();
+
+                foreach (var item in filterTaste)
+                {
+                    filteredTaste.Add(item.ID);
+                }
+
+                filteredSet.IntersectWith(filteredTaste);
             }
-            else if (GetRatingFilter())
+
+            if (GetRatingFilter())
             {
                 var filterRating = Data.FilterWineRating(allItems, RbWineRating.Value);
-                SetFilter(filterRating, filteredList, wineIds);
+                HashSet<int> filteredRating = new HashSet<int>();
+
+                foreach (var item in filterRating)
+                {
+                    filteredRating.Add(item.ID);
+                }
+
+                filteredSet.IntersectWith(filteredRating);
+            }
+
+            foreach (var id in filteredSet)
+            {
+                foreach (var item in allItems)
+                {
+                    if (item.ID == id)
+                    {
+                        filteredList.Add(item);
+                    }
+                }
             }
 
             items = filteredList;
