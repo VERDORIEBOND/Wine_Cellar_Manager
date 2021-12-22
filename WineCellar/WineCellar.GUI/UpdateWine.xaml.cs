@@ -1,4 +1,4 @@
-﻿using Controller;
+using Controller;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -80,18 +80,13 @@ namespace WineCellar
             Trace.WriteLine($"Wine Id: {wineId} - Note to delete: {noteName}");
             foreach(var note in notes)
             {
-                Trace.WriteLine($"Current note: {note.Name} {note.Id}");
                 if(note.Name.Equals(noteName, StringComparison.CurrentCultureIgnoreCase))
                 {
-                    Trace.WriteLine($"Setting noteId: {note.Name} {note.Id}");
                     await DataAccess.NoteRepo.RemoveWine(wineId, note.Id);
                 }
             }
-
-            Trace.WriteLine("Get tasting notes again");
             GetTastingNotes(wineId);
         }
-
         private void CreateTastingNote(object sender, RoutedEventArgs e)
         {
             // Check if note is in Note table
@@ -99,7 +94,6 @@ namespace WineCellar
             // If it's not in Note table we need to add it in note table and add it to Wine_Note
             DoCreateNote();
         }
-
         private async void DoCreateNote()
         {
             bool add = true;
@@ -144,7 +138,6 @@ namespace WineCellar
                 }
             }
         }
-
         private int GetNoteId(string Name, IEnumerable<WineNote> notes)
         {
             foreach(var note in notes)
@@ -156,7 +149,6 @@ namespace WineCellar
             }
             return 0;
         }
-
         private async Task<IEnumerable<WineNote>> GetNotes()
         {
             var notes = await DataAccess.NoteRepo.GetAll();
@@ -207,7 +199,6 @@ namespace WineCellar
                 textBox.Text = placeholders[textBox.Name];
             }
         }
-
         private async void BrowseFiles(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -219,7 +210,6 @@ namespace WineCellar
                 FileContent = fileContent;
             }
         }
-
         private bool isValidString(string toValidate)
         {
             return toValidate != null
@@ -247,7 +237,6 @@ namespace WineCellar
             }
             return true;
         }
-
         private void AttemptUpdate(object sender, RoutedEventArgs e)
         {
             bool validate = Validation();

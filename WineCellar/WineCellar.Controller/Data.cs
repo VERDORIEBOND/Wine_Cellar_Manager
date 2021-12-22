@@ -77,7 +77,7 @@ namespace Controller
 
         public static async void Update(WineData wine)
         {
-            Wine newWine = new(wine.ID,
+                Wine newWine = new(wine.ID,
                 wine.Name,
                 Convert.ToDecimal(wine.BuyPrice),
                 Convert.ToDecimal(wine.SellPrice),
@@ -113,7 +113,6 @@ namespace Controller
             );
             var wineRepo = await DataAccess.WineRepo.Create(newWine);
         }
-
         public static async Task<Dictionary<string, string>> GetAllCountries()
         {
             Dictionary<string, string> Countries = new Dictionary<string, string>();
