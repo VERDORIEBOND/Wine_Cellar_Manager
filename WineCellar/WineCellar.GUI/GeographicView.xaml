@@ -15,6 +15,7 @@
         Background="{DynamicResource MaterialDesignPaper}">
 
     <Grid>
-        <mapsui:MapControl x:Name="MyMapControl"></mapsui:MapControl>
+        <mapsui:MapControl x:Name="MyMapControl" MouseLeftButtonUp="MyMapControl_MouseLeftButtonUp">
+        </mapsui:MapControl>
     </Grid>
 </Window>
