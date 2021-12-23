@@ -16,6 +16,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WineCellar.ControllerTest.Utilities;
 using WineCellar.Model;
+using WineCellar.DataContexts;
+using System.Diagnostics;
 
 namespace WineCellar
 {
@@ -27,6 +29,7 @@ namespace WineCellar
         private MainWindow mainWindow;
         private Wine wineRecord;
 
+        private DetailsContext _DetailsContext { get; set; }
         public List<IWineData> Items { get; set; }
         public int IndexID { get; set; }
         public int IndexClicked { get; set; }
@@ -36,6 +39,9 @@ namespace WineCellar
             InitializeComponent();
 
             IndexClicked = value;
+
+            _DetailsContext = new DetailsContext();
+            DataContext = _DetailsContext;
         }
 
         private void LoadListStart()
@@ -162,6 +168,16 @@ namespace WineCellar
         {
             Items = await Data.GetAllWines();
             SetData(IndexClicked, Items);
+
+            _DetailsContext.Locations = (await DataAccess.LocationRepo.GetByWine(IndexID)).ToList();
+        }
+
+        private void LocationAddButton_Click(object sender, RoutedEventArgs e)
+        {
+            //LocationGrid.ItemsSource = _DetailsContext.Locations;
+            Debug.WriteLine(LocationGrid.ItemsSource);
+            Debug.WriteLine(_DetailsContext.Locations);
+            Debug.WriteLine($"Shelf: {_DetailsContext.AddShelf} | Row: {_DetailsContext.AddRow} to {_DetailsContext.AddRowTo} | Column {_DetailsContext.AddColumn} to {_DetailsContext.AddColumnTo}");
         }
     }
 }

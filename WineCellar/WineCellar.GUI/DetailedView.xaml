@@ -5,9 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WineCellar"
         xmlns:gif="http://wpfanimatedgif.codeplex.com"
+        xmlns:dataContexts="clr-namespace:WineCellar.DataContexts"
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="1200"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        d:DataContext="{d:DesignInstance dataContexts:DetailsContext}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
@@ -58,8 +60,9 @@
 
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.6*"/>
+                    <ColumnDefinition Width="0.8*"/>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="0.55*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
@@ -230,16 +233,60 @@
                         <Viewbox HorizontalAlignment="Left" Grid.Column="1" Grid.Row="6" Margin="20,8,20,8">
                             <TextBlock x:Name="WineLocation" Text="{Binding}" Foreground="White"/>
                         </Viewbox>
-
                     </Grid>
                 </Grid>
+                <materialDesign:ColorZone
+                    Grid.Column="2" Grid.Row="0"
+                    Mode="SecondaryDark"
+                    Margin="6" VerticalAlignment="Stretch"
+                    CornerRadius="16"
+                    materialDesign:ShadowAssist.ShadowDepth="Depth3">
+                    <DockPanel>
+                        <Grid DockPanel.Dock="Top" Margin="0 0 0 20">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Column="0" Grid.Row="0" Content="Kast" HorizontalContentAlignment="Center"/>
+                            <Label Grid.Column="1" Grid.Row="0" Content="Rij" HorizontalContentAlignment="Center"/>
+                            <Label Grid.Column="2" Grid.Row="0" Content="Kolom" HorizontalContentAlignment="Center"/>
+                            <TextBox Grid.Column="0" Grid.Row="1" Margin="5" Text="{Binding Path=AddShelf}"/>
+                            <TextBox Grid.Column="1" Grid.Row="1" Margin="5" Text="{Binding Path=AddRow}"/>
+                            <TextBox Grid.Column="2" Grid.Row="1" Margin="5" Text="{Binding Path=AddColumn}"/>
+                            <CheckBox Grid.Column="0" Grid.Row="2" Margin="5" Content="Meerdere" IsChecked="{Binding Path=IsMultipleAdd}"/>
+                            <TextBox Grid.Column="1" Grid.Row="2" Margin="5" Text="{Binding Path=AddRowTo}"/>
+                            <TextBox Grid.Column="2" Grid.Row="2" Margin="5" Text="{Binding Path=AddColumnTo}"/>
+                            <Button Grid.ColumnSpan="3" Grid.Row="3" Margin="5" Content="Toevoegen" Click="LocationAddButton_Click"/>
+                        </Grid>
+                        <DataGrid x:Name="LocationGrid" DockPanel.Dock="Bottom" ItemsSource="{Binding Path=Locations}"
+                                  AutoGenerateColumns="False" HorizontalAlignment="Stretch"
+                                  CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False"
+                                  CanUserResizeRows="False" CanUserResizeColumns="False" CanUserSortColumns="True"
+                                  IsReadOnly="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Kast" Binding="{Binding Shelf}"/>
+                                <DataGridTextColumn Header="Rij" Binding="{Binding Row}"/>
+                                <DataGridTextColumn Header="Kolom" Binding="{Binding Col}"/>
+                                <DataGridTextColumn Header="Verwijder"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </DockPanel>
+                </materialDesign:ColorZone>
             </Grid>
         </Grid>
 
         <materialDesign:Card
             UniformCornerRadius="14"
             Padding="4"
-            x:Name="DataLoading">
+            x:Name="DataLoading"
+            Visibility="Hidden">
             <DockPanel VerticalAlignment="Bottom" HorizontalAlignment="Right">
                 <Label Content="Loading Data" Foreground="White" VerticalAlignment="Center" FontSize="28"/>
                 <Image gif:ImageBehavior.AnimatedSource="\Loading\wineLoad.gif"
