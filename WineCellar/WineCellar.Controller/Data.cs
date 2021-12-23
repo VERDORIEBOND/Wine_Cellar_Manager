@@ -309,7 +309,7 @@ namespace Controller
             {
                 foreach (var item in notes)
                 {
-                    if ((wine.Taste.ToList().All(notes.Contains) && wine.Taste.Length > 0) || (notes.Count == 1 && wine.Taste.ToList().Contains(item)))
+                    if ((wine.Taste.ToList().All(notes.Contains) && wine.Taste.Length > 0) || (notes.Count < 2 && wine.Taste.ToList().Contains(item)))
                     {
                         var wineEntry = new WineData();
                         wineEntry.ID = wine.ID;
