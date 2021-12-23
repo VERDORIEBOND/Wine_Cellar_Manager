@@ -25,6 +25,7 @@ public partial class GeographicView : Window
     private List<Feature> points = new List<Feature>();
     private List<Cords> cords = new List<Cords>();
     private bool wineClicked = false;
+    private double clickBoundry = 0.05;
 
     public GeographicView()
     {
@@ -51,6 +52,7 @@ public partial class GeographicView : Window
         points.Add(CreatePoint(4.4210539, 44.0171384, 4));
         points.Add(CreatePoint(0.4328022, 44.7959213, 5));
         points.Add(CreatePoint(2.1774322, 41.3828939, 6));
+        points.Add(CreatePoint(-96.3574856, 19.4766160, 7));
     }
 
     private MemoryLayer CreatePointLayer(List<Feature> points)
@@ -107,9 +109,10 @@ public partial class GeographicView : Window
     {
         if (!wineClicked)
         {
+
             MainWindow window = new MainWindow();
-            window.Show();
             Application.Current.MainWindow = window;
+            window.Show();
         }
     }
 
@@ -119,11 +122,9 @@ public partial class GeographicView : Window
         var worldPosition = MyMapControl.Viewport.ScreenToWorld(screenPosition.X, screenPosition.Y);
         var pointPosition = SphericalMercator.ToLonLat(worldPosition.X, worldPosition.Y);
 
-        //Debug.Print($"{lonLat.X}, {lonLat.Y}");
         foreach (var item in cords)
         {
-            //Debug.Print($"{item.x}, {item.y}");
-            if ((pointPosition.X > (item.x - 0.05) && pointPosition.X < (item.x + 0.05)) && (pointPosition.Y > (item.y - 0.05) && pointPosition.Y < (item.y + 0.05)))
+            if ((pointPosition.X > (item.x - clickBoundry) && pointPosition.X < (item.x + clickBoundry)) && (pointPosition.Y > (item.y - clickBoundry) && pointPosition.Y < (item.y + clickBoundry)))
             {
                 wineClicked = true;
 
