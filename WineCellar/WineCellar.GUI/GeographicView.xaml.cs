@@ -50,7 +50,7 @@ public partial class GeographicView : Window
         // dummy data
         points.Add(CreatePoint(6.079559, 52.500767, 3));
         points.Add(CreatePoint(4.4210539, 44.0171384, 4));
-        points.Add(CreatePoint(0.4328022, 44.7959213, 5));
+        points.Add(CreatePoint(0.4328022, 44.7959213, 8));
         points.Add(CreatePoint(2.1774322, 41.3828939, 6));
         points.Add(CreatePoint(-96.3574856, 19.4766160, 7));
     }
