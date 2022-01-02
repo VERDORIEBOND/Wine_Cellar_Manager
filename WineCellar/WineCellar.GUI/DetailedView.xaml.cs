@@ -18,6 +18,7 @@ using WineCellar.ControllerTest.Utilities;
 using WineCellar.Model;
 using WineCellar.DataContexts;
 using System.Diagnostics;
+using System.ComponentModel;
 
 namespace WineCellar
 {
@@ -88,7 +89,6 @@ namespace WineCellar
 
                     WineBuy.DataContext = item.BuyPrice;
                     WineSell.DataContext = item.SellPrice;
-                    WineStock.DataContext = item.Stock;
 
                     IndexID = item.ID;
 
@@ -154,14 +154,11 @@ namespace WineCellar
             Close();
         }
 
-        private async void Voorraad_Add(object sender, RoutedEventArgs e)
+        private async Task RefreshLocations()
         {
-            WineStock.DataContext = await Data.Add_Stock(IndexID);
-        }
-
-        private async void Voorraad_Remove(object sender, RoutedEventArgs e)
-        {
-            WineStock.DataContext = await Data.Remove_Stock(IndexID);
+            _DetailsContext.Locations = (await DataAccess.LocationRepo.GetByWine(IndexID))
+                .Select((entity) => new EntityWithCheck<StorageLocation>(entity, false))
+                .ToList();
         }
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
@@ -169,15 +166,112 @@ namespace WineCellar
             Items = await Data.GetAllWines();
             SetData(IndexClicked, Items);
 
-            _DetailsContext.Locations = (await DataAccess.LocationRepo.GetByWine(IndexID)).ToList();
+            await RefreshLocations();
         }
 
-        private void LocationAddButton_Click(object sender, RoutedEventArgs e)
+        private async void LocationAddButton_Click(object sender, RoutedEventArgs e)
         {
-            //LocationGrid.ItemsSource = _DetailsContext.Locations;
+            if (string.IsNullOrEmpty(_DetailsContext.AddShelf) || _DetailsContext.AddShelf.Length > 10)
+            {
+                MessageBox.Show("Het veld \"Kast\" mag niet leeg en/of langer dan 10 karakters zijn!", "Verkeerde waarde ingevoerd", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            if (_DetailsContext.IsMultipleAdd)
+            {
+                // Parse the row and column fields, only add entry if these fields contain integers
+                bool didParseRow = int.TryParse(_DetailsContext.AddRow, out int row);
+                bool didParseCol = int.TryParse(_DetailsContext.AddColumn, out int column);
+                bool didParseRowTo = int.TryParse(_DetailsContext.AddRowTo, out int rowTo);
+                bool didParseColTo = int.TryParse(_DetailsContext.AddColumnTo, out int columnTo);
+
+                if (didParseRow && didParseCol && didParseRowTo && didParseColTo)
+                {
+                    if (row > rowTo || column > columnTo)
+                    {
+                        MessageBox.Show("De velden \"Rij\" en \"Kolom\" mogen niet groter zijn dan hun \"t/m\" velden", "Verkeerde waarde ingevoerd", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    else
+                    {
+                        int idWine = IndexID;
+                        string shelf = _DetailsContext.AddShelf;
+
+                        int counter = 0;
+                        for (int r = row; r <= rowTo; r++)
+                        {
+                            for (int c = column; c <= columnTo; c++)
+                            {
+                                StorageLocation newLocation = new(idWine, shelf, r, c);
+                                if (!_DetailsContext.Locations.Any((loc) => loc.Entity.Equals(newLocation)))
+                                {
+                                    await DataAccess.LocationRepo.Create(newLocation);
+                                    counter++;
+                                }
+                            }
+                        }
+                        await RefreshLocations();
+                        MessageBox.Show($"Er zijn {counter} locaties toegevoegd!", "Locaties toegevoegd", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("De velden \"Rij\" en \"Kolom\" mogen alleen getallen bevatten!", "Verkeerde waarde ingevoerd", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            else
+            {
+                // Create a location object based on what is valid already
+                StorageLocation location = new()
+                {
+                    IdWine = IndexID,
+                    Shelf = _DetailsContext.AddShelf
+                };
+
+                // Parse the row and column fields, only add entry if these fields contain integers
+                bool didParseRow = int.TryParse(_DetailsContext.AddRow, out int row);
+                bool didParseCol = int.TryParse(_DetailsContext.AddColumn, out int column);
+
+                if (didParseRow && didParseCol)
+                {
+                    location.Row = row;
+                    location.Col = column;
+
+                    // Check if the location is already known
+                    if (_DetailsContext.Locations.Any((loc) => loc.Entity.Equals(location)))
+                    {
+                        MessageBox.Show("De ingevoerde locatie bestaat al!", "Locatie bestaat al", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    else
+                    {
+                        await DataAccess.LocationRepo.Create(location);
+                        await RefreshLocations();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("De velden \"Rij\" en \"Kolom\" mogen alleen getallen bevatten!", "Verkeerde waarde ingevoerd", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+
             Debug.WriteLine(LocationGrid.ItemsSource);
             Debug.WriteLine(_DetailsContext.Locations);
             Debug.WriteLine($"Shelf: {_DetailsContext.AddShelf} | Row: {_DetailsContext.AddRow} to {_DetailsContext.AddRowTo} | Column {_DetailsContext.AddColumn} to {_DetailsContext.AddColumnTo}");
+        }
+
+        private async void LocationRemoveButton_Click(object sender, RoutedEventArgs e)
+        {
+            int counter = 0;
+
+            foreach (var location in _DetailsContext.Locations)
+            {
+                if (location.IsEntityChecked)
+                {
+                    await DataAccess.LocationRepo.Delete(location.Entity);
+                    counter++;
+                }
+            }
+
+            await RefreshLocations();
+            MessageBox.Show($"Er zijn {counter} locaties verwijderd!", "Locaties verwijderd", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }

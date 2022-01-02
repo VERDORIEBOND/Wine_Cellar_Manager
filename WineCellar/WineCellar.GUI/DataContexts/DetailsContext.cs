@@ -72,8 +72,8 @@ public class DetailsContext : INotifyPropertyChanged
         }
     }
 
-    public List<StorageLocation> _Locations;
-    public List<StorageLocation> Locations {
+    public List<EntityWithCheck<StorageLocation>> _Locations;
+    public List<EntityWithCheck<StorageLocation>> Locations {
         get => _Locations;
         set
         {
