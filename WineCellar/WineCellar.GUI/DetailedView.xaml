@@ -197,13 +197,13 @@
                             <TextBlock x:Name="WineHarvestYear" Text="{Binding Wine.Age}" Foreground="White"/>
                         </Viewbox>
                         <Viewbox HorizontalAlignment="Left" Grid.Column="1" Grid.Row="3" Margin="20,8,20,8">
-                            <TextBlock x:Name="WineVolume" Text="{Binding Wine.Contents}" Foreground="White"/>
+                            <TextBlock x:Name="WineVolume" Text="{Binding Wine.Alcohol}" Foreground="White"/>
                         </Viewbox>
                         <Viewbox HorizontalAlignment="Left" Grid.Column="1" Grid.Row="4" Margin="20,0,20,0">
                             <ListBox x:Name="WineTaste" ItemsSource="{Binding Wine.Taste}" Style="{StaticResource MaterialDesignChoiceChipOutlineListBox}" VerticalAlignment="Center"/>
                         </Viewbox>
                         <Viewbox HorizontalAlignment="Left" Grid.Column="1" Grid.Row="5" Margin="20,8,20,8">
-                            <TextBlock x:Name="WineCountry" Text="{Binding Wine.Country}" Foreground="White"/>
+                            <TextBlock x:Name="WineCountry" Text="{Binding Wine.OriginCountry}" Foreground="White"/>
                         </Viewbox>
                     </Grid>
                 </Grid>
