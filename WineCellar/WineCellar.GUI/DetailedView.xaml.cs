@@ -28,21 +28,17 @@ namespace WineCellar
     public partial class DetailedView : Window
     {
         private MainWindow mainWindow;
-        private Wine wineRecord;
-
+        public int WineID { get; set; }
         private DetailsContext _DetailsContext { get; set; }
-        public List<IWineData> Items { get; set; }
-        public int IndexID { get; set; }
-        public int IndexClicked { get; set; }
 
-        public DetailedView(int value)
+        public DetailedView(int id)
         {
             InitializeComponent();
 
-            IndexClicked = value;
-
-            _DetailsContext = new DetailsContext();
+            _DetailsContext = new();
             DataContext = _DetailsContext;
+            
+            WineID = id;
         }
 
         private void LoadListStart()
@@ -59,52 +55,15 @@ namespace WineCellar
             DataLoading.IsEnabled = false;
         }
 
-        private void SetData(int indexClicked, List<IWineData> lijst)
+        private async Task SetData(int id)
         {
             LoadListStart();
-            int lijstIndex = 0;
-
-            foreach (var item in lijst)
-            {
-                if (indexClicked == lijstIndex)
-                {
-                    WineName.DataContext = item.Name;
-                    WineDescription.DataContext = item.Description;
-
-                    WineRating.DataContext = Rating(item.Rating);
-                    WineType.DataContext = item.Type;
-                    WineHarvestYear.DataContext = item.Age;
-                    WineVolume.DataContext = item.Alcohol + "%";
-                    Taste(item.Taste);
-                    WineCountry.DataContext = item.OriginCountry;
-
-                    if (item.StorageLocation.Length > 0)
-                    {
-                        WineLocation.DataContext = item.StorageLocation[0];
-                    }
-                    else
-                    {
-                        WineLocation.DataContext = "Onbekend";
-                    }
-
-                    WineBuy.DataContext = item.BuyPrice;
-                    WineSell.DataContext = item.SellPrice;
-
-                    IndexID = item.ID;
-
-                    wineRecord = new(item.ID, item.Name, (decimal)item.BuyPrice, (decimal)item.SellPrice, item.TypeID, item.Type, item.CountryID, item.OriginCountry, null, item.Age, item.Stock, (decimal)item.Alcohol, item.Rating, item.Description);
-                    break;
-                }
-                else
-                {
-                    lijstIndex++;
-                }
-            }
-
+            _DetailsContext.Wine = await Data.GetWine(id);
+            _DetailsContext.Rating = Rating(_DetailsContext.Wine.Rating);
             LoadListStop();
         }
 
-        public string Rating(int rating)
+        public static string Rating(int rating)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -114,15 +73,6 @@ namespace WineCellar
             }
 
             return sb.ToString();
-        }
-
-        public void Taste(string[] arrayTaste)
-        {
-            foreach (string item in arrayTaste)
-            {
-                ListBoxItem listBoxItem = new ListBoxItem { Content = item };
-                WineTaste.Items.Add(listBoxItem);
-            }
         }
 
         private void Button_Click_Terug(object sender, RoutedEventArgs e)
@@ -137,7 +87,7 @@ namespace WineCellar
         {
             if (MessageBox.Show("Weet u het zeker?", "Verwijderen", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
-                await Data.DeleteWine(IndexID);
+                await Data.DeleteWine(WineID);
 
                 mainWindow = new MainWindow();
                 Application.Current.MainWindow = mainWindow;
@@ -148,7 +98,7 @@ namespace WineCellar
 
         private void Button_Click_Aanpassen(object sender, RoutedEventArgs e)
         {
-            UpdateWine updateWine = new UpdateWine(IndexID, IndexClicked);
+            UpdateWine updateWine = new UpdateWine(WineID);
             Application.Current.MainWindow = updateWine;
             updateWine.Show();
             Close();
@@ -156,16 +106,15 @@ namespace WineCellar
 
         private async Task RefreshLocations()
         {
-            _DetailsContext.Locations = (await DataAccess.LocationRepo.GetByWine(IndexID))
+            _DetailsContext.Locations = (await DataAccess.LocationRepo.GetByWine(WineID))
                 .Select((entity) => new EntityWithCheck<StorageLocation>(entity, false))
                 .ToList();
         }
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Items = await Data.GetAllWines();
-            SetData(IndexClicked, Items);
-
+            await SetData(WineID);
+            
             await RefreshLocations();
         }
 
@@ -192,7 +141,7 @@ namespace WineCellar
                     }
                     else
                     {
-                        int idWine = IndexID;
+                        int idWine = WineID;
                         string shelf = _DetailsContext.AddShelf;
 
                         int counter = 0;
@@ -222,7 +171,7 @@ namespace WineCellar
                 // Create a location object based on what is valid already
                 StorageLocation location = new()
                 {
-                    IdWine = IndexID,
+                    IdWine = WineID,
                     Shelf = _DetailsContext.AddShelf
                 };
 

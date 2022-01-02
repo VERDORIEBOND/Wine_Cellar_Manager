@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -37,13 +38,11 @@ namespace WineCellar
         List<string> _contentWineLocation = new List<string>();
         List<string> contentWineNotes = new List<string>();
 
-        private DetailedView detailedView;
-
         public MainWindow()
         {
             InitializeComponent();
             FillList();
-            FilterOuters();
+            _ = FilterOuters();
         }
 
         public void RegisterWine(object sender, RoutedEventArgs e)
@@ -94,6 +93,9 @@ namespace WineCellar
             }
             items = Data.FilterWine(allItems, tbWineName.Text, slPriceFrom.Value, slPriceTo.Value, CbWinetype.Text, CbStorageLocation.Text, SlYearFrom.Value, SlYearTo.Value, tastingNotes, RbWineRating.Value);
             WineDataBinding.ItemsSource = items;
+
+            ICollectionView view = CollectionViewSource.GetDefaultView(WineDataBinding.ItemsSource);
+            view.Refresh();
         }
 
         private async Task FilterOuters()
@@ -150,18 +152,48 @@ namespace WineCellar
             LbTastingNotes.ItemsSource = contentWineNotes;
         }
 
+        private int GetItemID(int indexClicked, List<IWineData> list)
+        {
+            int id = 0;
+
+            foreach (var item in list)
+            {
+                if (indexClicked == id)
+                {
+                    id = item.ID;
+                    break;
+                }
+                else
+                {
+                    id++;
+                }
+            }
+
+            return id;
+        }
+
         private void ListViewItem_Clicked(object sender, MouseButtonEventArgs e)
         {
             var item = (sender as ListView).SelectedItem;
 
             if (item != null)
             {
-                detailedView = new DetailedView(WineDataBinding.SelectedIndex);
+                int id = GetItemID(WineDataBinding.SelectedIndex, items);
+                DetailedView detailedView = new DetailedView(id);
 
                 Application.Current.MainWindow = detailedView;
                 detailedView.Show();
                 Close();
             }
+        }
+
+        private void Button_Click_Sorteer(object sender, RoutedEventArgs e)
+        {
+            items = Data.SortWine(SortingBox.Text, items, (bool)Aflopend.IsChecked);
+            WineDataBinding.ItemsSource = items;
+
+            ICollectionView view = CollectionViewSource.GetDefaultView(WineDataBinding.ItemsSource);
+            view.Refresh();
         }
     }
 }

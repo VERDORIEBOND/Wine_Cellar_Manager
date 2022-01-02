@@ -104,7 +104,7 @@
                     CornerRadius="16"
                     Background="White"
                     materialDesign:ShadowAssist.ShadowDepth="Depth3">
-                        <TextBlock x:Name="WineName" Foreground="Black" Text="{Binding}" FontSize="36" FontWeight="Bold" Margin="10"/>
+                        <TextBlock x:Name="WineName" Foreground="Black" Text="{Binding Path=Wine.Name}" FontSize="36" FontWeight="Bold" Margin="10"/>
                     </materialDesign:ColorZone>
 
                     <Grid Grid.Row="1">
@@ -116,7 +116,7 @@
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
-                        <TextBlock Grid.Column="0" x:Name="WineDescription" Text="{Binding}" TextWrapping="Wrap" Margin="20" FontSize="20" Foreground="White"/>
+                        <TextBlock Grid.Column="0" x:Name="WineDescription" Text="{Binding Wine.Description}" TextWrapping="Wrap" Margin="20" FontSize="20" Foreground="White"/>
 
                         <materialDesign:ColorZone
                         Grid.Column="1" Grid.Row="0"
@@ -144,10 +144,10 @@
                                 </Viewbox>
 
                                 <Viewbox Grid.Column="1" Grid.Row="0">
-                                    <TextBlock x:Name="WineBuy" Text="{Binding}" Foreground="White" Margin="15,0,15,0"/>
+                                    <TextBlock x:Name="WineBuy" Text="{Binding Wine.BuyPrice}" Foreground="White" Margin="15,0,15,0"/>
                                 </Viewbox>
                                 <Viewbox Grid.Column="1" Grid.Row="1">
-                                    <TextBlock x:Name="WineSell" Text="{Binding}" Foreground="White" Margin="15,0,15,0"/>
+                                    <TextBlock x:Name="WineSell" Text="{Binding Wine.SellPrice}" Foreground="White" Margin="15,0,15,0"/>
                                 </Viewbox>
                             </Grid>
                         </materialDesign:ColorZone>
@@ -186,30 +186,24 @@
                         <Viewbox HorizontalAlignment="Left" Grid.Row="5" Margin="20,8,20,8">
                             <TextBlock Text="Land" Foreground="White"/>
                         </Viewbox>
-                        <Viewbox HorizontalAlignment="Left" Grid.Row="6" Margin="20,8,20,8">
-                            <TextBlock Text="Locatie" Foreground="White"/>
-                        </Viewbox>
 
                         <Viewbox HorizontalAlignment="Left" Grid.Column="1" Grid.Row="0" Margin="20,8,20,8">
-                            <TextBlock x:Name="WineRating" Text="{Binding}" Foreground="White"/>
+                            <TextBlock x:Name="WineRating" Text="{Binding Rating}" Foreground="White"/>
                         </Viewbox>
                         <Viewbox HorizontalAlignment="Left" Grid.Column="1" Grid.Row="1" Margin="20,8,20,8">
-                            <TextBlock x:Name="WineType" Text="{Binding}" Foreground="White"/>
+                            <TextBlock x:Name="WineType" Text="{Binding Wine.Type}" Foreground="White"/>
                         </Viewbox>
                         <Viewbox HorizontalAlignment="Left" Grid.Column="1" Grid.Row="2" Margin="20,8,20,8">
-                            <TextBlock x:Name="WineHarvestYear" Text="{Binding}" Foreground="White"/>
+                            <TextBlock x:Name="WineHarvestYear" Text="{Binding Wine.Age}" Foreground="White"/>
                         </Viewbox>
                         <Viewbox HorizontalAlignment="Left" Grid.Column="1" Grid.Row="3" Margin="20,8,20,8">
-                            <TextBlock x:Name="WineVolume" Text="{Binding}" Foreground="White"/>
+                            <TextBlock x:Name="WineVolume" Text="{Binding Wine.Contents}" Foreground="White"/>
                         </Viewbox>
                         <Viewbox HorizontalAlignment="Left" Grid.Column="1" Grid.Row="4" Margin="20,0,20,0">
-                            <ListBox x:Name="WineTaste" Style="{StaticResource MaterialDesignChoiceChipOutlineListBox}" VerticalAlignment="Center"/>
+                            <ListBox x:Name="WineTaste" ItemsSource="{Binding Wine.Taste}" Style="{StaticResource MaterialDesignChoiceChipOutlineListBox}" VerticalAlignment="Center"/>
                         </Viewbox>
                         <Viewbox HorizontalAlignment="Left" Grid.Column="1" Grid.Row="5" Margin="20,8,20,8">
-                            <TextBlock x:Name="WineCountry" Text="{Binding}" Foreground="White"/>
-                        </Viewbox>
-                        <Viewbox HorizontalAlignment="Left" Grid.Column="1" Grid.Row="6" Margin="20,8,20,8">
-                            <TextBlock x:Name="WineLocation" Text="{Binding}" Foreground="White"/>
+                            <TextBlock x:Name="WineCountry" Text="{Binding Wine.Country}" Foreground="White"/>
                         </Viewbox>
                     </Grid>
                 </Grid>

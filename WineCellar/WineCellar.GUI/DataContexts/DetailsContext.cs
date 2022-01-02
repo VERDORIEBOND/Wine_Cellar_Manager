@@ -12,6 +12,28 @@ public class DetailsContext : INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler PropertyChanged;
 
+    private WineData _Wine;
+    public WineData Wine
+    {
+        get => _Wine;
+        set
+        {
+            _Wine = value;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Wine)));
+        }
+    }
+
+    private string _Rating;
+    public string Rating
+    {
+        get => _Rating;
+        set
+        {
+            _Rating = value;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Rating)));
+        }
+    }
+
     private bool _IsMultipleAdd;
     public bool IsMultipleAdd {
         get => _IsMultipleAdd;
