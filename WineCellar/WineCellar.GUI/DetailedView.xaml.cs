@@ -35,6 +35,8 @@ namespace WineCellar
         {
             InitializeComponent();
 
+            LoadListStart();
+
             _DetailsContext = new();
             DataContext = _DetailsContext;
             
@@ -45,6 +47,7 @@ namespace WineCellar
         {
             DataLoading.Opacity = 1;
             DataLoading.IsEnabled = true;
+            DataLoading.Visibility = Visibility.Visible;
         }
 
         private void LoadListStop()
@@ -53,6 +56,7 @@ namespace WineCellar
             DataLoading.Width = 0;
             DataLoading.Opacity = 0;
             DataLoading.IsEnabled = false;
+            DataLoading.Visibility = Visibility.Hidden;
         }
 
         private async Task SetData(int id)
@@ -200,10 +204,6 @@ namespace WineCellar
                     MessageBox.Show("De velden \"Rij\" en \"Kolom\" mogen alleen getallen bevatten!", "Verkeerde waarde ingevoerd", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
-
-            Debug.WriteLine(LocationGrid.ItemsSource);
-            Debug.WriteLine(_DetailsContext.Locations);
-            Debug.WriteLine($"Shelf: {_DetailsContext.AddShelf} | Row: {_DetailsContext.AddRow} to {_DetailsContext.AddRowTo} | Column {_DetailsContext.AddColumn} to {_DetailsContext.AddColumnTo}");
         }
 
         private async void LocationRemoveButton_Click(object sender, RoutedEventArgs e)
