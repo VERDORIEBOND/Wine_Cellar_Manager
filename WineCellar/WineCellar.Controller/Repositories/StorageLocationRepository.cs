@@ -15,10 +15,10 @@ public class StorageLocationRepository
     /// Retrieves all StorageLocationRecord entries in the database.
     /// </summary>
     /// <returns>List containing all StorageLocationRecord entries.</returns>
-    public async Task<IEnumerable<StorageLocationRecord>> GetAll()
+    public async Task<IEnumerable<StorageLocation>> GetAll()
     {
         using var conn = DataAccess.GetConnection;
-        return await conn.QueryAsync<StorageLocationRecord>(Queries.StorageLocation_GetAll, commandType: CommandType.StoredProcedure);
+        return await conn.QueryAsync<StorageLocation>(Queries.StorageLocation_GetAll, commandType: CommandType.StoredProcedure);
     }
 
     /// <summary>
@@ -26,10 +26,10 @@ public class StorageLocationRepository
     /// </summary>
     /// <param name="wineId"></param>
     /// <returns>List containing all StorageLocationRecord entries based on WineId</returns>
-    public async Task<IEnumerable<StorageLocationRecord>> GetByWine(int wineId)
+    public async Task<IEnumerable<StorageLocation>> GetByWine(int wineId)
     {
         using var conn = DataAccess.GetConnection;
-        return await conn.QueryAsync<StorageLocationRecord>(Queries.StorageLocation_GetByWine, new { IdWine = wineId }, commandType: CommandType.StoredProcedure);
+        return await conn.QueryAsync<StorageLocation>(Queries.StorageLocation_GetByWine, new { IdWine = wineId }, commandType: CommandType.StoredProcedure);
     }
 
     /// <summary>
@@ -37,7 +37,7 @@ public class StorageLocationRepository
     /// </summary>
     /// <param name="location"></param>
     /// <returns>Rows affected</returns>
-    public async Task<int> Delete(StorageLocationRecord location)
+    public async Task<int> Delete(StorageLocation location)
     {
         using var conn = DataAccess.GetConnection;
         return await conn.ExecuteAsync(Queries.StorageLocation_Delete, location, commandType: CommandType.StoredProcedure);
@@ -59,7 +59,7 @@ public class StorageLocationRepository
     /// </summary>
     /// <param name="location"></param>
     /// <returns>Rows affected</returns>
-    public async Task<int> Create(StorageLocationRecord location)
+    public async Task<int> Create(StorageLocation location)
     {
         using var conn = DataAccess.GetConnection;
         return await conn.ExecuteScalarAsync<int>(Queries.StorageLocation_Insert, location, commandType: CommandType.StoredProcedure);

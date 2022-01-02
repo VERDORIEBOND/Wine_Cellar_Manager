@@ -18,7 +18,17 @@ namespace WineCellar.ControllerTest
     {
         private IConfiguration? Configuration { get; set; }
 
-        private StorageLocationRecord _ToInsertRecord { get; set; } = new StorageLocationRecord(1, "ABCdef", 9001, 9001);
+        private StorageLocation _ToInsertRecord { get; set; } = new StorageLocation(1, "ABCdef", 9001, 9001);
+
+        private StorageLocation[] _ToInsertRecords { get; set; } = new StorageLocation[]
+        {
+            new(1, "TestA", 2, 1),
+            new(1, "TestA", 2, 2),
+            new(1, "TestA", 2, 3),
+            new(1, "TestA", 2, 4),
+            new(1, "TestA", 2, 5)
+        };
+            
 
         [SetUp]
         public void Setup()
@@ -29,6 +39,14 @@ namespace WineCellar.ControllerTest
             DataAccess.SetConfiguration(Configuration);
         }
 
+        private static bool CompareLocations(StorageLocation loc1, StorageLocation loc2)
+        {
+            return loc1.IdWine == loc2.IdWine
+                && loc1.Shelf.Equals(loc2.Shelf)
+                && loc1.Row == loc2.Row
+                && loc1.Col == loc2.Col;
+        }
+
         [Test]
         public async Task LocationRepository_GetAllShould()
         {
@@ -37,58 +55,97 @@ namespace WineCellar.ControllerTest
             Assert.GreaterOrEqual(result.Count, 1);
         }
 
-        [Test, Order(1)]
+        [Test, Order(2)]
         public async Task LocationRepository_GetByWineShould()
         {
             // Records that are expected to be found in the database, these are created in a postdeployment script for testing purposes
-            StorageLocationRecord[] expectedRecords = new StorageLocationRecord[]
+            List<StorageLocation> result = (await DataAccess.LocationRepo.GetByWine(1)).ToList();
+
+            int amtFound = 0;
+
+            for (int i = 0; i < _ToInsertRecords.Length; i++)
             {
-                new(1, "A", 2, 1),
-                new(1, "A", 2, 2),
-                new(1, "A", 2, 3),
-                new(1, "A", 2, 4),
-                new(1, "A", 2, 5)
-            };
-
-            List<StorageLocationRecord> result = (await DataAccess.LocationRepo.GetByWine(1)).ToList();
-
-            Assert.AreEqual(5, result.Count);
-
-            for (int i = 0; i < expectedRecords.Length; i++)
-            {
-                Assert.Contains(expectedRecords[i], result, $"Expected record at index {i} to be present");
+                foreach (StorageLocation record in result)
+                {
+                    if (CompareLocations(record, _ToInsertRecords[i]))
+                    {
+                        amtFound++;
+                        break;
+                    }
+                }
             }
+
+            Assert.AreEqual(_ToInsertRecords.Length, amtFound);
         }
 
-        [Test, Order(2)]
+        [Test, Order(1)]
         public async Task LocationRepository_InsertShould()
         {
-            // Add the record to the database
-            await DataAccess.LocationRepo.Create(_ToInsertRecord);
+            for (int i = 0; i < _ToInsertRecords.Length; i++)
+            {
+                // Add the record to the database
+                await DataAccess.LocationRepo.Create(_ToInsertRecords[i]);
+            }
 
             // Retrieve all locations for used WineId
-            List<StorageLocationRecord> result = (await DataAccess.LocationRepo.GetByWine(_ToInsertRecord.IdWine)).ToList();
+            List<StorageLocation> result = (await DataAccess.LocationRepo.GetByWine(_ToInsertRecord.IdWine)).ToList();
 
-            Assert.Contains(_ToInsertRecord, result);
+            int amtFound = 0;
+
+            for (int i = 0; i < _ToInsertRecords.Length; i++)
+            {
+                foreach (StorageLocation record in result)
+                {
+                    if (CompareLocations(record, _ToInsertRecords[i]))
+                    {
+                        amtFound++;
+                        break;
+                    }
+                }
+            }
+
+            Assert.AreEqual(_ToInsertRecords.Length, amtFound);
         }
 
         [Test, Order(3)]
         public async Task LocationRepository_DeleteShould()
         {
             // Retrieve all locations for used WineId, to verify the entry actually exists already
-            List<StorageLocationRecord> result = (await DataAccess.LocationRepo.GetByWine(_ToInsertRecord.IdWine)).ToList();
-            Assert.Contains(_ToInsertRecord, result);
+            List<StorageLocation> result = (await DataAccess.LocationRepo.GetByWine(_ToInsertRecord.IdWine)).ToList();
+            int amtFound = 0;
 
-            // Delete the location from the database
-            int affectedRows = await DataAccess.LocationRepo.Delete(_ToInsertRecord);
-            Assert.AreEqual(1, affectedRows, "Expected affected rows after deletion to be 1");
+            for (int i = 0; i < _ToInsertRecords.Length; i++)
+            {
+                foreach (StorageLocation record in result)
+                {
+                    if (CompareLocations(record, _ToInsertRecords[i]))
+                    {
+                        amtFound++;
+                        break;
+                    }
+                }
+            }
+
+            Assert.AreEqual(_ToInsertRecords.Length, amtFound);
+
+            for (int i = 0; i < _ToInsertRecords.Length; i++)
+            {
+                // Delete the location from the database
+                await DataAccess.LocationRepo.Delete(_ToInsertRecords[i]);
+            }
 
             // Retrieve all locations for used WineId again to verify deletion
             result = (await DataAccess.LocationRepo.GetByWine(_ToInsertRecord.IdWine)).ToList();
-            foreach (StorageLocationRecord record in result)
+            for (int i = 0; i < _ToInsertRecords.Length; i++)
             {
-                if (record == _ToInsertRecord)
-                    Assert.Fail($"The deleted record is still in the database {record}");
+                foreach (StorageLocation record in result)
+                {
+                    if (CompareLocations(record, _ToInsertRecords[i]))
+                    {
+                        Assert.Fail($"Record still exists with IdWine: {record.IdWine} | Shelf {record.Shelf} | Row {record.Row} | Col {record.Col}");
+                        break;
+                    }
+                }
             }
         }
     }

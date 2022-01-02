@@ -16,20 +16,20 @@ public class CountryRepository
     /// </summary>
     /// <param name="id"></param>
     /// <returns>A CountryRecord retrieved from database</returns>
-    public async Task<CountryRecord> Get(int id)
+    public async Task<Country> Get(int id)
     {
         using var conn = DataAccess.GetConnection;
-        return await conn.QuerySingleAsync<CountryRecord>(Queries.Country_Get, new { Id = id }, commandType: CommandType.StoredProcedure);
+        return await conn.QuerySingleAsync<Country>(Queries.Country_Get, new { Id = id }, commandType: CommandType.StoredProcedure);
     }
 
     /// <summary>
     /// Retrieves all CountryRecord entries in the database.
     /// </summary>
     /// <returns>List containing all CountryRecord entries.</returns>
-    public async Task<IEnumerable<CountryRecord>> GetAll()
+    public async Task<IEnumerable<Country>> GetAll()
     {
         using var conn = DataAccess.GetConnection;
-        return await conn.QueryAsync<CountryRecord>(Queries.Country_GetAll, commandType: CommandType.StoredProcedure);
+        return await conn.QueryAsync<Country>(Queries.Country_GetAll, commandType: CommandType.StoredProcedure);
     }
 
     /// <summary>
@@ -48,7 +48,7 @@ public class CountryRepository
     /// </summary>
     /// <param name="country"></param>
     /// <returns>Rows affected</returns>
-    public async Task<int> Update(CountryRecord country)
+    public async Task<int> Update(Country country)
     {
         using var conn = DataAccess.GetConnection;
         return await conn.ExecuteAsync(Queries.Country_Update, country, commandType: CommandType.StoredProcedure);
@@ -59,7 +59,7 @@ public class CountryRepository
     /// </summary>
     /// <param name="country"></param>
     /// <returns>Id of the inserted record.</returns>
-    public async Task<int> Create(CountryRecord country)
+    public async Task<int> Create(Country country)
     {
         DynamicParameters parameters = new();
         parameters.Add("Name", country.Name);
