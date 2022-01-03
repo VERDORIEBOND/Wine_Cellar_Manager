@@ -52,7 +52,7 @@ namespace WineCellar
             Application.Current.MainWindow = wine;
             Close();
         }
-        
+
         public void GeographicView(object sender, RoutedEventArgs e)
         {
             GeographicView GeoView = new GeographicView();
@@ -84,18 +84,16 @@ namespace WineCellar
             DataLoading.IsEnabled = false;
         }
 
-        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        private List<string> SelectedTastingNotes()
         {
             var tastingNotes = new List<string>();
-            foreach (var tastingNote in LbTastingNotes.SelectedItems)
-            {
-                tastingNotes.Add(tastingNote.ToString());
-            }
-            items = Data.FilterWine(allItems, tbWineName.Text, slPriceFrom.Value, slPriceTo.Value, CbWinetype.Text, CbStorageLocation.Text, SlYearFrom.Value, SlYearTo.Value, tastingNotes, RbWineRating.Value);
-            WineDataBinding.ItemsSource = items;
 
-            ICollectionView view = CollectionViewSource.GetDefaultView(WineDataBinding.ItemsSource);
-            view.Refresh();
+            foreach (var item in LbTastingNotes.SelectedItems)
+            {
+                tastingNotes.Add((item as ListBoxItem).Content.ToString());
+            }
+
+            return tastingNotes;
         }
 
         private async Task FilterOuters()
@@ -150,6 +148,29 @@ namespace WineCellar
             SlYearTo.Value = _edgeYearTo;
             SlYearTo.Maximum = _edgeYearTo;
             LbTastingNotes.ItemsSource = contentWineNotes;
+
+            SetTastingNotesAsync();
+        }
+
+        private async void SetTastingNotesAsync()
+        {
+            items = await Data.GetAllWines();
+            List<string> notes = new List<string>();
+            List<ListBoxItem> listBoxItems = new List<ListBoxItem>();
+
+            foreach (var item in items)
+            {
+                foreach (string tasteNote in item.Taste)
+                {
+                    if (!notes.Contains(tasteNote))
+                    {
+                        ListBoxItem listBoxItem = new ListBoxItem { Content = tasteNote };
+                        listBoxItems.Add(listBoxItem);
+                        notes.Add(tasteNote);
+                    }
+                }
+            }
+            LbTastingNotes.ItemsSource = listBoxItems;
         }
 
         private int GetItemID(int indexClicked, List<IWineData> list)
@@ -190,6 +211,107 @@ namespace WineCellar
         private void Button_Click_Sorteer(object sender, RoutedEventArgs e)
         {
             items = Data.SortWine(SortingBox.Text, items, (bool)Aflopend.IsChecked);
+            WineDataBinding.ItemsSource = items;
+
+            ICollectionView view = CollectionViewSource.GetDefaultView(WineDataBinding.ItemsSource);
+            view.Refresh();
+        }
+
+        private void ResetRating_Click(object sender, RoutedEventArgs e)
+        {
+            RbWineRating.Value = 0;
+        }
+
+        private void ResetList_Click(object sender, RoutedEventArgs e)
+        {
+            FillList();
+
+            ICollectionView view = CollectionViewSource.GetDefaultView(WineDataBinding.ItemsSource);
+            view.Refresh();
+        }
+
+        private HashSet<int> FillHashSetWithID(List<IWineData> wines)
+        {
+            HashSet<int> filter = new HashSet<int>();
+
+            foreach (var item in wines)
+            {
+                filter.Add(item.ID);
+            }
+
+            return filter;
+        }
+
+        private List<IWineData> FillList(HashSet<int> filter)
+        {
+            List<IWineData> filteredList = new List<IWineData>();
+
+            foreach (var id in filter)
+            {
+                foreach (var item in allItems)
+                {
+                    if (item.ID == id)
+                    {
+                        filteredList.Add(item);
+                    }
+                }
+            }
+
+            return filteredList;
+        }
+
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            HashSet<int> filteredSet = new HashSet<int>();
+
+            foreach (var item in allItems)
+            {
+                filteredSet.Add(item.ID);
+            }
+
+            if (tbWineName.Text != "")
+            {
+                var filterName = Data.FilterWineName(allItems, tbWineName.Text);
+                filteredSet.IntersectWith(FillHashSetWithID(filterName));
+            }
+
+            if (slPriceFrom.Value > slPriceFrom.Minimum || slPriceTo.Value < slPriceTo.Maximum)
+            {
+                var filterPrice = Data.FilterWinePrice(allItems, slPriceFrom.Value, slPriceTo.Value);
+                filteredSet.IntersectWith(FillHashSetWithID(filterPrice));
+            }
+
+            if (CbWinetype.Text != "")
+            {
+                var filterType = Data.FilterWineType(allItems, CbWinetype.Text);
+                filteredSet.IntersectWith(FillHashSetWithID(filterType));
+            }
+
+            if (CbStorageLocation.Text != "")
+            {
+                var filterStorage = Data.FilterWineStorage(allItems, CbStorageLocation.Text);
+                filteredSet.IntersectWith(FillHashSetWithID(filterStorage));
+            }
+
+            if (SlYearFrom.Value > SlYearFrom.Minimum || SlYearTo.Value < SlYearTo.Maximum)
+            {
+                var filterAge = Data.FilterWineAge(allItems, SlYearFrom.Value, SlYearTo.Value);
+                filteredSet.IntersectWith(FillHashSetWithID(filterAge));
+            }
+
+            if (LbTastingNotes.SelectedItems.Count > 0)
+            {
+                var filterTaste = Data.FilterWineTaste(allItems, SelectedTastingNotes());
+                filteredSet.IntersectWith(FillHashSetWithID(filterTaste));
+            }
+
+            if (RbWineRating.Value > 0)
+            {
+                var filterRating = Data.FilterWineRating(allItems, RbWineRating.Value);
+                filteredSet.IntersectWith(FillHashSetWithID(filterRating));
+            }
+
+            items = FillList(filteredSet);
             WineDataBinding.ItemsSource = items;
 
             ICollectionView view = CollectionViewSource.GetDefaultView(WineDataBinding.ItemsSource);
