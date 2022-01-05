@@ -119,7 +119,9 @@ for (int i = 0; i < amountWines; i++)
         rand.Next(5, 15) * 100,
         new decimal(rand.NextDouble() * 20),
         rand.Next(1, 5),
-        PropertyOptions.WineDescriptions[rand.Next(0, PropertyOptions.WineDescriptions.Length)]
+        PropertyOptions.WineDescriptions[rand.Next(0, PropertyOptions.WineDescriptions.Length)],
+        -90 + rand.NextDouble() * 180, // Latitude range from -90 to 90
+        -180 + rand.NextDouble() * 260 // Longitude range from -180 to 80
         );
 
     int created = await DataAccess.WineRepo.Create(newWine);

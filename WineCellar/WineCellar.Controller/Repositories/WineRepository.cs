@@ -44,6 +44,8 @@ public class WineRepository
         parameters.Add("Alcohol", wine.Alcohol, dbType: DbType.Decimal, precision: 10, scale: 2);
         parameters.Add("Rating", wine.Rating);
         parameters.Add("Description", wine.Description);
+        parameters.Add("Latitude", wine.Latitude);
+        parameters.Add("Longitude", wine.Longitude);
 
         using var conn = DataAccess.GetConnection;
         return await conn.ExecuteAsync(Queries.Wine_Update, parameters, commandType: CommandType.StoredProcedure);
@@ -63,6 +65,8 @@ public class WineRepository
         parameters.Add("Alcohol", wine.Alcohol, dbType: DbType.Decimal, precision: 10, scale: 2);
         parameters.Add("Rating", wine.Rating);
         parameters.Add("Description", wine.Description);
+        parameters.Add("Latitude", wine.Latitude);
+        parameters.Add("Longitude", wine.Longitude);
 
         using var conn = DataAccess.GetConnection;
         return await conn.ExecuteScalarAsync<int>(Queries.Wine_Insert, parameters, commandType: CommandType.StoredProcedure);

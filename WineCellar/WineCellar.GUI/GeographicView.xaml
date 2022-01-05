@@ -12,7 +12,7 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         Closing="GeographicView_Closing"
-        Background="{DynamicResource MaterialDesignPaper}">
+        Background="{DynamicResource MaterialDesignPaper}" Loaded="Window_Loaded">
 
     <Grid>
         <mapsui:MapControl x:Name="MyMapControl" MouseLeftButtonUp="MyMapControl_MouseLeftButtonUp">

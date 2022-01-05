@@ -11,7 +11,9 @@
 	[Content] INT,
 	[Alcohol] DECIMAL(10,2),
 	[Rating] INT,
-	[Description] NVARCHAR(256), 
+	[Description] NVARCHAR(256),
+	[Latitude] FLOAT DEFAULT 0 NOT NULL,
+	[Longitude] FLOAT DEFAULT 0 NOT NULL,
     CONSTRAINT [FK_Wine_ToCountry] FOREIGN KEY ([CountryId]) REFERENCES [Country]([Id]),
     CONSTRAINT [FK_Wine_ToType] FOREIGN KEY ([TypeId]) REFERENCES [Type]([Id])
 )

@@ -11,6 +11,9 @@ using System.Reflection;
 using System.Windows.Controls;
 using Mapsui.UI.Wpf;
 using System.Diagnostics;
+using WineCellar.Model;
+using Controller;
+using System.Threading.Tasks;
 
 namespace WineCellar;
 
@@ -30,8 +33,11 @@ public partial class GeographicView : Window
     public GeographicView()
     {
         InitializeComponent();
+    }
 
-        AddPoints();                        // AddPoints first!!
+    private async void Window_Loaded(object sender, RoutedEventArgs e)
+    {
+        await AddPoints(); // AddPoints before map creation!
         MyMapControl.Map = CreateMap();
     }
 
@@ -45,14 +51,14 @@ public partial class GeographicView : Window
         return map;
     }
 
-    public void AddPoints()
+    public async Task AddPoints()
     {
-        // dummy data
-        points.Add(CreatePoint(6.079559, 52.500767, 3));
-        points.Add(CreatePoint(4.4210539, 44.0171384, 4));
-        points.Add(CreatePoint(0.4328022, 44.7959213, 8));
-        points.Add(CreatePoint(2.1774322, 41.3828939, 6));
-        points.Add(CreatePoint(-96.3574856, 19.4766160, 7));
+        IEnumerable<Wine> wines = await DataAccess.WineRepo.GetAll();
+
+        foreach (Wine wine in wines)
+        {
+            points.Add(CreatePoint(wine.Longitude, wine.Latitude, wine.Id));
+        }
     }
 
     private MemoryLayer CreatePointLayer(List<Feature> points)
