@@ -58,7 +58,14 @@ namespace Controller
                 wineEntry.SellPrice = (double)wine.Sell;
                 wineEntry.Picture = wine.Picture;
 
-                var storageLocations = new string[] {};
+                var wineNotes = Array.Empty<string>();
+                foreach (var note in await DataAccess.NoteRepo.GetByWine(wine.Id))
+                {
+                    wineNotes = wineNotes.Append(note.Name).ToArray();
+                }
+                wineEntry.Taste = wineNotes;
+
+                var storageLocations = Array.Empty<string>();
                 foreach (var location in await DataAccess.LocationRepo.GetByWine(wine.Id))
                 {
                     //create array and add the location to it
@@ -75,9 +82,10 @@ namespace Controller
             return wineData;
         }
 
+
         public static async void Update(WineData wine)
         {
-                Wine newWine = new(wine.ID,
+          Wine newWine = new(wine.ID,
                 wine.Name,
                 Convert.ToDecimal(wine.BuyPrice),
                 Convert.ToDecimal(wine.SellPrice),
@@ -122,7 +130,8 @@ namespace Controller
                 Countries.Add(country.Id.ToString(), country.Name);
             }
             return Countries;
-        }   
+        }
+
         public static async Task<Dictionary<string, string>> GetAllTypes()
         {
             Dictionary<string, string> Types = new Dictionary<string, string>();
@@ -134,20 +143,16 @@ namespace Controller
             return Types;
         }
 
-        public static List<IWineData> FilterWine(List<IWineData> wineDatas, string? name, double priceFrom, double priceTo, string wineType, 
-            string storageLocation, double ageFrom, double ageTo, List<string> tastingNotes, int rating)
+        public static List<IWineData> FilterWineName(List<IWineData> wineDatas, string? name)
         {
             var filteredWine = new List<IWineData>();
+
             foreach (var wine in wineDatas)
-            { 
-                if (wine.Name.ToLower().Contains(name?.ToLower() ?? string.Empty) &&
-                    wine.SellPrice >= priceFrom && 
-                    wine.SellPrice <= priceTo && 
-                    wine.Type.ToLower().Contains(wineType?.ToLower() ?? string.Empty) && 
-                    wine.Age >= ageFrom && 
-                    wine.Age <= ageTo) 
+            {
+                if (wine.Name.ToLower().Contains(name?.ToLower() ?? string.Empty))
                 {
                     var wineEntry = new WineData();
+                    wineEntry.ID = wine.ID;
                     wineEntry.Name = wine.Name;
                     wineEntry.Age = wine.Age;
                     wineEntry.Stock = wine.Stock;
@@ -156,11 +161,173 @@ namespace Controller
                     wineEntry.BuyPrice = wine.BuyPrice;
                     wineEntry.SellPrice = wine.SellPrice;
                     wineEntry.StorageLocation = wine.StorageLocation;
+                    wineEntry.Taste = wine.Taste;
+
                     filteredWine.Add(wineEntry);
                 }
             }
             return filteredWine;
         }
+
+        public static List<IWineData> FilterWinePrice(List<IWineData> wineDatas, double priceFrom, double priceTo)
+        {
+            var filteredWine = new List<IWineData>();
+
+            foreach (var wine in wineDatas)
+            {
+                if ((wine.SellPrice >= priceFrom && wine.SellPrice <= priceTo))
+                {
+                    var wineEntry = new WineData();
+                    wineEntry.ID = wine.ID;
+                    wineEntry.Name = wine.Name;
+                    wineEntry.Age = wine.Age;
+                    wineEntry.Stock = wine.Stock;
+                    wineEntry.Type = wine.Type;
+                    wineEntry.OriginCountry = wine.OriginCountry;
+                    wineEntry.BuyPrice = wine.BuyPrice;
+                    wineEntry.SellPrice = wine.SellPrice;
+                    wineEntry.StorageLocation = wine.StorageLocation;
+                    wineEntry.Taste = wine.Taste;
+
+                    filteredWine.Add(wineEntry);
+                }
+            }
+            return filteredWine;
+        }
+
+        public static List<IWineData> FilterWineType(List<IWineData> wineDatas, string wineType)
+        {
+            var filteredWine = new List<IWineData>();
+
+            foreach (var wine in wineDatas)
+            {
+                if (wine.Type.ToLower().Contains(wineType?.ToLower() ?? string.Empty))
+                {
+                    var wineEntry = new WineData();
+                    wineEntry.ID = wine.ID;
+                    wineEntry.Name = wine.Name;
+                    wineEntry.Age = wine.Age;
+                    wineEntry.Stock = wine.Stock;
+                    wineEntry.Type = wine.Type;
+                    wineEntry.OriginCountry = wine.OriginCountry;
+                    wineEntry.BuyPrice = wine.BuyPrice;
+                    wineEntry.SellPrice = wine.SellPrice;
+                    wineEntry.StorageLocation = wine.StorageLocation;
+                    wineEntry.Taste = wine.Taste;
+
+                    filteredWine.Add(wineEntry);
+                }
+            }
+            return filteredWine;
+        }
+
+        public static List<IWineData> FilterWineStorage(List<IWineData> wineDatas, string storageLocation)
+        {
+            var filteredWine = new List<IWineData>();
+
+            foreach (var wine in wineDatas)
+            {
+                if (wine.StorageLocation.Contains(storageLocation))
+                {
+                    var wineEntry = new WineData();
+                    wineEntry.ID = wine.ID;
+                    wineEntry.Name = wine.Name;
+                    wineEntry.Age = wine.Age;
+                    wineEntry.Stock = wine.Stock;
+                    wineEntry.Type = wine.Type;
+                    wineEntry.OriginCountry = wine.OriginCountry;
+                    wineEntry.BuyPrice = wine.BuyPrice;
+                    wineEntry.SellPrice = wine.SellPrice;
+                    wineEntry.StorageLocation = wine.StorageLocation;
+                    wineEntry.Taste = wine.Taste;
+
+                    filteredWine.Add(wineEntry);
+                }
+            }
+            return filteredWine;
+        }
+
+        public static List<IWineData> FilterWineAge(List<IWineData> wineDatas, double ageFrom, double ageTo)
+        {
+            var filteredWine = new List<IWineData>();
+
+            foreach (var wine in wineDatas)
+            {
+                if ((wine.Age >= ageFrom && wine.Age <= ageTo))
+                {
+                    var wineEntry = new WineData();
+                    wineEntry.ID = wine.ID;
+                    wineEntry.Name = wine.Name;
+                    wineEntry.Age = wine.Age;
+                    wineEntry.Stock = wine.Stock;
+                    wineEntry.Type = wine.Type;
+                    wineEntry.OriginCountry = wine.OriginCountry;
+                    wineEntry.BuyPrice = wine.BuyPrice;
+                    wineEntry.SellPrice = wine.SellPrice;
+                    wineEntry.StorageLocation = wine.StorageLocation;
+                    wineEntry.Taste = wine.Taste;
+
+                    filteredWine.Add(wineEntry);
+                }
+            }
+            return filteredWine;
+        }
+
+        public static List<IWineData> FilterWineRating(List<IWineData> wineDatas, int rating)
+        {
+            var filteredWine = new List<IWineData>();
+
+            foreach (var wine in wineDatas)
+            {
+                if ((wine.Rating == rating))
+                {
+                    var wineEntry = new WineData();
+                    wineEntry.ID = wine.ID;
+                    wineEntry.Name = wine.Name;
+                    wineEntry.Age = wine.Age;
+                    wineEntry.Stock = wine.Stock;
+                    wineEntry.Type = wine.Type;
+                    wineEntry.OriginCountry = wine.OriginCountry;
+                    wineEntry.BuyPrice = wine.BuyPrice;
+                    wineEntry.SellPrice = wine.SellPrice;
+                    wineEntry.StorageLocation = wine.StorageLocation;
+                    wineEntry.Taste = wine.Taste;
+
+                    filteredWine.Add(wineEntry);
+                }
+            }
+            return filteredWine;
+        }
+
+        public static List<IWineData> FilterWineTaste(List<IWineData> wineDatas, List<string> notes)
+        {
+            var filteredWine = new List<IWineData>();
+
+            foreach (var wine in wineDatas)
+            {
+                foreach (var item in notes)
+                {
+                    if ((notes.ToList().All(wine.Taste.Contains) && wine.Taste.Length > 0) || (notes.Count < 2 && wine.Taste.ToList().Contains(item)))
+                    {
+                        var wineEntry = new WineData();
+                        wineEntry.ID = wine.ID;
+                        wineEntry.Name = wine.Name;
+                        wineEntry.Age = wine.Age;
+                        wineEntry.Stock = wine.Stock;
+                        wineEntry.Type = wine.Type;
+                        wineEntry.OriginCountry = wine.OriginCountry;
+                        wineEntry.BuyPrice = wine.BuyPrice;
+                        wineEntry.SellPrice = wine.SellPrice;
+                        wineEntry.StorageLocation = wine.StorageLocation;
+                        wineEntry.Taste = wine.Taste;
+
+                        filteredWine.Add(wineEntry);
+                    }
+                }
+            }
+            return filteredWine;
+        }
+
         public static async Task DeleteWine(int wineId)
         {
             await DataAccess.LocationRepo.DeleteAllByWine(wineId);
@@ -199,6 +366,95 @@ namespace Controller
             }
 
             return stock;
+        }
+
+        public static List<IWineData> SortWine(string sort, List<IWineData> sortedlist, bool descending)
+        {
+            switch (sort)
+            {
+                case "Naam":
+                    sortedlist.Sort((x, y) => x.Name.CompareTo(y.Name));
+                    if (descending) { sortedlist.Reverse(); }
+
+                    return sortedlist;
+                case "Verkoopprijs":
+                    sortedlist.Sort((x, y) => x.SellPrice.CompareTo(y.SellPrice));
+                    if (descending) { sortedlist.Reverse(); }
+
+                    return sortedlist;
+                case "Inkoopprijs":
+                    sortedlist.Sort((x, y) => x.BuyPrice.CompareTo(y.BuyPrice));
+                    if (descending) { sortedlist.Reverse(); }
+
+                    return sortedlist;
+                case "Type wijn":
+                    sortedlist.Sort((x, y) => x.Type.CompareTo(y.Type));
+                    if (descending) { sortedlist.Reverse(); }
+
+                    return sortedlist;
+                case "Land van herkomst":
+                    sortedlist.Sort((x, y) => x.OriginCountry.CompareTo(y.OriginCountry));
+                    if (descending) { sortedlist.Reverse(); }
+
+                    return sortedlist;
+                case "Jaartal":
+                    sortedlist.Sort((x, y) => x.Age.CompareTo(y.Age));
+                    if (descending) { sortedlist.Reverse(); }
+
+                    return sortedlist;
+                case "Voorraad":
+                    sortedlist.Sort((x, y) => x.Stock.CompareTo(y.Stock));
+                    if (descending) { sortedlist.Reverse(); }
+
+                    return sortedlist;
+                case "Rating":
+                    sortedlist.Sort((x, y) => x.Rating.CompareTo(y.Rating));
+                    if (descending) { sortedlist.Reverse(); }
+
+                    return sortedlist;
+                default:
+                    return sortedlist;
+            }
+        }
+
+        public static async Task<WineData> GetWine(int ID)
+        {
+            var data = await DataAccess.WineRepo.Get(ID);
+            WineData wineEntry = new WineData();
+
+            wineEntry.ID = data.Id;
+            wineEntry.Name = data.Name;
+            wineEntry.Description = data.Description;
+            wineEntry.Rating = data.Rating;
+            wineEntry.Age = data.Year;
+            wineEntry.Stock = data.Content;
+            wineEntry.Alcohol = data.Alcohol;
+            wineEntry.Type = data.Type;
+            wineEntry.TypeID = data.TypeId;
+            wineEntry.OriginCountry = data.Country;
+            wineEntry.CountryID = data.CountryId;
+            wineEntry.BuyPrice = (double)data.Buy;
+            wineEntry.SellPrice = (double)data.Sell;
+            wineEntry.Picture = data.Picture;
+
+            var wineNotes = Array.Empty<string>();
+            foreach (var note in await DataAccess.NoteRepo.GetByWine(data.Id))
+            {
+                wineNotes = wineNotes.Append(note.Name).ToArray();
+            }
+            wineEntry.Taste = wineNotes;
+
+            var storageLocations = Array.Empty<string>();
+            foreach (var location in await DataAccess.LocationRepo.GetByWine(data.Id))
+            {
+                if (location.IdWine == data.Id)
+                {
+                    storageLocations = storageLocations.Append(location.Shelf + location.Row + "." + location.Col).ToArray();
+                }
+            }
+            wineEntry.StorageLocation = storageLocations;
+
+            return wineEntry;
         }
     }
 }

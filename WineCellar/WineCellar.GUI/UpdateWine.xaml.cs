@@ -20,12 +20,11 @@ namespace WineCellar
         private int ID = 0;
         private int PreviousWindowIndexId;
         private Wine WineToUpdate;
-
         private Dictionary<string, string> placeholders = new Dictionary<string, string>();
-        public UpdateWine(int id, int selectedIndex)
+        
+        public UpdateWine(int id)
         {
             ID = id;
-            PreviousWindowIndexId = selectedIndex;
             InitializeComponent();
             SetCountries();
             SetTypes();
@@ -73,7 +72,6 @@ namespace WineCellar
             ListBoxItem tag = (ListBoxItem) sender;
             DeleteNoteFromWine(ID, tag.Content.ToString());
         }
-
         private async void DeleteNoteFromWine(int wineId, string noteName)
         {
             var notes = await GetNotes();
@@ -129,7 +127,6 @@ namespace WineCellar
                         add = false;
                     }
                 }
-
                 if(add)
                 {
                     await DataAccess.NoteRepo.AddWine(ID, id);
@@ -170,7 +167,7 @@ namespace WineCellar
         }
         private void CancelUpdate(object sender, RoutedEventArgs e)
         {
-            DetailedView window = new DetailedView(PreviousWindowIndexId);
+            DetailedView window = new DetailedView(ID);
             Application.Current.MainWindow = window;
             window.Show();
             Close();
@@ -258,7 +255,7 @@ namespace WineCellar
                 wine.Description = description.Text;
                 wine.Rating = Convert.ToInt32(rating.Value);
                 Data.Update(wine);
-                DetailedView window = new DetailedView(PreviousWindowIndexId);
+                DetailedView window = new DetailedView(ID);
                 window.Show();
                 Application.Current.MainWindow = window;
                 Close();
