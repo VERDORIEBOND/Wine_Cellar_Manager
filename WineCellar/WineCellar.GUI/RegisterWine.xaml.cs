@@ -19,6 +19,8 @@ namespace WineCellar
     {
         private byte[] FileContent = null;
         private Dictionary<string, string> placeholders = new Dictionary<string, string>();
+        private double lat = 0;
+        private double lng = 0;
 
         public RegisterWine()
         {
@@ -59,12 +61,12 @@ namespace WineCellar
         
         private async void SearchAdress_OnClick(object sender, RoutedEventArgs e)
         {
-            IGeocoder geocoder = new GoogleGeocoder() { ApiKey = "AIzaSyCLIvh79Byf16A4-ZIKoSSeKJq36-fbPYA" };
+            IGeocoder geocoder = new GoogleGeocoder() { ApiKey = "//GOOGLE MAPS API KEY" };
             IEnumerable<Address> addresses = await geocoder.GeocodeAsync(adress.Text);
             Console.WriteLine("Formatted: " + addresses.First().FormattedAddress); //Formatted: 1600 Pennsylvania Ave SE, Washington, DC 20003, USA
-            double lat = addresses.First().Coordinates.Latitude;
-            double lng = addresses.First().Coordinates.Longitude;
-            System.Diagnostics.Process.Start(new ProcessStartInfo
+            lat = addresses.First().Coordinates.Latitude;
+            lng = addresses.First().Coordinates.Longitude;
+            Process.Start(new ProcessStartInfo
             {
                 FileName = $"https://www.google.com/maps/search/{lat.ToString().Replace(',', '.')}+{lng.ToString().Replace(',', '.')}",
                 UseShellExecute = true
@@ -164,6 +166,8 @@ namespace WineCellar
                 wine.TypeID = type.SelectedIndex;
                 wine.Description = description.Text;
                 wine.Rating = 5;
+                wine.Latitude = lat;
+                wine.Longitude = lng;
 
                 Data.Create(wine);
                 MainWindow window = new MainWindow();   
