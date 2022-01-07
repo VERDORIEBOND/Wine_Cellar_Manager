@@ -1,4 +1,4 @@
-﻿using Controller;
+using Controller;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -18,9 +18,10 @@ namespace WineCellar
     {
         private byte[] FileContent = null;
         private int ID = 0;
+        private int PreviousWindowIndexId;
         private Wine WineToUpdate;
-
         private Dictionary<string, string> placeholders = new Dictionary<string, string>();
+        
         public UpdateWine(int id)
         {
             ID = id;
@@ -71,27 +72,19 @@ namespace WineCellar
             ListBoxItem tag = (ListBoxItem) sender;
             DeleteNoteFromWine(ID, tag.Content.ToString());
         }
-
         private async void DeleteNoteFromWine(int wineId, string noteName)
         {
             var notes = await GetNotes();
-            int? noteId = null;
-            Trace.WriteLine(noteName);
+            Trace.WriteLine($"Wine Id: {wineId} - Note to delete: {noteName}");
             foreach(var note in notes)
             {
                 if(note.Name.Equals(noteName, StringComparison.CurrentCultureIgnoreCase))
                 {
-                    noteId = note.Id; 
+                    await DataAccess.NoteRepo.RemoveWine(wineId, note.Id);
                 }
             }
-
-            if(noteId != null)
-            {
-                await DataAccess.NoteRepo.RemoveWine(ID, (int) noteId);
-            }
-            GetTastingNotes(ID);
+            GetTastingNotes(wineId);
         }
-
         private void CreateTastingNote(object sender, RoutedEventArgs e)
         {
             // Check if note is in Note table
@@ -99,42 +92,65 @@ namespace WineCellar
             // If it's not in Note table we need to add it in note table and add it to Wine_Note
             DoCreateNote();
         }
-
         private async void DoCreateNote()
         {
-            var notes = await GetNotes();
-            var noteId = GetNoteId(tastingNoteText.Text, notes);
-            int id = 0;
+            bool add = true;
 
-            if (noteId > 0) {
-                id = noteId;
-            } else {
-                int insertedId = await DataAccess.NoteRepo.Create(new(0, tastingNoteText.Text));
-                id = insertedId;
+            // Underneath validation rules to ensure the data intergrity
+            // Less than 1 character 
+            // Already as a connection to the wine in the DB
+            var notes = await GetNotes();
+            
+            if (tastingNoteText.Text.Length < 1 || tastingNoteText.Text.Equals("Tasting note", StringComparison.OrdinalIgnoreCase))
+            {
+                add = false;
             }
 
-            await DataAccess.NoteRepo.AddWine(ID, id);
-            GetTastingNotes(ID);
+            if (add)
+            {
+                var noteId = GetNoteId(tastingNoteText.Text, notes);
+                int id;
+                if (noteId > 0)
+                {
+                    id = noteId;
+                }
+                else
+                {
+                    int insertedId = await DataAccess.NoteRepo.Create(new(0, tastingNoteText.Text));
+                    id = insertedId;
+                }
+                var wineNotes = await DataAccess.NoteRepo.GetByWine(ID);
+                foreach(var note in wineNotes)
+                {
+                    if(note.Id == id)
+                    {
+                        add = false;
+                    }
+                }
+                if(add)
+                {
+                    await DataAccess.NoteRepo.AddWine(ID, id);
+                    tastingNoteText.Text = "";
+                    GetTastingNotes(ID);
+                }
+            }
         }
-
         private int GetNoteId(string Name, IEnumerable<WineNote> notes)
         {
             foreach(var note in notes)
             {
-                if(note.Name == Name)
+                if(note.Name.Equals(Name, StringComparison.OrdinalIgnoreCase))
                 {
                     return note.Id;
                 }
             }
             return 0;
         }
-
         private async Task<IEnumerable<WineNote>> GetNotes()
         {
             var notes = await DataAccess.NoteRepo.GetAll();
             return notes;
         }
-
         private async void SetTypes()
         {
             var types = await Data.GetAllTypes();
@@ -142,7 +158,6 @@ namespace WineCellar
             type.SelectedValuePath = "Key";
             type.ItemsSource = types;
         }
-
         private async void SetCountries()
         {
             var countries = await Data.GetAllCountries();
@@ -181,7 +196,6 @@ namespace WineCellar
                 textBox.Text = placeholders[textBox.Name];
             }
         }
-
         private async void BrowseFiles(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -193,7 +207,6 @@ namespace WineCellar
                 FileContent = fileContent;
             }
         }
-
         private bool isValidString(string toValidate)
         {
             return toValidate != null
@@ -221,7 +234,6 @@ namespace WineCellar
             }
             return true;
         }
-
         private void AttemptUpdate(object sender, RoutedEventArgs e)
         {
             bool validate = Validation();
