@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WineCellar"
         mc:Ignorable="d"
-        Title="Nieuwe wijn toevoegen" Height="463" Width="502"
+        Title="Nieuwe wijn toevoegen" Height="1000" Width="502"
         MinWidth="830"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
@@ -67,6 +67,13 @@
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Land"/>
                     <ComboBox x:Name="country" Width="200"/>
+                </StackPanel>
+                
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Adress"/>
+                    <TextBox x:Name="adress" TextWrapping="Wrap" LostFocus="PlaceholderLostFocus" GotFocus="PlaceholderFocus"  
+                             Text="Adress" Width="200" Height="25"/>
+                    <Button Content="Zoek" Click="SearchAdress_OnClick" Height="25" FontSize="11" Margin="10 0 0 0" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">

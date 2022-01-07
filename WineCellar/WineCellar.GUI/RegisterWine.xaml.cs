@@ -1,21 +1,14 @@
 ﻿using Controller;
-using Controller.Repositories;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using WineCellar.Model;
+using Geocoding;
+using Geocoding.Google;
 
 namespace WineCellar
 {
@@ -62,6 +55,20 @@ namespace WineCellar
             MainWindow window = new MainWindow();
             window.Show();
             Application.Current.MainWindow = window;
+        }
+        
+        private async void SearchAdress_OnClick(object sender, RoutedEventArgs e)
+        {
+            IGeocoder geocoder = new GoogleGeocoder() { ApiKey = "AIzaSyCLIvh79Byf16A4-ZIKoSSeKJq36-fbPYA" };
+            IEnumerable<Address> addresses = await geocoder.GeocodeAsync(adress.Text);
+            Console.WriteLine("Formatted: " + addresses.First().FormattedAddress); //Formatted: 1600 Pennsylvania Ave SE, Washington, DC 20003, USA
+            double lat = addresses.First().Coordinates.Latitude;
+            double lng = addresses.First().Coordinates.Longitude;
+            System.Diagnostics.Process.Start(new ProcessStartInfo
+            {
+                FileName = $"https://www.google.com/maps/search/{lat.ToString().Replace(',', '.')}+{lng.ToString().Replace(',', '.')}",
+                UseShellExecute = true
+            });
         }
 
         private void PlaceholderFocus(object sender, RoutedEventArgs e)
