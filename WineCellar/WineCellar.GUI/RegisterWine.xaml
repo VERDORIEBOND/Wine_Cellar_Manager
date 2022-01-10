@@ -14,89 +14,113 @@
         MinHeight="890">
     <Viewbox Stretch="Uniform" MaxWidth="850">
         <Grid Height="560" Width="500" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <StackPanel.Resources>
-                    <Style TargetType="{x:Type StackPanel}">
-                        <Setter Property="Margin" Value="0 15 0 0"/>
-                    </Style>
-                    <Style TargetType="{x:Type Label}">
-                        <Setter Property="FontWeight" Value="Bold"/>
-                        <Setter Property="Width" Value="145"/>
-                        <Setter Property="Padding" Value="0 5 5 5"/>
-                        <Setter Property="Foreground" Value="White"/>
-                    </Style>
-                    <Style x:Key="heading" TargetType="Label">
-                        <Setter Property="FontSize" Value="24" />
-                        <Setter Property="Padding" Value="0 0 0 10"/>
-                        <Setter Property="Foreground" Value="White"/>
-                        <Setter Property="FontWeight" Value="Bold" />
-                    </Style>
-                </StackPanel.Resources>
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <StackPanel.Resources>
+                        <Style TargetType="{x:Type StackPanel}">
+                            <Setter Property="Margin" Value="0 5 0 0"/>
+                        </Style>
+                        <Style TargetType="{x:Type Label}">
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="FontSize" Value="10"/>
+                            <Setter Property="Width" Value="145"/>
+                            <Setter Property="Padding" Value="0 5 5 5"/>
+                            <Setter Property="Foreground" Value="White"/>
+                        </Style>
+                        <Style x:Key="heading" TargetType="Label">
+                            <Setter Property="FontSize" Value="24" />
+                            <Setter Property="Padding" Value="0 0 0 10"/>
+                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="FontWeight" Value="Bold" />
+                        </Style>
+                    </StackPanel.Resources>
 
-                <Label Style="{StaticResource heading}" Content="Wijn Registreren" />
+                    <Label Style="{StaticResource heading}" Content="Wijn Registreren" />
 
-                <StackPanel Orientation="Horizontal" Margin="0 0 0 0">
-                    <Label Content="Naam" />
-                    <TextBox LostFocus="PlaceholderLostFocus" GotFocus="PlaceholderFocus"  x:Name="name" 
+                    <StackPanel Orientation="Horizontal" Margin="0 0 0 0">
+                        <Label Content="Naam" />
+                        <TextBox LostFocus="PlaceholderLostFocus" GotFocus="PlaceholderFocus"  x:Name="name" 
                              TextWrapping="Wrap" Text="Naam" Width="200" Height="25" />
-                </StackPanel>
+                    </StackPanel>
 
-                <StackPanel Orientation="Horizontal" Margin="0 0 0 0">
-                    <Label Content="Soort" />
-                    <ComboBox x:Name="type" Width="200" Height="25" Text="Soort"/>
-                </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0 0 0 0">
+                        <Label Content="Soort" />
+                        <ComboBox x:Name="type" Width="200" Height="25" Text="Soort"/>
+                    </StackPanel>
 
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Beschrijving"/>
-                    <TextBox x:Name="description" AcceptsReturn="True" TextWrapping="Wrap" Text="" 
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Beschrijving"/>
+                        <TextBox x:Name="description" AcceptsReturn="True" TextWrapping="Wrap" Text="" 
                              Width="200" Height="70" VerticalScrollBarVisibility="Visible" />
-                </StackPanel>
+                    </StackPanel>
 
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Inkoopprijs (€)"/>
-                    <TextBox x:Name="buy" TextWrapping="Wrap" LostFocus="PlaceholderLostFocus" GotFocus="PlaceholderFocus" 
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Inkoopprijs (€)"/>
+                        <TextBox x:Name="buy" TextWrapping="Wrap" LostFocus="PlaceholderLostFocus" GotFocus="PlaceholderFocus" 
                              Text="Inkoopprijs" Width="200" Height="25" />
-                </StackPanel>
+                    </StackPanel>
 
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Verkoopprijs (€)"/>
-                    <TextBox x:Name="sell" TextWrapping="Wrap" LostFocus="PlaceholderLostFocus" GotFocus="PlaceholderFocus"  
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Verkoopprijs (€)"/>
+                        <TextBox x:Name="sell" TextWrapping="Wrap" LostFocus="PlaceholderLostFocus" GotFocus="PlaceholderFocus"  
                              Text="Verkoopprijs" Width="200" Height="25"/>
-                </StackPanel>
+                    </StackPanel>
 
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Land"/>
-                    <ComboBox x:Name="country" Width="200"/>
-                </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Land"/>
+                        <ComboBox x:Name="country" Width="200"/>
+                    </StackPanel>
 
-                <StackPanel Orientation="Horizontal">
-                    <Label x:Name="filePath" Content="Bestand"/>
-                    <Button Content="Browse" Click="BrowseFiles" Height="25" FontSize="11" />
-                </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label x:Name="filePath" Content="Bestand"/>
+                        <Button Content="Browse" Click="BrowseFiles" Height="25" FontSize="11" />
+                    </StackPanel>
 
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Oogstjaar"/>
-                    <TextBox x:Name="year" TextWrapping="Wrap" LostFocus="PlaceholderLostFocus" GotFocus="PlaceholderFocus"  
-                             Text="Jaar" Width="200" Height="24" />
-                </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Oogstjaar"/>
+                        <TextBox x:Name="year" TextWrapping="Wrap" LostFocus="PlaceholderLostFocus" GotFocus="PlaceholderFocus"  
+                             Text="Jaar" Width="200" Height="25" />
+                    </StackPanel>
 
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Inhoud (ML)"/>
-                    <TextBox x:Name="contents" TextWrapping="Wrap" LostFocus="PlaceholderLostFocus" GotFocus="PlaceholderFocus"  
-                             Text="Inhoud (ML)" Width="200" Height="24" />
-                </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Inhoud (ML)"/>
+                        <TextBox x:Name="contents" TextWrapping="Wrap" LostFocus="PlaceholderLostFocus" GotFocus="PlaceholderFocus"  
+                             Text="Inhoud (ML)" Width="200" Height="25" />
+                    </StackPanel>
 
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Alcohol (%)"/>
-                    <TextBox x:Name="alcohol" TextWrapping="Wrap" LostFocus="PlaceholderLostFocus" GotFocus="PlaceholderFocus"  
-                             Text="Alcohol (%)" Width="200" Height="24" />
-                </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Alcohol (%)"/>
+                        <TextBox x:Name="alcohol" TextWrapping="Wrap" LostFocus="PlaceholderLostFocus" GotFocus="PlaceholderFocus"  
+                             Text="Alcohol (%)" Width="200" Height="25" />
+                    </StackPanel>
 
-                <StackPanel Orientation="Horizontal" Margin="0 20 0 0">
-                    <Button x:Name="register" FontSize="12" Click="AttemptRegister" Content="Register&#xD;&#xA;" RenderTransformOrigin="-1.609,0.22" Width="175" Height="25" Margin="0 0 15 0"/>
-                    <Button x:Name="cancel" FontSize="12" Click="CancelRegister" Content="Annuleren" RenderTransformOrigin="-1.609,0.22" Width="111" Height="25"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Rating"/>
+                        <materialDesign:RatingBar x:Name="rating"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Tasting notes"/>
+                        <TextBox x:Name="tastingNoteText" TextWrapping="Wrap" LostFocus="PlaceholderLostFocus" GotFocus="PlaceholderFocus"  
+                             Text="Tasting note" FontSize="10" Width="105" Height="25" />
+                        <Button x:Name="createNoteBtn" FontSize="10" Click="CreateTastingNote" Content="Toevoegen" 
+                            RenderTransformOrigin="-1.609,0.22" Width="82" Height="25" Margin="15 0 15 0"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <ListBox
+                            Style="{StaticResource MaterialDesignFilterChipAccentOutlineListBox}"
+                            x:Name="tastingNoteList"
+                            MaxWidth="300">
+                        </ListBox>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0 20 0 0">
+                        <Button x:Name="register" FontSize="12" Click="AttemptRegister" Content="Register&#xD;&#xA;" RenderTransformOrigin="-1.609,0.22" Width="175" Height="25" Margin="0 0 15 0"/>
+                        <Button x:Name="cancel" FontSize="12" Click="CancelRegister" Content="Annuleren" RenderTransformOrigin="-1.609,0.22" Width="111" Height="25"/>
+                    </StackPanel>
                 </StackPanel>
-            </StackPanel>
+            </ScrollViewer>
         </Grid>
     </Viewbox>
 </Window>

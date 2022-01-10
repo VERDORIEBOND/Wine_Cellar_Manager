@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WineCellar"
         mc:Ignorable="d"
-        Title="Wine Cellar Manager" Height="1000" Width="1400"
+        Title="Wine Cellar Manager" Height="1100" Width="1400"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextOptions.TextFormattingMode="Ideal"
@@ -67,6 +67,8 @@
         <Grid Grid.Column="0" Grid.Row="2" VerticalAlignment="Stretch">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
@@ -166,31 +168,17 @@
                             <ListBox
                             Style="{StaticResource MaterialDesignFilterChipAccentOutlineListBox}"
                             x:Name="LbTastingNotes">
-                                <ListBoxItem
-                                Content="Zoet" />
-                                <ListBoxItem
-                                Content="Fris" />
-                                <ListBoxItem
-                                Content="Fruitig" />
-                                <ListBoxItem
-                                Content="Strak" />
-                                <ListBoxItem
-                                Content="Zacht" />
-                                <ListBoxItem
-                                Content="Tropish" />
-                                <ListBoxItem
-                                Content="Rijk" />
-                                <ListBoxItem
-                                Content="Sappig" />
                             </ListBox>
                         </StackPanel>
                         <StackPanel Margin="30 10 30 0">
                             <TextBlock
                             Style="{StaticResource MaterialDesignBody2TextBlock}"
                             Text="Rating" />
-                            <materialDesign:RatingBar
-                            x:Name="RbWineRating"
-                            Value="3" />
+                            <DockPanel>
+                                <materialDesign:RatingBar
+                                    x:Name="RbWineRating"/>
+                                <Button Margin="200,0,0,0" Content="Reset" Style="{StaticResource MaterialDesignRaisedDarkButton}" Click="ResetRating_Click"/>
+                            </DockPanel>
                         </StackPanel>
                         <StackPanel Margin="30,15,30,15">
                             <Button
@@ -245,7 +233,25 @@
                     </StackPanel>
                 </DockPanel>
             </materialDesign:ColorZone>
+
+            <materialDesign:ColorZone
+                Grid.Row="3"
+                Mode="SecondaryDark"
+                Margin="6" VerticalAlignment="Top"
+                CornerRadius="16"
+                materialDesign:ShadowAssist.ShadowDepth="Depth3">
+                <DockPanel>
+                    <StackPanel Margin="30,15,30,15" Grid.Column="1">
+                        <Button
+                            Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                            ToolTip="Resource name: MaterialDesignRaisedLightButton"
+                            Content="Reset lijst" 
+                            Click="ResetList_Click"/>
+                    </StackPanel>
+                </DockPanel>
+            </materialDesign:ColorZone>
         </Grid>
+        
 
         <materialDesign:Card
             Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2"
