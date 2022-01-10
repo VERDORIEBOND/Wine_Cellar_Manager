@@ -1,6 +1,8 @@
-﻿namespace WineCellar.Model;
+﻿using System.Diagnostics;
 
-public class StorageLocation
+namespace WineCellar.Model;
+
+public class StorageLocation : IEquatable<StorageLocation>
 {
     public int IdWine { get; set; }
     public string Shelf { get; set; }
@@ -18,5 +20,21 @@ public class StorageLocation
         Shelf = shelf;
         Row = row;
         Col = col;
+    }
+
+    public bool Equals(StorageLocation? other)
+    {
+        if (other is null)
+            return false;
+
+        return IdWine == other.IdWine
+            && Shelf.Equals(other.Shelf)
+            && Row == other.Row
+            && Col == other.Col;
+    }
+
+    public override string ToString()
+    {
+        return $"[StorageLocation] IdWine: {IdWine} | Shelf: {Shelf} | Row: {Row} | Col: {Col}";
     }
 }
