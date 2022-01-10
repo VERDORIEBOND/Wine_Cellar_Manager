@@ -79,7 +79,7 @@ public partial class GeographicView : Window
         SymbolStyle pointStyle = new SymbolStyle()
         {
             //BitmapId = GetBitmapIdForEmbeddedResource("pointer.jpg"),
-            SymbolScale = 0.3,
+            SymbolScale = 0.4,
             Fill = new Brush(Color.FromString("Red"))
         };
 

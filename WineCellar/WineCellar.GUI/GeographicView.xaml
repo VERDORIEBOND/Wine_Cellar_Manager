@@ -11,6 +11,7 @@
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
+        Loaded="Window_Loaded"
         Closing="GeographicView_Closing"
         Background="{DynamicResource MaterialDesignPaper}"
         WindowStartupLocation="CenterScreen">
