@@ -291,8 +291,6 @@
                                         <ColumnDefinition Width="auto"/>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="auto"/>
-                                        <ColumnDefinition Width="auto"/>
-                                        <ColumnDefinition Width="auto"/>
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="*"/>
@@ -304,14 +302,8 @@
                                     <Border Grid.Row="0" Grid.Column="1" Padding="5">
                                         <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="{Binding Name}" FontWeight="Normal" />
                                     </Border>
-                                    <Border Grid.Row="0" Grid.Column="3" Padding="5">
-                                        <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" VerticalAlignment="Center" Text="Voorraad: " />
-                                    </Border>
-                                    <Border Grid.Row="0" Grid.Column="4" Padding="5">
-                                        <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" VerticalAlignment="Center" Text="{Binding Stock}" />
-                                    </Border>
 
-                                    <Border Grid.Row="0" Grid.Column="5" Grid.RowSpan="2" Padding="5">
+                                    <Border Grid.Row="0" Grid.Column="3" Grid.RowSpan="2" Padding="5">
                                         <materialDesign:ColorZone
                                                 Mode="Custom"
                                                 Background="#000000"
@@ -326,27 +318,7 @@
                                     <Border Grid.Row="1" Grid.Column="1" Padding="5">
                                         <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" FontWeight="Normal" ><Run Text="{Binding Age}"/><Run Text=" "/><Run Text="{Binding Type}"/><Run Text=" - "/><Run Text="{Binding OriginCountry}"/></TextBlock>
                                     </Border>
-                                    <Border Grid.Row="1" Grid.Column="3" Padding="5">
-                                        <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" VerticalAlignment="Center" Text="Locatie:" />
-                                    </Border>
-
-                                    <Border Grid.Row="1" Grid.Column="4" Padding="5">
-                                        <ComboBox x:Name="StorageData"
-                                                      materialDesign:ComboBoxAssist.ShowSelectedItem="{Binding ElementName=DisplaySelectedItemCheckBox, Path=IsChecked}"
-                                                      VerticalAlignment="Center">
-                                            <ComboBoxItem
-                                                    IsSelected="True"
-                                                    Content="{Binding StorageLocation[0]}" />
-                                            <ComboBoxItem
-                                                    Content="{Binding StorageLocation[1]}" />
-                                            <ComboBoxItem
-                                                    Content="{Binding StorageLocation[2]}" />
-                                            <ComboBoxItem
-                                                    Content="{Binding StorageLocation[3]}" />
-                                        </ComboBox>
-                                    </Border>
                                 </Grid>
-
                             </materialDesign:ColorZone>
                         </DataTemplate>
                     </ListView.ItemTemplate>
