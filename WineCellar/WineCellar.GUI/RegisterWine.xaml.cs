@@ -18,12 +18,14 @@ namespace WineCellar
     {
         private byte[] FileContent = null;
         private Dictionary<string, string> placeholders = new Dictionary<string, string>();
+
         public RegisterWine()
         {
             InitializeComponent();
             SetCountries();
             SetTypes();
         }
+
         private async void SetTypes()
         {
             var types = await Data.GetAllTypes();
@@ -40,12 +42,12 @@ namespace WineCellar
             country.ItemsSource = countries;
 
         }
+
         private void CancelRegister(object sender, RoutedEventArgs e)
         {
-            MainWindow window = new MainWindow();
-            window.Show();
             Close();
-        }       
+        }
+        
         private void CreateTastingNote(object sender, RoutedEventArgs e)
         {
             bool unique = true;
@@ -68,17 +70,20 @@ namespace WineCellar
                 tastingNoteList.Items.Add(listBox);
             }
         }
+
         private void ClickRemoveItemBox(object sender, RoutedEventArgs e)
         {
             ListBoxItem boxitem = (ListBoxItem) sender;
             tastingNoteList.Items.Remove(boxitem);
         }
+
         void RegisterWine_Closing(object sender, CancelEventArgs e)
         {
             MainWindow window = new MainWindow();
             window.Show();
             Application.Current.MainWindow = window;
         }
+
         private void PlaceholderFocus(object sender, RoutedEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
@@ -96,6 +101,7 @@ namespace WineCellar
                 }
             }
         }
+
         private void PlaceholderLostFocus(object sender, RoutedEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
@@ -104,6 +110,7 @@ namespace WineCellar
                 textBox.Text = placeholders[textBox.Name];
             }
         }
+
         private async void BrowseFiles(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
