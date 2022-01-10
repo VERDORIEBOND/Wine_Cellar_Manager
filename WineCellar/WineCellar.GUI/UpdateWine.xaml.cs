@@ -254,6 +254,8 @@ namespace WineCellar
                 wine.TypeID = Convert.ToInt32(type.SelectedValue);
                 wine.Description = description.Text;
                 wine.Rating = Convert.ToInt32(rating.Value);
+                wine.Longitude = WineToUpdate.Longitude;
+                wine.Latitude = WineToUpdate.Latitude;
                 Data.Update(wine);
                 DetailedView window = new DetailedView(ID);
                 window.Show();

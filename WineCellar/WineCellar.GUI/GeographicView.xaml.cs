@@ -115,7 +115,6 @@ public partial class GeographicView : Window
     {
         if (!wineClicked)
         {
-
             MainWindow window = new MainWindow();
             Application.Current.MainWindow = window;
             window.Show();
@@ -138,6 +137,7 @@ public partial class GeographicView : Window
                 Application.Current.MainWindow = detailedView;
                 detailedView.Show();
                 Close();
+                return;
             }
         }
     }

@@ -7,7 +7,7 @@
         xmlns:gif="http://wpfanimatedgif.codeplex.com"
         xmlns:dataContexts="clr-namespace:WineCellar.DataContexts"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="1200"
+        Title="WCM - Wijn inzage" Height="800" Width="1200"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         d:DataContext="{d:DesignInstance dataContexts:DetailsContext}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
