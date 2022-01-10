@@ -18,6 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Controller;
 using Model;
+using WineCellar.Views.Settings;
 
 namespace WineCellar
 {
@@ -215,6 +216,13 @@ namespace WineCellar
 
             ICollectionView view = CollectionViewSource.GetDefaultView(WineDataBinding.ItemsSource);
             view.Refresh();
+        }
+
+        private void Button_Settings_Click(object sender, RoutedEventArgs e)
+        {
+            SettingsWindow settings = new();
+            settings.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            settings.ShowDialog();
         }
 
         private void ResetRating_Click(object sender, RoutedEventArgs e)

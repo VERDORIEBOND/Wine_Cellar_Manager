@@ -35,22 +35,31 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
 
-                    <StackPanel Margin="15 10 15 10" Grid.Column="0">
+                    <StackPanel Margin="10 10 10 10" Grid.Column="0">
                         <Button
                             Style="{StaticResource MaterialDesignRaisedDarkButton}"
                             ToolTip="Resource name: MaterialDesignRaisedDarkButton"
                             Click="RegisterWine"
                             Content="Wijn Toevoegen"/>
                     </StackPanel>
-                    <StackPanel Margin="15 10 15 10" Grid.Column="1">
+                    <StackPanel Margin="10 10 10 10" Grid.Column="1">
                         <Button
                             Style="{StaticResource MaterialDesignRaisedDarkButton}"
                             ToolTip="Resource name: MaterialDesignRaisedLightButton"
                             Click="GeographicView"
-                            Content="Wijn Wereldkaart" />
+                            Content="Wijn Wereldkaart"/>
                     </StackPanel>
+                    <Button
+                        Margin="10 10 10 10"
+                        Grid.Row="0" Grid.Column="2"
+                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                        ToolTip="Resource name: MaterialDesignRaisedLightButton"
+                        Click="Button_Settings_Click">
+                        <materialDesign:PackIcon Kind="Cog"/>
+                    </Button>
                 </Grid>
             </DockPanel>
         </materialDesign:ColorZone>
