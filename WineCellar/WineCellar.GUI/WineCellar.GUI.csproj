@@ -6,11 +6,16 @@
     <UseWPF>true</UseWPF>
     <LangVersion>10</LangVersion>
     <RootNamespace>WineCellar</RootNamespace>
+    <ApplicationIcon>favic.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Loading\CatenaMalbec.png" />
     <None Remove="Loading\wineLoad.gif" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="favic.ico" />
   </ItemGroup>
 
   <ItemGroup>
