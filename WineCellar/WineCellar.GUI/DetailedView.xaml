@@ -14,7 +14,8 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         Loaded="Window_Loaded"
-        Background="{DynamicResource MaterialDesignPaper}">
+        Background="{DynamicResource MaterialDesignPaper}"
+        WindowStartupLocation="CenterScreen">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -75,7 +76,7 @@
                 Margin="6" VerticalAlignment="Stretch"
                 CornerRadius="16"
                 materialDesign:ShadowAssist.ShadowDepth="Depth3">
-                    <Image Width="auto" Height="auto" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10" Source="\Loading\CatenaMalbec.png" />
+                    <Image Width="auto" Height="auto" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10" Source="{Binding Path=Wine.Picture}" />
                 </materialDesign:ColorZone>
 
                 <materialDesign:ColorZone
