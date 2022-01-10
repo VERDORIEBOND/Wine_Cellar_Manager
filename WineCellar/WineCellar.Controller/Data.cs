@@ -25,6 +25,8 @@ public class WineData : IWineData
     public string[] StorageLocation { get; set; } = Array.Empty<string>();
     public decimal Alcohol { get; set; }
     public string[] Notes { get; set; } = Array.Empty<string>();
+    public double Latitude { get; set; }
+    public double Longitude { get; set; }
 }
 
 namespace Controller
@@ -98,7 +100,9 @@ namespace Controller
                 wine.Contents,
                 wine.Alcohol,
                 wine.Rating,
-                wine.Description
+                wine.Description,
+                wine.Latitude,
+                wine.Longitude
             );
             var wineRepo = await DataAccess.WineRepo.Update(newWine);
         }
@@ -117,7 +121,9 @@ namespace Controller
                 wine.Contents,
                 wine.Alcohol,
                 wine.Rating,
-                wine.Description
+                wine.Description,
+                wine.Latitude,
+                wine.Longitude
             );
             var wineRepo = await DataAccess.WineRepo.Create(newWine);
         }
@@ -345,7 +351,7 @@ namespace Controller
             {
                 stock++;
 
-                Wine wineRecord = new(wine.Id, wine.Name, wine.Buy, wine.Sell, wine.TypeId, wine.Type, wine.CountryId, wine.Country, wine.Picture, wine.Year, stock, wine.Alcohol, wine.Rating, wine.Description);
+                Wine wineRecord = new(wine.Id, wine.Name, wine.Buy, wine.Sell, wine.TypeId, wine.Type, wine.CountryId, wine.Country, wine.Picture, wine.Year, stock, wine.Alcohol, wine.Rating, wine.Description, wine.Latitude, wine.Longitude);
                 await DataAccess.WineRepo.Update(wineRecord);
             }
 
@@ -361,7 +367,7 @@ namespace Controller
             {
                 stock--;
 
-                Wine wineRecord = new(wine.Id, wine.Name, wine.Buy, wine.Sell, wine.TypeId, wine.Type, wine.CountryId, wine.Country, wine.Picture, wine.Year, stock, wine.Alcohol, wine.Rating, wine.Description);
+                Wine wineRecord = new(wine.Id, wine.Name, wine.Buy, wine.Sell, wine.TypeId, wine.Type, wine.CountryId, wine.Country, wine.Picture, wine.Year, stock, wine.Alcohol, wine.Rating, wine.Description, wine.Latitude, wine.Longitude);
                 await DataAccess.WineRepo.Update(wineRecord);
             }
 

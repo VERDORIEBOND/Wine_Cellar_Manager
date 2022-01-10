@@ -9,11 +9,13 @@
 	@Content INT,
 	@Alcohol DECIMAL(10,2),
 	@Rating INT,
-	@Description NVARCHAR(256)
+	@Description NVARCHAR(256),
+	@Latitude FLOAT,
+	@Longitude FLOAT
 AS
 BEGIN
 	INSERT
-	INTO [dbo].[Wine] ([Name], [Buy], [Sell], [TypeId], [CountryId], [Picture], [Year], [Content], [Alcohol], [Rating], [Description])
+	INTO [dbo].[Wine] ([Name], [Buy], [Sell], [TypeId], [CountryId], [Picture], [Year], [Content], [Alcohol], [Rating], [Description], [Latitude], [Longitude])
 	OUTPUT INSERTED.Id
-	VALUES (@Name, @Buy, @Sell, @TypeId, @CountryId, @Picture, @Year, @Content, @Alcohol, @Rating, @Description);
+	VALUES (@Name, @Buy, @Sell, @TypeId, @CountryId, @Picture, @Year, @Content, @Alcohol, @Rating, @Description, @Latitude, @Longitude);
 END

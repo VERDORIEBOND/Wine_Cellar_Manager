@@ -10,7 +10,9 @@
 	@Content INT,
 	@Alcohol DECIMAL(10,2),
 	@Rating INT,
-	@Description NVARCHAR(256)
+	@Description NVARCHAR(256),
+	@Latitude FLOAT,
+	@Longitude FLOAT
 AS
 BEGIN
 	UPDATE [dbo].[Wine] SET
@@ -24,6 +26,8 @@ BEGIN
 	[Content] = @Content,
 	[Alcohol] = @Alcohol,
 	[Rating] = @Rating,
-	[Description] = @Description
+	[Description] = @Description,
+	[Latitude] = @Latitude,
+	[Longitude] = @Longitude
 	WHERE [Id] = @Id;
 END

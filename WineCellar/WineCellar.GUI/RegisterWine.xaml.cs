@@ -2,11 +2,14 @@
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
+using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using Geocoding;
+using Geocoding.Google;
 using WineCellar.Model;
 
 namespace WineCellar
@@ -18,6 +21,8 @@ namespace WineCellar
     {
         private byte[] FileContent = null;
         private Dictionary<string, string> placeholders = new Dictionary<string, string>();
+        private double lat = 0;
+        private double lng = 0;
 
         public RegisterWine()
         {
@@ -82,6 +87,20 @@ namespace WineCellar
             MainWindow window = new MainWindow();
             window.Show();
             Application.Current.MainWindow = window;
+        }
+        
+        private async void SearchAdress_OnClick(object sender, RoutedEventArgs e)
+        {
+            IGeocoder geocoder = new GoogleGeocoder() { ApiKey = "//GOOGLE MAPS API KEY" };
+            IEnumerable<Address> addresses = await geocoder.GeocodeAsync(adress.Text);
+            Console.WriteLine("Formatted: " + addresses.First().FormattedAddress); //Formatted: 1600 Pennsylvania Ave SE, Washington, DC 20003, USA
+            lat = addresses.First().Coordinates.Latitude;
+            lng = addresses.First().Coordinates.Longitude;
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = $"https://www.google.com/maps/search/{lat.ToString().Replace(',', '.')}+{lng.ToString().Replace(',', '.')}",
+                UseShellExecute = true
+            });
         }
 
         private void PlaceholderFocus(object sender, RoutedEventArgs e)
@@ -221,6 +240,8 @@ namespace WineCellar
                 wine.TypeId = type.SelectedIndex;
                 wine.Description = description.Text;
                 wine.Rating = rating.Value;
+                wine.Latitude = lat;
+                wine.Longitude = lng;
                 CreateWine(wine);
                 MainWindow window = new MainWindow();
                 window.Show();

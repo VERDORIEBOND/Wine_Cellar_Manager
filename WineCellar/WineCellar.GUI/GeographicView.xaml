@@ -16,6 +16,7 @@
         WindowStartupLocation="CenterScreen">
 
     <Grid>
-        <mapsui:MapControl Name="MyMapControl"></mapsui:MapControl>
+        <mapsui:MapControl x:Name="MyMapControl" MouseLeftButtonUp="MyMapControl_MouseLeftButtonUp">
+        </mapsui:MapControl>
     </Grid>
 </Window>
