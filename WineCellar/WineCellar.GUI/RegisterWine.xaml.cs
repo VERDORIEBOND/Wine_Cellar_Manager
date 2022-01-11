@@ -91,7 +91,7 @@ namespace WineCellar
         
         private async void SearchAdress_OnClick(object sender, RoutedEventArgs e)
         {
-            IGeocoder geocoder = new GoogleGeocoder() { ApiKey = "//GOOGLE MAPS API KEY" };
+            IGeocoder geocoder = new GoogleGeocoder() { ApiKey = "AIzaSyAZkin9OfgSkWydyljroDs8WY2awYYYTE8" };
             IEnumerable<Address> addresses = await geocoder.GeocodeAsync(adress.Text);
             Console.WriteLine("Formatted: " + addresses.First().FormattedAddress); //Formatted: 1600 Pennsylvania Ave SE, Washington, DC 20003, USA
             lat = addresses.First().Coordinates.Latitude;
@@ -230,14 +230,13 @@ namespace WineCellar
                 Wine wine = new Wine();
                 wine.Name = name.Text;
                 wine.Year = Convert.ToInt32(year.Text);
-                wine.Country = country.Text;
-                wine.CountryId = country.SelectedIndex;
+                wine.CountryId = Convert.ToInt32(country.SelectedValue);
                 wine.Content = Convert.ToInt32(contents.Text);
                 wine.Buy = Convert.ToDecimal(buy.Text);
                 wine.Sell = Convert.ToDecimal(sell.Text);
                 wine.Alcohol = Convert.ToDecimal(alcohol.Text);
                 wine.Picture = FileContent;
-                wine.TypeId = type.SelectedIndex;
+                wine.TypeId = Convert.ToInt32(type.SelectedValue);
                 wine.Description = description.Text;
                 wine.Rating = rating.Value;
                 wine.Latitude = lat;
