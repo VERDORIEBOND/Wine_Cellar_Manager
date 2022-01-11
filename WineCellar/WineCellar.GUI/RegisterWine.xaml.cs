@@ -91,7 +91,7 @@ namespace WineCellar
         
         private async void SearchAdress_OnClick(object sender, RoutedEventArgs e)
         {
-            IGeocoder geocoder = new GoogleGeocoder() { ApiKey = "AIzaSyAZkin9OfgSkWydyljroDs8WY2awYYYTE8" };
+            IGeocoder geocoder = new GoogleGeocoder() { ApiKey = "" };
             IEnumerable<Address> addresses = await geocoder.GeocodeAsync(adress.Text);
             Console.WriteLine("Formatted: " + addresses.First().FormattedAddress); //Formatted: 1600 Pennsylvania Ave SE, Washington, DC 20003, USA
             lat = addresses.First().Coordinates.Latitude;
