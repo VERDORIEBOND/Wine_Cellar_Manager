@@ -23,7 +23,6 @@ namespace WineCellar
         private Dictionary<string, string> placeholders = new Dictionary<string, string>();
         private double lat = 0;
         private double lng = 0;
-
         public RegisterWine()
         {
             InitializeComponent();
